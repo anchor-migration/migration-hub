@@ -34,7 +34,7 @@ Verification scripts in `db-metadata` use the same keys for reconciliation.
 ## Java AST SSOT
 
 **Owner:** `java-ast-ssot`  
-**Design:** [ADR-002 — core vs stack profiles](ADR-002-java-ast-ssot-core-and-profiles.md)  
+**Design:** [ADR-002 — core vs stack profiles](ADR-002-java-ast-ssot-core-and-profiles.md), [ADR-003 — sidecars vs LST](ADR-003-ast-sidecar-vs-lst-rewrite-layer.md)  
 **Format:** SQLite  
 
 Language-specific by design — not a generic `code-ast-ssot`. The repo exports **Java source structure**; legacy stack bindings (Java EE, Spring, …) are **optional profiles**.
@@ -76,6 +76,15 @@ Tables: `javaee_ejb2_jboss_bean`, `javaee_ejb2_jboss_cmp_field`, `javaee_ejb2_jb
 
 Each profile adds tables or extension rows; core IDs remain stable.
 
+### Sidecars (planned)
+
+Optional layers on core AST — not full OpenRewrite LST. See [ADR-003](ADR-003-ast-sidecar-vs-lst-rewrite-layer.md).
+
+| Sidecar | Table (planned) | Purpose |
+|---------|-----------------|---------|
+| Comments | `source_comment` | Raw comment blocks; no v1 semantic comment→statement edges |
+| Source span | `source_span` (idea) | Node stable ID ↔ file line range |
+
 ## Linking schema SSOT ↔ Java AST SSOT
 
 Future crosswalk table (location TBD):
@@ -91,7 +100,7 @@ Both sides must reference the same `export_run_id` (or compatible snapshot times
 
 ## OpenRewrite recipe inputs (planned)
 
-Recipes may read:
+Recipes parse source to **LST at apply time** (not from SSOT storage). They may also read:
 
 - Schema SSOT: table/column names, FK graph for relationship migrations
 - Java AST SSOT (core): type hierarchy for recipe targeting

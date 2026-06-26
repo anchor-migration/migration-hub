@@ -47,17 +47,17 @@ Instructions for AI coding assistants (Cursor, etc.) in a **new session** with n
 | Duke's Bank | **Reference demo** only; validates profile `javaee-ejb2-jboss`, not `java-ast-ssot` product scope |
 | `java-ast-ssot` | **Core:** JavaParser AST. **Profiles:** stack adapters (EJB/XML today). See [ADR-002](docs/ADR-002-java-ast-ssot-core-and-profiles.md) |
 | Code SSOT parser | **JavaParser** for core; deployment XML via **profiles** — not OpenRewrite LST for SSOT |
-| LST | Use only for OpenRewrite recipe development (`rewrite-recipes`, future) |
-| Comments | Store separately; no v1 semantic comment→statement mapping |
+| LST | Transform-time only in `rewrite-recipes`; not stored as SSOT — see [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) |
+| Comments | Optional `source_comment` sidecar; no v1 semantic comment→statement mapping — [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) |
 | AST repo naming | **`{language}-ast-ssot`** (e.g. `java-ast-ssot`); reserved for future e.g. `cobol-ast-ssot` |
 | Repos | Multi-repo under org; not a monorepo |
 
-See lab-notes ADR-001 (private) or public DUKESBANK-DEMO § AST vs LST.
+See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-001 (private), or DUKESBANK-DEMO § AST vs LST.
 
 ## Current status (update via journal if stale)
 
-- **Done:** `db-metadata` alpha, Duke's Bank MySQL demo, `java-ast-ssot` alpha (monolithic v0.1), ADR-002 docs  
-- **Next:** ADR-002 Step 2 refactor (`--profile`, core-only export), crosswalk CLI, `rewrite-recipes`
+- **Done:** `db-metadata` alpha, Duke's Bank demo, `java-ast-ssot` v1.0 (core + profiles), ADR-002, ADR-003  
+- **Next:** crosswalk CLI, `rewrite-recipes`
 
 ## Typical tasks
 

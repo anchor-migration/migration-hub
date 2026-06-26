@@ -60,7 +60,7 @@ See [SSOT-SCHEMA.md](SSOT-SCHEMA.md) for cross-repo schema versioning and entity
 - Repository: `java-ast-ssot`
 - **Core format:** SQLite v1 — `export_run`, `java_type`, `java_method`, `java_field`, `java_import`
 - **Profile (v0.1):** `javaee-ejb2-jboss` — EJB/JBoss XML tables and crosswalk edges; Duke's Bank validated
-- Design: [ADR-002](ADR-002-java-ast-ssot-core-and-profiles.md)
+- Design: [ADR-002](ADR-002-java-ast-ssot-core-and-profiles.md) (core vs profiles), [ADR-003](ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) (AST sidecars vs LST)
 - Stable IDs (core): e.g. `com.example.Foo#bar(int,String)`
 
 ## Pattern catalog

@@ -85,6 +85,8 @@ Future profiles add tables or use `extension_*` / `artifact_type` columns — se
 
 ## References
 
+- [ADR-002](ADR-002-java-ast-ssot-core-and-profiles.md) — core vs stack profiles
+- [ADR-003](ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) — AST sidecars vs LST rewrite layer
 - [ARCHITECTURE.md](ARCHITECTURE.md) — extraction layer
 - [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md) — reference app runbook
 - [SSOT-SCHEMA.md](SSOT-SCHEMA.md) — core vs extension contracts

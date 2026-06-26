@@ -144,6 +144,8 @@ flowchart TB
 
 ## Design decision: AST vs LST vs XML
 
+> **Formal decision record:** [ADR-003 — AST core + sidecars vs LST rewrite layer](ADR-003-ast-sidecar-vs-lst-rewrite-layer.md)
+
 ### Three inputs, three roles
 
 | Source | Tool | Role in SSOT |
