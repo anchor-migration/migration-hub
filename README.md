@@ -4,7 +4,9 @@
 
 Anchor Migration treats **database schema** and **source code AST** as single sources of truth (SSoT), applies **OpenRewrite** recipes for mechanical refactoring, and uses **AST + AI** to verify business parity between old and new code.
 
-This program is a personal, AI-assisted architecture showcase: a composable pipeline for migrating heterogeneous legacy systems (EJB, Struts, custom patterns, and more) with verifiable outcomes.
+This program is a personal showcase of **architecture-led, AI-assisted engineering** applied to legacy modernization: the developer defines structure and boundary protocols; AI implements most of the code; the shipped artifacts are **deterministic Python and Java** with verification gates at every stage.
+
+> [Development model →](docs/DEVELOPMENT-MODEL.md) — roles, boundary protocols, deterministic core vs optional AI self-healing nodes.
 
 ## Repositories
 
@@ -61,10 +63,14 @@ flowchart TB
 ## Design principles
 
 1. **SSoT first** — Schema and AST are exported from live systems, not inferred from docs.
-2. **Mechanical where possible** — OpenRewrite and codemods for repeatable patterns.
-3. **AI where necessary** — Ambiguous patterns, test generation, parity exploration.
-4. **Verify always** — Every migration path must be checkable against ground truth.
-5. **Composable tools** — Small repos, clear contracts (SQLite / JSON schemas), independent release cycles.
+2. **Deterministic core** — Shipped tools are replayable Python/Java; same inputs → same outputs.
+3. **Architecture-led, AI-implemented** — Developer owns design and boundary contracts; AI writes most code against them.
+4. **Mechanical where possible** — OpenRewrite and codemods for repeatable patterns.
+5. **AI where necessary** — Ambiguous patterns, test generation, parity exploration — always gated by verify.
+6. **Verify always** — Every migration path must be checkable against ground truth.
+7. **Composable tools** — Small repos, clear contracts (SQLite / JSON schemas), independent release cycles.
+
+Optional **AI self-healing nodes** (suggestions, test exploration) may sit beside the pipeline but never replace deterministic export, transform, or verify steps. See [Development model](docs/DEVELOPMENT-MODEL.md).
 
 ## Local workspace layout
 
@@ -82,6 +88,7 @@ Open `anchor-migration.code-workspace` in Cursor/VS Code to work across repos.
 
 ## Documentation
 
+- [Development model](docs/DEVELOPMENT-MODEL.md) — AI-assisted workflow, boundary protocols, deterministic core
 - [Architecture](docs/ARCHITECTURE.md)
 - [Roadmap](docs/ROADMAP.md)
 - [SSoT schema contracts](docs/SSOT-SCHEMA.md)

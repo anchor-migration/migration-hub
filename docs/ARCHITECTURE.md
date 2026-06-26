@@ -64,13 +64,26 @@ Patterns are the bridge between heterogeneous legacy code and reusable automatio
 
 ## AI-assisted development role
 
-AI is used for:
+This organization is built with **AI as the primary coding partner**. The human developer defines architecture and [boundary protocols](DEVELOPMENT-MODEL.md); AI implements features, tests, and docs against those contracts.
 
-- Bootstrapping recipes and verifiers from SSOT context
-- Generating parity test cases (bounded exploration)
-- Documenting detected patterns for the catalog
+See **[Development model](DEVELOPMENT-MODEL.md)** for the full operating philosophy.
 
-AI does **not** replace SSOT or verification. Generated changes must pass mechanical checks and parity gates.
+### AI in the migration pipeline (building the toolkit)
+
+- Scaffolding repos, modules, tests, and documentation
+- Implementing dialect adapters, verification SQL, CLI commands
+- Drafting OpenRewrite recipes and parity test matrices for human review
+
+### AI in the product (optional, bounded)
+
+Optional **self-healing or exploration nodes** may suggest fixes or additional tests when verification fails. These are advisory only:
+
+- proposals become deterministic code or recipes after human approval
+- the critical path (export → transform → verify) remains LLM-free at runtime
+
+### Hard rules
+
+AI does **not** replace SSOT or verification. Generated changes must pass mechanical checks and parity gates. Shipped code is **100% deterministic Python or Java** — reproducible, diffable, and CI-gated.
 
 ## Repository independence
 
