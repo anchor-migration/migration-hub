@@ -8,6 +8,8 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 
 > [Development model →](docs/DEVELOPMENT-MODEL.md) — roles, boundary protocols, deterministic core vs optional AI self-healing nodes.
 
+> **New here?** Read **[START-HERE.md](docs/START-HERE.md)** for the full program map. AI assistants: see **[AGENTS.md](AGENTS.md)**.
+
 ## Repositories
 
 | Repository | Role | Status |
@@ -89,6 +91,8 @@ Open `anchor-migration.code-workspace` in Cursor/VS Code to work across repos.
 
 ## Documentation
 
+- **[Start here](docs/START-HERE.md)** — program map, reading order, conventions
+- [AGENTS.md](AGENTS.md) — AI session bootstrap
 - [Development model](docs/DEVELOPMENT-MODEL.md) — AI-assisted workflow, boundary protocols, deterministic core
 - [Duke's Bank demo](docs/DUKESBANK-DEMO.md) — reference app, DRG design, AST/LST/XML decisions
 - [Architecture](docs/ARCHITECTURE.md)
