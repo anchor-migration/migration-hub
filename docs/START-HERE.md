@@ -19,9 +19,10 @@ Public showcase: https://github.com/anchor-migration
 | 1 | [DEVELOPMENT-MODEL.md](DEVELOPMENT-MODEL.md) | How we build; deterministic core vs optional AI nodes |
 | 2 | [ARCHITECTURE.md](ARCHITECTURE.md) | Layers: extract → transform → verify |
 | 3 | [SSOT-SCHEMA.md](SSOT-SCHEMA.md) | Cross-repo contracts, stable IDs |
-| 4 | [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md) | Reference app, DRG design, AST/LST/XML decisions |
-| 5 | [ROADMAP.md](ROADMAP.md) | What is done vs planned |
-| 6 | [db-metadata README](https://github.com/anchor-migration/db-metadata) | CLI: `export`, `verify`, `info` |
+| 4 | [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md) | Reference demo; DRG design, AST/LST/XML decisions |
+| 5 | [ADR-002](ADR-002-java-ast-ssot-core-and-profiles.md) | `java-ast-ssot` core vs stack profiles |
+| 6 | [ROADMAP.md](ROADMAP.md) | What is done vs planned |
+| 7 | [db-metadata README](https://github.com/anchor-migration/db-metadata) | CLI: `export`, `verify`, `info` |
 
 **Private (if you have access):** `lab-notes/journal/2026-06-27-session-wrapup.md` — latest session log.
 
@@ -33,7 +34,7 @@ Public showcase: https://github.com/anchor-migration
 | **db-metadata** | public | Live DB → schema SSOT (SQLite) | Alpha |
 | **.github** | public | Org profile README | Active |
 | **lab-notes** | **private** | Journals, ADR drafts, blog drafts | Active |
-| **java-ast-ssot** | public | Java/XML → Java AST SSOT | Alpha |
+| **java-ast-ssot** | public | Java AST SSOT (core + optional stack profiles) | Alpha |
 | **rewrite-recipes** | public | OpenRewrite catalog | Planned |
 | **parity-verify** | public | Old vs new parity | Planned |
 | **pattern-catalog** | public | Migration patterns | Planned |
@@ -74,7 +75,7 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 
 ## Language-specific AST repos
 
-Extractors use **`{language}-ast-ssot`** names (e.g. `java-ast-ssot`). This leaves room for future heterogeneous migration repos (e.g. `cobol-ast-ssot`) without overloading one generic `code-ast-ssot`.
+Extractors use **`{language}-ast-ssot`** names. **`java-ast-ssot`** = generic Java core + optional profiles (Duke's Bank validates `javaee-ejb2-jboss`). Future **`cobol-ast-ssot`** etc. for heterogeneous migration.
 
 ## Conventions (do not forget)
 
@@ -89,8 +90,8 @@ Extractors use **`{language}-ast-ssot`** names (e.g. `java-ast-ssot`). This leav
 
 ## Next work (priority)
 
-1. Publish `demo-dukesbank` and `java-ast-ssot` to GitHub org
-2. `java-ast-ssot crosswalk` — link Java/EJB SSOT to `db-metadata` schema SSOT
+1. **`java-ast-ssot` refactor (ADR-002 Step 2)** — `--profile`, core-only export, split schema
+2. `java-ast-ssot crosswalk` — link profile output to `db-metadata` schema SSOT
 3. Blog draft from [lab-notes backlog](https://github.com/anchor-migration/anchor-migration-lab-notes) (private)
 
 ## For AI assistants

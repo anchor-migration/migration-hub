@@ -16,7 +16,7 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 |------------|------|--------|
 | [**migration-hub**](https://github.com/anchor-migration/migration-hub) | Program overview, architecture, roadmap | Active |
 | [**db-metadata**](https://github.com/anchor-migration/db-metadata) | Live DB → schema SSOT (SQLite) | Alpha |
-| [**java-ast-ssot**](https://github.com/anchor-migration/java-ast-ssot) | Java source → Java AST SSOT | Alpha |
+| [**java-ast-ssot**](https://github.com/anchor-migration/java-ast-ssot) | Java AST SSOT (core + stack profiles) | Alpha |
 | [**rewrite-recipes**](https://github.com/anchor-migration/rewrite-recipes) | OpenRewrite rule catalog | Planned |
 | [**parity-verify**](https://github.com/anchor-migration/parity-verify) | Old vs new business parity verification | Planned |
 | [**pattern-catalog**](https://github.com/anchor-migration/pattern-catalog) | Migration pattern docs and examples | Planned |

@@ -11,13 +11,19 @@ Anchor Migration is a **multi-repo program** for legacy Java modernization. Each
 | Input | Tool | Output |
 |-------|------|--------|
 | Live relational database | `db-metadata` | Schema SSOT (SQLite): tables, columns, PK, FK, indexes |
-| Legacy Java codebase | `java-ast-ssot` | Java AST SSOT (SQLite): types, methods, EJB descriptors, crosswalk edges |
+| Legacy Java codebase | `java-ast-ssot` | **Core:** Java AST SSOT (types, methods, fields, imports). **Optional profiles:** stack adapters (e.g. `javaee-ejb2-jboss` for EJB/XML). |
 
 Both exporters are **read-only** on source systems and produce **versioned snapshots** suitable for drift comparison.
 
 #### Language-specific AST repos
 
-Extractors are named **`{language}-ast-ssot`**, not a single generic code repo. `java-ast-ssot` owns Java + Java EE deployment XML. Future heterogeneous migration (e.g. COBOL → Java) may add parallel repos such as `cobol-ast-ssot`; linking across languages is a separate layer on top of per-language SSOTs.
+Extractors are named **`{language}-ast-ssot`**, not a single generic code repo. `java-ast-ssot` owns **Java source structure**; legacy **stack** details (Java EE, Spring, JPA) are **profiles** inside that repo — see [ADR-002](docs/ADR-002-java-ast-ssot-core-and-profiles.md).
+
+Future heterogeneous migration (e.g. COBOL → Java) may add `cobol-ast-ssot`; cross-language linking is a separate layer on top of per-language SSOTs.
+
+#### Duke's Bank
+
+Reference **demo application**, not the boundary of `java-ast-ssot`. It validates the first profile (`javaee-ejb2-jboss`) plus `db-metadata` crosswalk.
 
 ### 2. Transformation
 
@@ -49,11 +55,13 @@ See [SSOT-SCHEMA.md](SSOT-SCHEMA.md) for cross-repo schema versioning and entity
 - Format: SQLite v1 (`export_run`, `db_table`, `db_column`, `db_foreign_key`, …)
 - Stable IDs: `schema.table.column`
 
-### Java AST SSOT (alpha)
+### Java AST SSOT (alpha — core + profiles)
 
 - Repository: `java-ast-ssot`
-- Format: SQLite v1 (`export_run`, `java_type`, `java_method`, `ejb_bean`, `crosswalk_edge`, …)
-- Stable IDs: e.g. `com.example.Foo#bar(int,String)`
+- **Core format:** SQLite v1 — `export_run`, `java_type`, `java_method`, `java_field`, `java_import`
+- **Profile (v0.1):** `javaee-ejb2-jboss` — EJB/JBoss XML tables and crosswalk edges; Duke's Bank validated
+- Design: [ADR-002](ADR-002-java-ast-ssot-core-and-profiles.md)
+- Stable IDs (core): e.g. `com.example.Foo#bar(int,String)`
 
 ## Pattern catalog
 

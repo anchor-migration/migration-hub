@@ -16,9 +16,9 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 
 | Item | Repo | Status |
 |------|------|--------|
-| [Duke's Bank demo doc](docs/DUKESBANK-DEMO.md) — design + runbook | migration-hub | 🚧 Design locked, DB runbook unverified |
-| Docker compose for Duke's Bank MySQL | demo-dukesbank | 📋 |
-| Real-DB verification on Duke's Bank MySQL | db-metadata | 📋 |
+| [Duke's Bank demo doc](docs/DUKESBANK-DEMO.md) — design + runbook | migration-hub | ✅ |
+| Docker compose for Duke's Bank MySQL | demo-dukesbank | ✅ |
+| Real-DB verification on Duke's Bank MySQL | db-metadata | ✅ |
 | `export_run` diff subcommand | db-metadata | 💡 |
 | View / procedure definition extraction (v2 schema) | db-metadata | 💡 |
 
@@ -26,10 +26,12 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 
 | Item | Repo | Status |
 |------|------|--------|
+| [ADR-002](docs/ADR-002-java-ast-ssot-core-and-profiles.md) — core vs profiles | migration-hub | ✅ |
 | [Duke's Bank DRG design](DUKESBANK-DEMO.md) — AST/XML/LST decisions | migration-hub | ✅ |
-| JavaParser + XML descriptor prototype on Duke's Bank | java-ast-ssot | ✅ Alpha |
-| SQLite schema for types, methods, EJB descriptors | java-ast-ssot | ✅ Alpha |
-| Cross-reference: EJB/XML ↔ schema SSOT | java-ast-ssot + db-metadata | 📋 |
+| JavaParser prototype (core) | java-ast-ssot | ✅ Alpha |
+| Profile `javaee-ejb2-jboss` on Duke's Bank | java-ast-ssot | ✅ Alpha (implicit in v0.1) |
+| **Refactor:** `--profile`, core-only export, schema split | java-ast-ssot | 📋 Step 2 |
+| Cross-reference: profile crosswalk ↔ schema SSOT | java-ast-ssot + db-metadata | 📋 |
 
 ## Phase 3 — OpenRewrite integration
 

@@ -34,27 +34,44 @@ Verification scripts in `db-metadata` use the same keys for reconciliation.
 ## Java AST SSOT
 
 **Owner:** `java-ast-ssot`  
-**Version:** 1  
+**Design:** [ADR-002 — core vs stack profiles](ADR-002-java-ast-ssot-core-and-profiles.md)  
 **Format:** SQLite  
-**DDL:** [java-ast-ssot/src/main/resources/schema/v1.sql](https://github.com/anchor-migration/java-ast-ssot/blob/main/src/main/resources/schema/v1.sql)
 
-Language-specific by design — not a generic `code-ast-ssot`. Future repos (e.g. `cobol-ast-ssot`) may follow the same contract pattern for heterogeneous migration.
+Language-specific by design — not a generic `code-ast-ssot`. The repo exports **Java source structure**; legacy stack bindings (Java EE, Spring, …) are **optional profiles**.
 
-### Entity types (v1)
+### Core (always)
 
-- source file, Java type, method, field, import
-- EJB bean, CMP field, EJB ref (from deployment XML)
-- crosswalk edge (`java_type_to_ejb`, `ejb_to_table`)
+**DDL (v1, mixed file today):** [java-ast-ssot/.../schema/v1.sql](https://github.com/anchor-migration/java-ast-ssot/blob/main/src/main/resources/schema/v1.sql) — refactor will isolate core tables.
 
-### Stable IDs (v1)
-
-| Entity | Format |
-|--------|--------|
+| Entity | Stable ID |
+|--------|-----------|
 | Type | `{package}.{SimpleName}` (nested: `{outer}$.{Inner}`) |
 | Method | `{Type}#{methodName}({paramTypes})` |
 | Field | `{Type}#{fieldName}` |
+
+Tables: `source_file`, `java_type`, `java_method`, `java_field`, `java_import`.
+
+### Profile: `javaee-ejb2-jboss` (v0.1)
+
+Enabled when EJB 2.x + JBoss CMP descriptors are present (today: implicit; future: `--profile javaee-ejb2-jboss`).
+
+| Entity | Stable ID |
+|--------|-----------|
 | EJB | `ejb:{ejbName}` |
 | Table (crosswalk target) | `{schema}.{TABLE}` |
+
+Tables: `ejb_bean`, `ejb_cmp_field`, `ejb_ref`, `crosswalk_edge` (`java_type_to_ejb`, `ejb_to_table`).
+
+**Reference validation:** Duke's Bank bank module — not a product boundary.
+
+### Future profiles (planned)
+
+| Profile | Inputs | Purpose |
+|---------|--------|---------|
+| `spring` | `@Configuration`, component scan, XML | Spring bean graph |
+| `jpa` | `@Entity`, `persistence.xml` | JPA ↔ schema crosswalk |
+
+Each profile adds tables or extension rows; core IDs remain stable.
 
 ## Linking schema SSOT ↔ Java AST SSOT
 
@@ -62,7 +79,8 @@ Future crosswalk table (location TBD):
 
 | Code entity | Schema entity | Link type |
 |-------------|---------------|-----------|
-| `@Entity` class | `db_table` row | `maps_to_table` |
+| `@Entity` class (JPA profile) | `db_table` row | `maps_to_table` |
+| EJB entity bean (javaee profile) | `db_table` row | `ejb_to_table` → schema |
 | `@Column` field | `db_column` row | `maps_to_column` |
 | `@JoinColumn` | `db_foreign_key` row | `maps_to_fk` |
 
@@ -73,7 +91,8 @@ Both sides must reference the same `export_run_id` (or compatible snapshot times
 Recipes may read:
 
 - Schema SSOT: table/column names, FK graph for relationship migrations
-- Java AST SSOT: type hierarchy, EJB/XML crosswalk for recipe targeting
+- Java AST SSOT (core): type hierarchy for recipe targeting
+- Profile crosswalks (e.g. EJB/XML, JPA): entity ↔ table binding
 
 Contract: recipe modules declare required SSOT versions in `recipe.yml` metadata.
 

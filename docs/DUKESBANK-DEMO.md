@@ -1,6 +1,8 @@
 # Duke's Bank Demo
 
-Reference application for Anchor Migration **Phase 2**: collect a dependency / reference graph (DRG) from legacy Java plus schema SSOT from the live database.
+**Reference application** for Anchor Migration Phase 2 — not a dedicated product repo.
+
+`java-ast-ssot` is a **generic Java AST exporter**; Duke's Bank validates the first stack profile **`javaee-ejb2-jboss`** (EJB 2.x + JBoss CMP XML) plus schema crosswalk. See [ADR-002](ADR-002-java-ast-ssot-core-and-profiles.md).
 
 | Section | Status |
 |---------|--------|
@@ -16,7 +18,7 @@ Reference application for Anchor Migration **Phase 2**: collect a dependency / r
 Duke's Bank is the **canonical end-to-end sample** for Anchor Migration:
 
 1. Export **schema SSOT** from a real MySQL database (`db-metadata`).
-2. Export **code + deployment SSOT** from Java sources and EJB descriptors (`java-ast-ssot`, planned).
+2. Export **Java AST SSOT** from sources (`java-ast-ssot` **core**) plus **Java EE profile** output from EJB/JBoss XML.
 3. Link the two graphs (entity bean ↔ table ↔ column).
 4. Later: apply OpenRewrite recipes and parity verification.
 
@@ -302,9 +304,11 @@ Expected (verified 2026-06-27 on MySQL 5.7):
 
 ---
 
-## Phase B: Java DRG runbook
+## Phase B: Java DRG runbook (profile `javaee-ejb2-jboss`)
 
-**Owner repo:** `java-ast-ssot` — **Alpha verified (2026-06-27)**
+**Owner repo:** `java-ast-ssot` — **Alpha verified on Duke's Bank (2026-06-27)**
+
+Uses **core** JavaParser export plus **Java EE EJB 2.x / JBoss CMP** descriptor parsing. v0.1 runs the profile implicitly when XML files are present; refactor will add explicit `--profile`.
 
 ### B.1 Scope v1
 

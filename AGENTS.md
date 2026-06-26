@@ -28,9 +28,8 @@ Instructions for AI coding assistants (Cursor, etc.) in a **new session** with n
 | `db-metadata/` | public | Python CLI: `db-migration export|verify|info` |
 | `lab-notes/` | **private** | Journals, ADR drafts, blog drafts — may contain WIP |
 | `../dukesbank/` or `C:\github\dukesbank` | external | Duke's Bank J2EE 1.4 sample, MySQL SQL in `data/mysql/` |
-
 | `demo-dukesbank/` | public | MySQL Docker bridge for Duke's Bank |
-| `java-ast-ssot/` | public | Java AST SSOT CLI: `export`, `info` |
+| `java-ast-ssot/` | public | Java AST SSOT CLI (core + stack profiles) |
 
 ## Hard conventions
 
@@ -45,8 +44,9 @@ Instructions for AI coding assistants (Cursor, etc.) in a **new session** with n
 | Topic | Decision |
 |-------|----------|
 | Schema SSOT | SQLite snapshots via `db-metadata`; `export_run` versioning; `verify` reconciles against live DB |
-| Duke's Bank | Reference app; EJB 2.x CMP + XML descriptors — DRG is Java **and** XML |
-| Code SSOT parser | **JavaParser + XML** in `java-ast-ssot`, not OpenRewrite LST for long-term SSOT |
+| Duke's Bank | **Reference demo** only; validates profile `javaee-ejb2-jboss`, not `java-ast-ssot` product scope |
+| `java-ast-ssot` | **Core:** JavaParser AST. **Profiles:** stack adapters (EJB/XML today). See [ADR-002](docs/ADR-002-java-ast-ssot-core-and-profiles.md) |
+| Code SSOT parser | **JavaParser** for core; deployment XML via **profiles** — not OpenRewrite LST for SSOT |
 | LST | Use only for OpenRewrite recipe development (`rewrite-recipes`, future) |
 | Comments | Store separately; no v1 semantic comment→statement mapping |
 | AST repo naming | **`{language}-ast-ssot`** (e.g. `java-ast-ssot`); reserved for future e.g. `cobol-ast-ssot` |
@@ -56,8 +56,8 @@ See lab-notes ADR-001 (private) or public DUKESBANK-DEMO § AST vs LST.
 
 ## Current status (update via journal if stale)
 
-- **Done:** `db-metadata` alpha, Duke's Bank MySQL demo, `java-ast-ssot` alpha export, migration-hub docs  
-- **Not done:** GitHub push for `demo-dukesbank` / `java-ast-ssot`, crosswalk CLI, `rewrite-recipes`
+- **Done:** `db-metadata` alpha, Duke's Bank MySQL demo, `java-ast-ssot` alpha (monolithic v0.1), ADR-002 docs  
+- **Next:** ADR-002 Step 2 refactor (`--profile`, core-only export), crosswalk CLI, `rewrite-recipes`
 
 ## Typical tasks
 
@@ -65,7 +65,7 @@ See lab-notes ADR-001 (private) or public DUKESBANK-DEMO § AST vs LST.
 |----------|----------------|
 | Export / verify database schema | `db-metadata/` |
 | Docker Duke's Bank MySQL | `demo-dukesbank/` |
-| Java AST / EJB XML extraction | `java-ast-ssot/` — read DUKESBANK-DEMO Phase B |
+| Java AST / EJB XML extraction | `java-ast-ssot/` — core + `--profile javaee-ejb2-jboss`; read ADR-002 + DUKESBANK-DEMO Phase B |
 | Program docs / blog outline | `migration-hub/docs/` or private `lab-notes/blog-drafts/` |
 | Session log | private `lab-notes/journal/` |
 
