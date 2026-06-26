@@ -90,11 +90,8 @@ Extractors use **`{language}-ast-ssot`** names. **`java-ast-ssot`** = generic Ja
 
 ## Next work (priority)
 
-1. **`java-ast-ssot` refactor (ADR-002 Step 2)** — `--profile`, core-only export, split schema
-2. `java-ast-ssot crosswalk` — link profile output to `db-metadata` schema SSOT
-3. Blog draft from [lab-notes backlog](https://github.com/anchor-migration/anchor-migration-lab-notes) (private)
-
-## For AI assistants
+1. **`java-ast-ssot crosswalk`** — link profile output to `db-metadata` schema SSOT
+2. Blog draft from [lab-notes backlog](https://github.com/anchor-migration/anchor-migration-lab-notes) (private)
 
 See **[AGENTS.md](../AGENTS.md)** at the root of this repository for session bootstrap instructions.
 

@@ -332,8 +332,9 @@ Uses **core** JavaParser export plus **Java EE EJB 2.x / JBoss CMP** descriptor 
 cd java-ast-ssot
 mvn package
 
-java -jar target/java-ast-ssot-0.1.0-SNAPSHOT.jar export \
+java -jar target/java-ast-ssot-0.2.0-SNAPSHOT.jar export \
   --source-root /path/to/dukesbank/src/j2eetutorial14/examples/bank \
+  --profile javaee-ejb2-jboss \
   --out metadata/dukesbank-code.db
 
 java -jar target/java-ast-ssot-0.1.0-SNAPSHOT.jar info \

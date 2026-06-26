@@ -60,7 +60,7 @@ Enabled when EJB 2.x + JBoss CMP descriptors are present (today: implicit; futur
 | EJB | `ejb:{ejbName}` |
 | Table (crosswalk target) | `{schema}.{TABLE}` |
 
-Tables: `ejb_bean`, `ejb_cmp_field`, `ejb_ref`, `crosswalk_edge` (`java_type_to_ejb`, `ejb_to_table`).
+Tables: `ejb_bean`, `ejb_cmp_field`, `ejb_ref`, `profile_crosswalk_edge` (`java_type_to_ejb`, `ejb_to_table`).
 
 **Reference validation:** Duke's Bank bank module — not a product boundary.
 

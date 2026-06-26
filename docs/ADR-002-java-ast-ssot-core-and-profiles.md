@@ -80,8 +80,8 @@ Future profiles add tables or use `extension_*` / `artifact_type` columns — se
 
 | Step | Deliverable | Status |
 |------|-------------|--------|
-| 1 | Document positioning (this ADR + hub docs + `java-ast-ssot` README) | In progress |
-| 2 | Code refactor: `Profile` SPI, `--profile`, split schema, tests on core-only export | Planned |
+| 1 | Document positioning (this ADR + hub docs + `java-ast-ssot` README) | Done |
+| 2 | Code refactor: `Profile` SPI, `--profile`, split schema, tests on core-only export | Done (v0.2.0-SNAPSHOT) |
 
 ## References
 
