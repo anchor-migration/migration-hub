@@ -59,7 +59,7 @@ Profiles may also be **auto-detected** from known descriptor files under `--sour
 
 **Core tables (stable):** `export_run`, `source_file`, `java_type`, `java_method`, `java_field`, `java_import`
 
-**Profile tables (v0.1 today, to be namespaced):** `ejb_bean`, `ejb_cmp_field`, `ejb_ref`, profile-specific `crosswalk_edge` kinds
+**Profile tables (v1.0):** namespaced per profile, e.g. `javaee_ejb2_jboss_*` — no shared `ejb_*` or legacy `crosswalk_edge` tables.
 
 Future profiles add tables or use `extension_*` / `artifact_type` columns — see [SSOT-SCHEMA.md](SSOT-SCHEMA.md).
 
@@ -81,7 +81,7 @@ Future profiles add tables or use `extension_*` / `artifact_type` columns — se
 | Step | Deliverable | Status |
 |------|-------------|--------|
 | 1 | Document positioning (this ADR + hub docs + `java-ast-ssot` README) | Done |
-| 2 | Code refactor: `Profile` SPI, `--profile`, split schema, tests on core-only export | Done (v0.2.0-SNAPSHOT) |
+| 2 | Code refactor: `Profile` SPI, `--profile`, split schema, tests on core-only export | Done (1.0.0 — breaking clean architecture) |
 
 ## References
 

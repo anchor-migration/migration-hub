@@ -30,7 +30,7 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 | [Duke's Bank DRG design](DUKESBANK-DEMO.md) — AST/XML/LST decisions | migration-hub | ✅ |
 | JavaParser prototype (core) | java-ast-ssot | ✅ Alpha |
 | Profile `javaee-ejb2-jboss` on Duke's Bank | java-ast-ssot | ✅ Alpha (implicit in v0.1) |
-| **Refactor:** `--profile`, core-only export, schema split | java-ast-ssot | ✅ v0.2 |
+| **Refactor:** `--profile`, core-only export, schema split | java-ast-ssot | ✅ 1.0 (breaking) |
 | Cross-reference: profile crosswalk ↔ schema SSOT | java-ast-ssot + db-metadata | 📋 |
 
 ## Phase 3 — OpenRewrite integration
