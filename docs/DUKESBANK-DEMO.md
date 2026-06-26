@@ -30,21 +30,22 @@ Why Duke's Bank:
 
 ## Repository layout (local)
 
-Duke's Bank source is **not** inside the Anchor Migration org. Use sibling clones:
+Duke's Bank is **not** in the Anchor Migration org — we have **not** forked it yet. Maintainers and contributors use the same layout: an **external** clone ([jiananwang/dukesbank](https://github.com/jiananwang/dukesbank)) as a **sibling** of `anchor-migration` under one parent directory.
 
 ```
-github/
+github/                          e.g. C:\github\
 ├── anchor-migration/
 │   ├── migration-hub/       # this documentation
 │   ├── db-metadata/         # schema export CLI
-│   ├── demo-dukesbank/      # Docker MySQL (verified)
-│   └── java-ast-ssot/       # Java/XML DRG (alpha)
-└── dukesbank/               # legacy sample application
+│   ├── demo-dukesbank/      # Docker MySQL bridge (verified)
+│   └── java-ast-ssot/       # Java AST SSOT (alpha)
+└── dukesbank/               # external clone — NOT inside anchor-migration
     └── data/mysql/dukesbank.sql
 ```
 
-**Duke's Bank path (author machine):** `C:\github\dukesbank`  
-**Bank application root:** `dukesbank/src/j2eetutorial14/examples/bank/`
+**Author machine:** `C:\github\dukesbank` next to `C:\github\anchor-migration`  
+**Compose mount from `demo-dukesbank/`:** `../../dukesbank/data/mysql/dukesbank.sql`  
+**Bank module root (java-ast-ssot):** `dukesbank/src/j2eetutorial14/examples/bank/`
 
 ---
 
@@ -236,7 +237,7 @@ Each edge gets a deterministic `edge_id` in `java-ast-ssot` and references pinne
 
 - Docker Desktop
 - `db-metadata` installed: `pip install -e ".[mysql]"`
-- Duke's Bank cloned at `../dukesbank` relative to `demo-dukesbank`
+- Duke's Bank cloned at `../../dukesbank` relative to `demo-dukesbank` (sibling of `anchor-migration`)
 
 ### A.1 Start MySQL
 
