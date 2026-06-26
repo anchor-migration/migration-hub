@@ -78,6 +78,7 @@ Optional **AI self-healing nodes** (suggestions, test exploration) may sit besid
 anchor-migration/
 ├── migration-hub/       # this repository
 ├── db-metadata/         # Python CLI — schema export
+├── demo-dukesbank/      # Duke's Bank MySQL Docker (planned)
 ├── code-ast-ssot/       # (planned)
 ├── rewrite-recipes/     # (planned)
 ├── parity-verify/       # (planned)
@@ -89,6 +90,7 @@ Open `anchor-migration.code-workspace` in Cursor/VS Code to work across repos.
 ## Documentation
 
 - [Development model](docs/DEVELOPMENT-MODEL.md) — AI-assisted workflow, boundary protocols, deterministic core
+- [Duke's Bank demo](docs/DUKESBANK-DEMO.md) — reference app, DRG design, AST/LST/XML decisions
 - [Architecture](docs/ARCHITECTURE.md)
 - [Roadmap](docs/ROADMAP.md)
 - [SSoT schema contracts](docs/SSOT-SCHEMA.md)

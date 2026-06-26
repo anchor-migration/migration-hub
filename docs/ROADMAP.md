@@ -16,8 +16,9 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 
 | Item | Repo | Status |
 |------|------|--------|
-| Docker compose for PostgreSQL smoke tests | db-metadata | 📋 |
-| Real-DB verification on PG / MySQL / Oracle / SQL Server | db-metadata | 📋 |
+| [Duke's Bank demo doc](docs/DUKESBANK-DEMO.md) — design + runbook | migration-hub | 🚧 Design locked, DB runbook unverified |
+| Docker compose for Duke's Bank MySQL | demo-dukesbank | 📋 |
+| Real-DB verification on Duke's Bank MySQL | db-metadata | 📋 |
 | `export_run` diff subcommand | db-metadata | 💡 |
 | View / procedure definition extraction (v2 schema) | db-metadata | 💡 |
 
@@ -25,7 +26,8 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 
 | Item | Repo | Status |
 |------|------|--------|
-| JavaParser / Spoon prototype | code-ast-ssot | 📋 |
+| [Duke's Bank DRG design](DUKESBANK-DEMO.md) — AST/XML/LST decisions | migration-hub | 🚧 |
+| JavaParser + XML descriptor prototype on Duke's Bank | code-ast-ssot | 📋 |
 | SQLite schema for types, methods, annotations | code-ast-ssot | 📋 |
 | Cross-reference: `@Entity` ↔ schema SSOT | code-ast-ssot + db-metadata | 📋 |
 
