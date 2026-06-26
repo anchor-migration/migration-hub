@@ -31,29 +31,32 @@ Verification scripts in `db-metadata` use the same keys for reconciliation.
 - **pin snapshots** — record `export_run_id` and `tool_version` in migration logs
 - **schema drift** — re-export and diff `export_run` rows before major refactors
 
-## Code AST SSOT (planned)
+## Java AST SSOT
 
-**Owner:** `code-ast-ssot`  
-**Version:** TBD  
-**Format:** TBD (likely SQLite for parity with schema SSOT)
+**Owner:** `java-ast-ssot`  
+**Version:** 1  
+**Format:** SQLite  
+**DDL:** [java-ast-ssot/src/main/resources/schema/v1.sql](https://github.com/anchor-migration/java-ast-ssot/blob/main/src/main/resources/schema/v1.sql)
 
-### Planned entity types
+Language-specific by design — not a generic `code-ast-ssot`. Future repos (e.g. `cobol-ast-ssot`) may follow the same contract pattern for heterogeneous migration.
 
-- compilation unit, package, type (class / interface / enum)
-- method, field, parameter
-- annotation, import, inheritance edge, call reference
+### Entity types (v1)
 
-### Planned stable IDs (draft)
+- source file, Java type, method, field, import
+- EJB bean, CMP field, EJB ref (from deployment XML)
+- crosswalk edge (`java_type_to_ejb`, `ejb_to_table`)
 
-| Entity | Format (draft) |
-|--------|----------------|
-| Type | `{module}.{package}.{SimpleName}` |
+### Stable IDs (v1)
+
+| Entity | Format |
+|--------|--------|
+| Type | `{package}.{SimpleName}` (nested: `{outer}$.{Inner}`) |
 | Method | `{Type}#{methodName}({paramTypes})` |
 | Field | `{Type}#{fieldName}` |
+| EJB | `ejb:{ejbName}` |
+| Table (crosswalk target) | `{schema}.{TABLE}` |
 
-Final IDs will be locked when v1 DDL ships.
-
-## Linking schema SSOT ↔ code AST SSOT
+## Linking schema SSOT ↔ Java AST SSOT
 
 Future crosswalk table (location TBD):
 
@@ -70,7 +73,7 @@ Both sides must reference the same `export_run_id` (or compatible snapshot times
 Recipes may read:
 
 - Schema SSOT: table/column names, FK graph for relationship migrations
-- Code AST SSOT: annotation locations, type hierarchy for recipe targeting
+- Java AST SSOT: type hierarchy, EJB/XML crosswalk for recipe targeting
 
 Contract: recipe modules declare required SSOT versions in `recipe.yml` metadata.
 

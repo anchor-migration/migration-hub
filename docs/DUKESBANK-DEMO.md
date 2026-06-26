@@ -5,9 +5,9 @@ Reference application for Anchor Migration **Phase 2**: collect a dependency / r
 | Section | Status |
 |---------|--------|
 | Architecture & design decisions | **Design** — locked |
-| Database SSOT runbook | **Planned** — commands drafted, not yet verified locally |
-| Code DRG / XML SSOT | **Planned** — `code-ast-ssot` not started |
-| Crosswalk examples | **Design** — from static analysis of Duke's Bank repo |
+| Database SSOT runbook | **Verified** — Docker MySQL 5.7, export + verify pass (2026-06-27) |
+| Java DRG / XML SSOT | **Alpha** — `java-ast-ssot` export verified on bank module (2026-06-27) |
+| Crosswalk examples | **Verified** — 4 entity beans linked to tables via XML |
 
 ---
 
@@ -16,7 +16,7 @@ Reference application for Anchor Migration **Phase 2**: collect a dependency / r
 Duke's Bank is the **canonical end-to-end sample** for Anchor Migration:
 
 1. Export **schema SSOT** from a real MySQL database (`db-metadata`).
-2. Export **code + deployment SSOT** from Java sources and EJB descriptors (`code-ast-ssot`, planned).
+2. Export **code + deployment SSOT** from Java sources and EJB descriptors (`java-ast-ssot`, planned).
 3. Link the two graphs (entity bean ↔ table ↔ column).
 4. Later: apply OpenRewrite recipes and parity verification.
 
@@ -37,8 +37,8 @@ github/
 ├── anchor-migration/
 │   ├── migration-hub/       # this documentation
 │   ├── db-metadata/         # schema export CLI
-│   ├── demo-dukesbank/      # Docker MySQL (planned)
-│   └── code-ast-ssot/       # Java/XML DRG (planned)
+│   ├── demo-dukesbank/      # Docker MySQL (verified)
+│   └── java-ast-ssot/       # Java/XML DRG (alpha)
 └── dukesbank/               # legacy sample application
     └── data/mysql/dukesbank.sql
 ```
@@ -110,13 +110,13 @@ flowchart TB
 
   subgraph extract [Deterministic extractors]
     DBMeta[db-metadata CLI]
-    CodeExt[code-ast-ssot planned]
-    XMLExt[XML descriptor parser planned]
+    CodeExt[java-ast-ssot]
+    XMLExt[XML in java-ast-ssot]
   end
 
   subgraph ssot [SSOT snapshots]
     SchemaDB[(schema SSOT SQLite)]
-    CodeDB[(code DRG SQLite)]
+    JavaDB[(Java AST SSOT SQLite)]
   end
 
   subgraph link [Crosswalk planned]
@@ -124,10 +124,10 @@ flowchart TB
   end
 
   MySQL --> DBMeta --> SchemaDB
-  Java --> CodeExt --> CodeDB
-  XML --> XMLExt --> CodeDB
+  Java --> CodeExt --> JavaDB
+  XML --> XMLExt --> JavaDB
   SchemaDB --> XWalk
-  CodeDB --> XWalk
+  JavaDB --> XWalk
 ```
 
 **DRG (dependency / reference graph)** in this demo means:
@@ -224,13 +224,13 @@ Expected stable IDs (MySQL database name = schema in MySQL dialect):
   --field_maps_to_column--> (accountId → ACCOUNT_ID)
 ```
 
-Each edge gets a deterministic `edge_id` in `code-ast-ssot` and references pinned `export_run_id` from both SSOT files.
+Each edge gets a deterministic `edge_id` in `java-ast-ssot` and references pinned `export_run_id` from both SSOT files.
 
 ---
 
 ## Phase A: Database SSOT runbook
 
-**Status: Planned** — Docker compose lives in `demo-dukesbank` (to be added). Commands below are drafted from Duke's Bank repo artifacts.
+**Status: Verified (2026-06-27)** — Docker compose in `demo-dukesbank`. MySQL 5.7 on port 3306.
 
 ### Prerequisites
 
@@ -279,29 +279,31 @@ db-migration verify metadata/dukesbank.db \
   --url "mysql+pymysql://dukesbank:dukesbank@localhost:3306/dukesbank"
 ```
 
-Expected (to be confirmed after first run):
+Expected (verified 2026-06-27 on MySQL 5.7):
 
 | Metric | Expected |
 |--------|----------|
 | Tables | 5 |
-| Columns | ~30 (approx.; count from export) |
+| Columns | 27 |
 | SQL FOREIGN KEY constraints | 0 |
-| Primary keys | 4 tables with explicit PK + xref without PK |
+| Primary keys | 4 |
+| Indexes (non-PK) | 0 |
+| Matched entities (verify) | 36 |
 
 ### A.4 Verification checklist
 
-- [ ] Docker MySQL starts cleanly on port 3306
-- [ ] `export` completes without error
-- [ ] `verify` exits 0
-- [ ] `db-migration info metadata/dukesbank.db` shows 5 tables
-- [ ] Table names match uppercase `ACCOUNT`, `CUSTOMER`, …
-- [ ] Document actual column counts and any MySQL 8 vs 5.7 differences
+- [x] Docker MySQL starts cleanly on port 3306
+- [x] `export` completes without error
+- [x] `verify` exits 0
+- [x] `db-migration info metadata/dukesbank.db` shows 5 tables
+- [x] Table names match uppercase `ACCOUNT`, `CUSTOMER`, …
+- [x] Column count documented: **27** (not 35)
 
 ---
 
-## Phase B: Code DRG runbook (planned)
+## Phase B: Java DRG runbook
 
-**Owner repo:** `code-ast-ssot` (not yet created)
+**Owner repo:** `java-ast-ssot` — **Alpha verified (2026-06-27)**
 
 ### B.1 Scope v1
 
@@ -318,14 +320,35 @@ Expected (to be confirmed after first run):
 - Comment-to-code semantic binding
 - OpenRewrite LST export (defer to `rewrite-recipes` dev workflow)
 
-### B.3 Planned CLI (sketch)
+### B.3 CLI
 
 ```bash
-code-ast-ssot export \
+# Build (requires JDK 17+; or use Docker Maven image)
+cd java-ast-ssot
+mvn package
+
+java -jar target/java-ast-ssot-0.1.0-SNAPSHOT.jar export \
   --source-root /path/to/dukesbank/src/j2eetutorial14/examples/bank \
   --out metadata/dukesbank-code.db
 
-code-ast-ssot crosswalk \
+java -jar target/java-ast-ssot-0.1.0-SNAPSHOT.jar info \
+  --db metadata/dukesbank-code.db
+```
+
+**Verified snapshot (2026-06-27):**
+
+| Metric | Value |
+|--------|-------|
+| Java files | 61 |
+| Java types | 61 |
+| Java methods | 406 |
+| EJB beans | 8 (4 entity CMP + 4 session) |
+| Crosswalk edges | 8 (4 `java_type_to_ejb` + 4 `ejb_to_table`) |
+
+Planned next:
+
+```bash
+java-ast-ssot crosswalk \
   --code-db metadata/dukesbank-code.db \
   --schema-db metadata/dukesbank.db \
   --out metadata/dukesbank-linked.db
@@ -333,10 +356,10 @@ code-ast-ssot crosswalk \
 
 ### B.4 Verification checklist
 
-- [ ] All 4 CMP entity beans discovered
-- [ ] `AccountBean` linked to `ACCOUNT` via XML
-- [ ] Session beans listed with `@Remote`/home interface equivalents from XML
-- [ ] Call edges from `AccountControllerBean` to entity interfaces (best effort)
+- [x] All 4 CMP entity beans discovered (`AccountBean`, `CustomerBean`, `TxBean`, `NextIdBean`)
+- [x] `AccountBean` linked to `ACCOUNT` via `jbosscmp-jdbc.xml`
+- [x] Session beans listed from `ejb-jar.xml`
+- [ ] Call edges from controllers to entity interfaces (P1)
 
 ---
 
@@ -357,7 +380,7 @@ code-ast-ssot crosswalk \
 |---|----------|-----------------|
 | 1 | MySQL 5.7 vs 8.0 for demo? | Start 5.7; document 8.0 if tested |
 | 2 | Uppercase table names on Windows Docker? | Record in Phase A checklist |
-| 3 | JavaParser 1.4 vs ECJ for very old syntax? | Spike during `code-ast-ssot` POC |
+| 3 | JavaParser 1.4 vs ECJ for very old syntax? | Spike during `java-ast-ssot` POC |
 | 4 | Store XML SSOT in same SQLite as Java or separate file? | Prefer single `export_run` per snapshot set with `artifact_type` column |
 
 ---
@@ -366,4 +389,5 @@ code-ast-ssot crosswalk \
 
 | Date | Change |
 |------|--------|
+| 2026-06-27 | Phase A + B verified locally — MySQL 5.7 verify fix, java-ast-ssot export |
 | 2026-06-27 | Initial design doc — architecture locked, runbooks planned |

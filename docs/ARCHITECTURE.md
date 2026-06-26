@@ -11,9 +11,13 @@ Anchor Migration is a **multi-repo program** for legacy Java modernization. Each
 | Input | Tool | Output |
 |-------|------|--------|
 | Live relational database | `db-metadata` | Schema SSOT (SQLite): tables, columns, PK, FK, indexes |
-| Legacy Java codebase | `code-ast-ssot` (planned) | Code SSOT: compilation units, types, methods, annotations, references |
+| Legacy Java codebase | `java-ast-ssot` | Java AST SSOT (SQLite): types, methods, EJB descriptors, crosswalk edges |
 
 Both exporters are **read-only** on source systems and produce **versioned snapshots** suitable for drift comparison.
+
+#### Language-specific AST repos
+
+Extractors are named **`{language}-ast-ssot`**, not a single generic code repo. `java-ast-ssot` owns Java + Java EE deployment XML. Future heterogeneous migration (e.g. COBOL → Java) may add parallel repos such as `cobol-ast-ssot`; linking across languages is a separate layer on top of per-language SSOTs.
 
 ### 2. Transformation
 
@@ -45,11 +49,11 @@ See [SSOT-SCHEMA.md](SSOT-SCHEMA.md) for cross-repo schema versioning and entity
 - Format: SQLite v1 (`export_run`, `db_table`, `db_column`, `db_foreign_key`, …)
 - Stable IDs: `schema.table.column`
 
-### Code AST SSOT (planned)
+### Java AST SSOT (alpha)
 
-- Repository: `code-ast-ssot`
-- Format: TBD (SQLite or graph export)
-- Stable IDs: TBD (e.g. `module.package.Type#method`)
+- Repository: `java-ast-ssot`
+- Format: SQLite v1 (`export_run`, `java_type`, `java_method`, `ejb_bean`, `crosswalk_edge`, …)
+- Stable IDs: e.g. `com.example.Foo#bar(int,String)`
 
 ## Pattern catalog
 
@@ -98,5 +102,6 @@ Integration is via **file artifacts** (SQLite snapshots) and documented contract
 ## Future considerations
 
 - Unified CLI orchestrating export → rewrite → verify
+- Additional `{language}-ast-ssot` repos for heterogeneous legacy (e.g. COBOL)
 - `demo-legacy-app` sample project for end-to-end demos
 - Org-level GitHub Actions for cross-repo smoke tests

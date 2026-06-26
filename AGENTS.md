@@ -29,7 +29,8 @@ Instructions for AI coding assistants (Cursor, etc.) in a **new session** with n
 | `lab-notes/` | **private** | Journals, ADR drafts, blog drafts — may contain WIP |
 | `../dukesbank/` or `C:\github\dukesbank` | external | Duke's Bank J2EE 1.4 sample, MySQL SQL in `data/mysql/` |
 
-Planned folders (may not exist yet): `demo-dukesbank/`, `code-ast-ssot/`.
+| `demo-dukesbank/` | public | MySQL Docker bridge for Duke's Bank |
+| `java-ast-ssot/` | public | Java AST SSOT CLI: `export`, `info` |
 
 ## Hard conventions
 
@@ -45,30 +46,31 @@ Planned folders (may not exist yet): `demo-dukesbank/`, `code-ast-ssot/`.
 |-------|----------|
 | Schema SSOT | SQLite snapshots via `db-metadata`; `export_run` versioning; `verify` reconciles against live DB |
 | Duke's Bank | Reference app; EJB 2.x CMP + XML descriptors — DRG is Java **and** XML |
-| Code SSOT parser | **JavaParser + XML**, not OpenRewrite LST for long-term SSOT |
+| Code SSOT parser | **JavaParser + XML** in `java-ast-ssot`, not OpenRewrite LST for long-term SSOT |
 | LST | Use only for OpenRewrite recipe development (`rewrite-recipes`, future) |
 | Comments | Store separately; no v1 semantic comment→statement mapping |
+| AST repo naming | **`{language}-ast-ssot`** (e.g. `java-ast-ssot`); reserved for future e.g. `cobol-ast-ssot` |
 | Repos | Multi-repo under org; not a monorepo |
 
 See lab-notes ADR-001 (private) or public DUKESBANK-DEMO § AST vs LST.
 
 ## Current status (update via journal if stale)
 
-- **Done:** `db-metadata` alpha, `verify`, CI-oriented tests, migration-hub docs, GitHub org, lab-notes private repo  
-- **Not done:** `demo-dukesbank` Docker, Duke's Bank MySQL export POC, `code-ast-ssot`
+- **Done:** `db-metadata` alpha, Duke's Bank MySQL demo, `java-ast-ssot` alpha export, migration-hub docs  
+- **Not done:** GitHub push for `demo-dukesbank` / `java-ast-ssot`, crosswalk CLI, `rewrite-recipes`
 
 ## Typical tasks
 
 | User ask | Where to work |
 |----------|----------------|
 | Export / verify database schema | `db-metadata/` |
-| Docker Duke's Bank MySQL | create `demo-dukesbank/` under workspace root |
-| Java AST / EJB XML extraction | future `code-ast-ssot/` — read DUKESBANK-DEMO Phase B |
+| Docker Duke's Bank MySQL | `demo-dukesbank/` |
+| Java AST / EJB XML extraction | `java-ast-ssot/` — read DUKESBANK-DEMO Phase B |
 | Program docs / blog outline | `migration-hub/docs/` or private `lab-notes/blog-drafts/` |
 | Session log | private `lab-notes/journal/` |
 
 ## Workspace file
 
-User opens `anchor-migration.code-workspace` for multi-root: migration-hub, db-metadata, lab-notes.
+User opens `anchor-migration.code-workspace` for multi-root: migration-hub, db-metadata, java-ast-ssot, demo-dukesbank, lab-notes.
 
 Root pointer: `../README.md` (parent of migration-hub — local workspace root).

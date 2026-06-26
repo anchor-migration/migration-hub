@@ -33,7 +33,7 @@ Public showcase: https://github.com/anchor-migration
 | **db-metadata** | public | Live DB → schema SSOT (SQLite) | Alpha |
 | **.github** | public | Org profile README | Active |
 | **lab-notes** | **private** | Journals, ADR drafts, blog drafts | Active |
-| **code-ast-ssot** | public | Java/XML → code DRG SSOT | Planned |
+| **java-ast-ssot** | public | Java/XML → Java AST SSOT | Alpha |
 | **rewrite-recipes** | public | OpenRewrite catalog | Planned |
 | **parity-verify** | public | Old vs new parity | Planned |
 | **pattern-catalog** | public | Migration patterns | Planned |
@@ -45,7 +45,8 @@ C:\github\anchor-migration\
 ├── migration-hub/
 ├── db-metadata/
 ├── lab-notes/              → github.com/anchor-migration/anchor-migration-lab-notes (private)
-├── demo-dukesbank/         (not created yet)
+├── demo-dukesbank/         MySQL bridge for Duke's Bank demo
+├── java-ast-ssot/          Java AST SSOT exporter
 └── anchor-migration.code-workspace
 
 C:\github\dukesbank\        Duke's Bank legacy sample (external to org)
@@ -55,7 +56,7 @@ C:\github\dukesbank\        Duke's Bank legacy sample (external to org)
 
 ```
 Live MySQL ──db-metadata──► schema SSOT (SQLite)
-Legacy Java + XML ──code-ast-ssot──► code DRG SSOT     [planned]
+Legacy Java + XML ──java-ast-ssot──► Java AST SSOT (SQLite)
          └─ crosswalk ─► entity ↔ table links
 OpenRewrite recipes ──► modernized code                 [planned]
 verify / parity ──► proof                               [planned]
@@ -68,8 +69,12 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | Capability | Status |
 |------------|--------|
 | `db-metadata` export + verify (SQLite source) | ✅ pytest + manual |
-| Duke's Bank MySQL Docker demo | ❌ planned |
-| `code-ast-ssot` | ❌ not started |
+| Duke's Bank MySQL Docker demo | ✅ |
+| `java-ast-ssot` export on bank module | ✅ Alpha |
+
+## Language-specific AST repos
+
+Extractors use **`{language}-ast-ssot`** names (e.g. `java-ast-ssot`). This leaves room for future heterogeneous migration repos (e.g. `cobol-ast-ssot`) without overloading one generic `code-ast-ssot`.
 
 ## Conventions (do not forget)
 
@@ -84,8 +89,8 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 
 ## Next work (priority)
 
-1. `demo-dukesbank` — Docker MySQL + `db-metadata export/verify` against Duke's Bank
-2. `code-ast-ssot` POC — JavaParser + `ejb-jar.xml` / `jbosscmp-jdbc.xml`
+1. Publish `demo-dukesbank` and `java-ast-ssot` to GitHub org
+2. `java-ast-ssot crosswalk` — link Java/EJB SSOT to `db-metadata` schema SSOT
 3. Blog draft from [lab-notes backlog](https://github.com/anchor-migration/anchor-migration-lab-notes) (private)
 
 ## For AI assistants

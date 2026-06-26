@@ -22,14 +22,14 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 | `export_run` diff subcommand | db-metadata | 💡 |
 | View / procedure definition extraction (v2 schema) | db-metadata | 💡 |
 
-## Phase 2 — Code AST SSOT
+## Phase 2 — Java AST SSOT
 
 | Item | Repo | Status |
 |------|------|--------|
-| [Duke's Bank DRG design](DUKESBANK-DEMO.md) — AST/XML/LST decisions | migration-hub | 🚧 |
-| JavaParser + XML descriptor prototype on Duke's Bank | code-ast-ssot | 📋 |
-| SQLite schema for types, methods, annotations | code-ast-ssot | 📋 |
-| Cross-reference: `@Entity` ↔ schema SSOT | code-ast-ssot + db-metadata | 📋 |
+| [Duke's Bank DRG design](DUKESBANK-DEMO.md) — AST/XML/LST decisions | migration-hub | ✅ |
+| JavaParser + XML descriptor prototype on Duke's Bank | java-ast-ssot | ✅ Alpha |
+| SQLite schema for types, methods, EJB descriptors | java-ast-ssot | ✅ Alpha |
+| Cross-reference: EJB/XML ↔ schema SSOT | java-ast-ssot + db-metadata | 📋 |
 
 ## Phase 3 — OpenRewrite integration
 

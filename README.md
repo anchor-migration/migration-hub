@@ -16,7 +16,7 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 |------------|------|--------|
 | [**migration-hub**](https://github.com/anchor-migration/migration-hub) | Program overview, architecture, roadmap | Active |
 | [**db-metadata**](https://github.com/anchor-migration/db-metadata) | Live DB → schema SSOT (SQLite) | Alpha |
-| [**code-ast-ssot**](https://github.com/anchor-migration/code-ast-ssot) | Java source → code AST SSOT | Planned |
+| [**java-ast-ssot**](https://github.com/anchor-migration/java-ast-ssot) | Java source → Java AST SSOT | Alpha |
 | [**rewrite-recipes**](https://github.com/anchor-migration/rewrite-recipes) | OpenRewrite rule catalog | Planned |
 | [**parity-verify**](https://github.com/anchor-migration/parity-verify) | Old vs new business parity verification | Planned |
 | [**pattern-catalog**](https://github.com/anchor-migration/pattern-catalog) | Migration pattern docs and examples | Planned |
@@ -32,7 +32,7 @@ flowchart TB
 
   subgraph ssot [SSoT Layer]
     MetaDB[(Schema SSOT)]
-    CodeSSOT[(Code AST SSOT)]
+    JavaSSOT[(Java AST SSOT)]
   end
 
   subgraph transform [Transformation]
@@ -50,10 +50,10 @@ flowchart TB
   end
 
   LiveDB -->|db-metadata| MetaDB
-  LegacyCode -->|code-ast-ssot| CodeSSOT
+  LegacyCode -->|java-ast-ssot| JavaSSOT
   MetaDB --> OR
-  CodeSSOT --> OR
-  CodeSSOT --> AI
+  JavaSSOT --> OR
+  JavaSSOT --> AI
   OR --> NewCode
   AI --> NewCode
   LegacyCode --> ASTDiff
@@ -80,8 +80,8 @@ Optional **AI self-healing nodes** (suggestions, test exploration) may sit besid
 anchor-migration/
 ├── migration-hub/       # this repository
 ├── db-metadata/         # Python CLI — schema export
-├── demo-dukesbank/      # Duke's Bank MySQL Docker (planned)
-├── code-ast-ssot/       # (planned)
+├── demo-dukesbank/      # Duke's Bank MySQL Docker (verified)
+├── java-ast-ssot/       # Java AST SSOT exporter (alpha)
 ├── rewrite-recipes/     # (planned)
 ├── parity-verify/       # (planned)
 └── pattern-catalog/     # (planned)
