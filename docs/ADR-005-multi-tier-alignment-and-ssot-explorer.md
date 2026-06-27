@@ -78,7 +78,7 @@ UI String  ──parse──►  Domain long  ──narrowing──►  Integer 
 | **Forward (read / display)** | `int` → `long`, `int` → `String` for formatting | Often **OK** — green or yellow |
 | **Backward (write / persist)** | `String` → `long`, `long` → `int`, `String` → `int` | **Dangerous** — orange or red |
 
-**“变回来就危险了”** — Anchor Migration treats **backward / round-trip** type steps as first-class, not an afterthought.
+**“The return path is where it gets dangerous”** — Anchor Migration treats **backward / round-trip** type steps as first-class, not an afterthought.
 
 Each edge records **two directed type relations** (when types are known):
 
@@ -134,7 +134,7 @@ Each direction is computed independently from **name drift** + **type relation o
 **Rules:**
 
 - **Full match** (name `none`, type `exact` both ways) → **`color_forward` = green, `color_backward` = green**.  
-- **Precision upgrade one way only** (e.g. `int`↔`long`) → forward **green**, backward **yellow** — *变过去罢了，变回来要当心*.  
+- **Precision upgrade one way only** (e.g. `int`↔`long`) → forward **green**, backward **yellow** — *widening forward is fine; narrowing on the return path needs caution*.  
 - **`unexplainable` name** → **both directions red**.  
 - **Parity-critical persist path** uses **`color_backward`** on persistence ↔ physical; forward-only green must not hide backward yellow/orange.
 

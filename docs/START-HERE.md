@@ -103,11 +103,11 @@ Extractors use **`{language}-ast-ssot`** names. **`java-ast-ssot`** = generic Ja
 
 ## Next work (priority)
 
-1. **`rewrite-recipes` 3.1b** — Session `BeanState` spike on `AccountControllerBean` ([ADR-007](ADR-007-rewrite-recipes-session-and-cmp-jpa.md)); then 3.2 session recipe before scalar CMP→JPA
+1. **`rewrite-recipes` 3.2** — Session→Service recipe chain on `AccountControllerBean` ([ADR-007](ADR-007-rewrite-recipes-session-and-cmp-jpa.md)); then 3.3 scalar CMP→JPA
 2. **`jpa` / `mybatis` profiles** — ADR-004 Step 4–5
 3. Blog draft from lab-notes backlog (private)
 
-**Done:** `rewrite-recipes` 3.1a CMP matrix — [cmp-jpa-capability-matrix.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/cmp-jpa-capability-matrix.md); 3.0 harness — `.\scripts\run-test.ps1`; Duke's Bank E2E — [DUKESBANK-DEMO.md#e2e-quick-path](DUKESBANK-DEMO.md#e2e-quick-path)
+**Done:** `rewrite-recipes` 3.1b BeanState spike — [session-beanstate-spike-account-controller.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/session-beanstate-spike-account-controller.md); 3.1a CMP matrix — [cmp-jpa-capability-matrix.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/cmp-jpa-capability-matrix.md); 3.0 harness — `.\scripts\run-test.ps1`; Duke's Bank E2E — [DUKESBANK-DEMO.md#e2e-quick-path](DUKESBANK-DEMO.md#e2e-quick-path)
 
 See **[AGENTS.md](../AGENTS.md)** at the root of this repository for session bootstrap instructions.
 
