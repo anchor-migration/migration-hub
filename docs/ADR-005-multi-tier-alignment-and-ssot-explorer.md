@@ -233,7 +233,7 @@ v0 may ship static JSON generated from SQLite; v1+ uses in-browser SQLite or a t
 | Step | Deliverable | Status |
 |------|-------------|--------|
 | 1 | Document tiers, drift classes, colors (this ADR) | Done |
-| 2 | Add alignment metadata + **`color_forward` / `color_backward`** to link rows (Java) | 📋 Planned |
+| 2 | Add alignment metadata + **`color_forward` / `color_backward`** to link rows (Java) | Done (1.0.0-SNAPSHOT) |
 | 3 | **`ssot-explorer` repo** — MVP crosswalk graph + legend | 📋 Planned |
 | 4 | Domain / presentation tier profiles + edges | 💡 Idea |
 | 5 | Parity gate uses red / incompatible rules | 💡 Idea |
