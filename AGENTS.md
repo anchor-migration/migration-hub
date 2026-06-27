@@ -50,6 +50,7 @@ Instructions for AI coding assistants (Cursor, etc.) in a **new session** with n
 | `java-ast-ssot` | **Core:** JavaParser AST. **Profiles:** stack adapters (EJB/XML today). See [ADR-002](docs/ADR-002-java-ast-ssot-core-and-profiles.md) |
 | Code SSOT parser | **JavaParser** for core; deployment XML via **profiles** — not OpenRewrite LST for SSOT |
 | LST | Transform-time only in `rewrite-recipes`; not stored as SSOT — see [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) |
+| Rewrite phasing | Session→`@Service` via **BeanState** (3.2), then scalar CMP→JPA `AccountBean` (3.3) — see [ADR-007](docs/ADR-007-rewrite-recipes-session-and-cmp-jpa.md) |
 | Comments | Optional `source_comment` sidecar; no v1 semantic comment→statement mapping — [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) |
 | Crosswalk | Profile extract + link; mapping tiers; **edge colors** (green/yellow/orange/red) — [ADR-004](docs/ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md), [ADR-005](docs/ADR-005-multi-tier-alignment-and-ssot-explorer.md) |
 | Anchor Explorer | Read-only human UI over SQLite snapshots — first-class interface — [ADR-005](docs/ADR-005-multi-tier-alignment-and-ssot-explorer.md) |
@@ -62,7 +63,7 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 ## Current status (update via journal if stale)
 
 - **Done:** `db-metadata` alpha, Duke's Bank E2E, `java-ast-ssot` v1.0 (core + profiles + crosswalk), `anchor-explorer` alpha, ADR-002–006  
-- **Next:** `rewrite-recipes` (ADR-006 gate), `jpa` profile
+- **Next:** `rewrite-recipes` 3.0 harness ([ADR-007](docs/ADR-007-rewrite-recipes-session-and-cmp-jpa.md)); `jpa` profile
 
 ## Typical tasks
 

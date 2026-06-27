@@ -25,8 +25,9 @@ Public showcase: https://github.com/anchor-migration
 | 7 | [ADR-004](ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md) | Code ↔ schema crosswalk; mapping roles |
 | 8 | [ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md) | Multi-tier alignment, edge coloring, Anchor Explorer |
 | 9 | [ADR-006](ADR-006-multi-role-decision-review.md) | Multi-role decision review before implementation |
-| 10 | [ROADMAP.md](ROADMAP.md) | What is done vs planned |
-| 11 | [db-metadata README](https://github.com/anchor-migration/db-metadata) | CLI: `export`, `verify`, `info` |
+| 10 | [ADR-007](ADR-007-rewrite-recipes-session-and-cmp-jpa.md) | rewrite-recipes: Session→Service (BeanState) vs CMP→JPA |
+| 11 | [ROADMAP.md](ROADMAP.md) | What is done vs planned |
+| 12 | [db-metadata README](https://github.com/anchor-migration/db-metadata) | CLI: `export`, `verify`, `info` |
 
 **Private (if you have access):** `lab-notes/journal/2026-06-27-session-wrapup.md` — latest session log.
 
@@ -101,7 +102,7 @@ Extractors use **`{language}-ast-ssot`** names. **`java-ast-ssot`** = generic Ja
 
 ## Next work (priority)
 
-1. **`rewrite-recipes` kickoff** — ADR-006 gate: first OpenRewrite recipe + test harness (see [ADR-006](ADR-006-multi-role-decision-review.md))
+1. **`rewrite-recipes` 3.0 harness** — [ADR-007](ADR-007-rewrite-recipes-session-and-cmp-jpa.md) Accepted; BeanState session recipe before scalar CMP→JPA
 2. **`jpa` / `mybatis` profiles** — ADR-004 Step 4–5
 3. Blog draft from lab-notes backlog (private)
 

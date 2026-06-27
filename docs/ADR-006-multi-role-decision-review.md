@@ -187,7 +187,7 @@ Dreamer and Suggester are **front-loaded**; Critic and Pragmatist also apply at 
 |------|-------------|--------|
 | 1 | Document multi-role gate (this ADR) | Done |
 | 2 | Link from DEVELOPMENT-MODEL, START-HERE, AGENTS | Done |
-| 3 | Use template on next gated change (e.g. `rewrite-recipes` kickoff) | 📋 Next |
+| 3 | Use template on next gated change (`rewrite-recipes` kickoff) | ✅ ADR-007 Accepted |
 | 4 | Optional: Cursor rule / skill referencing ADR-006 template | 💡 Idea |
 
 ## References
