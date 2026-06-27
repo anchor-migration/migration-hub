@@ -41,7 +41,7 @@ Public showcase: https://github.com/anchor-migration
 | **.github** | public | Org profile README | Active |
 | **lab-notes** | **private** | Journals, ADR drafts, blog drafts | Active |
 | **java-ast-ssot** | public | Java AST SSOT (core + optional stack profiles) | Alpha |
-| **rewrite-recipes** | public | OpenRewrite catalog | Planned |
+| **rewrite-recipes** | public | OpenRewrite catalog | Alpha |
 | **parity-verify** | public | Old vs new parity | Planned |
 | **anchor-explorer** | public | Read-only UI over linked SSOT snapshots | Alpha |
 | **pattern-catalog** | public | Migration patterns | Planned |
@@ -103,11 +103,11 @@ Extractors use **`{language}-ast-ssot`** names. **`java-ast-ssot`** = generic Ja
 
 ## Next work (priority)
 
-1. **`rewrite-recipes` 3.0 harness** — [ADR-007](ADR-007-rewrite-recipes-session-and-cmp-jpa.md) Accepted; BeanState session recipe before scalar CMP→JPA
+1. **`rewrite-recipes` 3.1a** — CMP→JPA capability matrix on Duke's Bank ([ADR-007](ADR-007-rewrite-recipes-session-and-cmp-jpa.md)); BeanState session recipe before scalar CMP→JPA
 2. **`jpa` / `mybatis` profiles** — ADR-004 Step 4–5
 3. Blog draft from lab-notes backlog (private)
 
-**Done:** Duke's Bank E2E — [DUKESBANK-DEMO.md#e2e-quick-path](DUKESBANK-DEMO.md#e2e-quick-path) + `demo-dukesbank/scripts/run-e2e.ps1`
+**Done:** `rewrite-recipes` 3.0 harness — https://github.com/anchor-migration/rewrite-recipes (`mvn test` green); Duke's Bank E2E — [DUKESBANK-DEMO.md#e2e-quick-path](DUKESBANK-DEMO.md#e2e-quick-path) + `demo-dukesbank/scripts/run-e2e.ps1`
 
 See **[AGENTS.md](../AGENTS.md)** at the root of this repository for session bootstrap instructions.
 
