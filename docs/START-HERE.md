@@ -107,7 +107,7 @@ Extractors use **`{language}-ast-ssot`** names. **`java-ast-ssot`** = generic Ja
 2. **`jpa` / `mybatis` profiles** — ADR-004 Step 4–5
 3. Blog draft from lab-notes backlog (private)
 
-**Done:** `rewrite-recipes` 3.0 harness — https://github.com/anchor-migration/rewrite-recipes (`mvn test` green); Duke's Bank E2E — [DUKESBANK-DEMO.md#e2e-quick-path](DUKESBANK-DEMO.md#e2e-quick-path) + `demo-dukesbank/scripts/run-e2e.ps1`
+**Done:** `rewrite-recipes` 3.0 harness — https://github.com/anchor-migration/rewrite-recipes (`.\scripts\run-test.ps1` / Docker); Duke's Bank E2E — [DUKESBANK-DEMO.md#e2e-quick-path](DUKESBANK-DEMO.md#e2e-quick-path) + `demo-dukesbank/scripts/run-e2e.ps1`
 
 See **[AGENTS.md](../AGENTS.md)** at the root of this repository for session bootstrap instructions.
 
