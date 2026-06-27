@@ -81,9 +81,9 @@ Each profile adds tables or extension rows; core IDs remain stable.
 
 Optional layers on core AST — not full OpenRewrite LST. See [ADR-003](ADR-003-ast-sidecar-vs-lst-rewrite-layer.md).
 
-| Sidecar | Table (planned) | Purpose |
-|---------|-----------------|---------|
-| Comments | `source_comment` | Raw comment blocks; no v1 semantic comment→statement edges |
+| Sidecar | Table | Purpose |
+|---------|-------|---------|
+| Comments | `source_comment` | Raw comment blocks; no v1 semantic comment→statement edges — **implemented** in `java-ast-ssot` core export |
 | Source span | `source_span` (idea) | Node stable ID ↔ file line range |
 
 ## Linking schema SSOT ↔ Java AST SSOT

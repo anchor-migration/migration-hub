@@ -49,7 +49,7 @@ Comments in LST travel with the **token stream** (prefix/suffix), not as stable 
 |-------|-------------|-------------------|------|
 | **Core AST** | `java-ast-ssot` | Yes | DRG, stable IDs, profile crosswalk inputs |
 | **Stack profile** | `java-ast-ssot` profiles | Yes (profile tables) | EJB/XML bindings, stack-specific edges |
-| **Comment sidecar** | `java-ast-ssot` (planned) | Yes (`source_comment`) | Searchable comment blocks; no v1 semantic links |
+| **Comment sidecar** | `java-ast-ssot` core export | Yes (`source_comment`) | Searchable comment blocks; no v1 semantic links |
 | **Span sidecar** | `java-ast-ssot` (optional future) | Maybe | Node ↔ source range; still not full LST |
 | **LST rewrite** | `rewrite-recipes` + OpenRewrite | **No** | Parse source at transform time; apply recipes |
 
@@ -105,7 +105,7 @@ A plugin on AST can recover **some** LST-like capabilities (comments, spans, opt
 | Step | Deliverable | Status |
 |------|-------------|--------|
 | 1 | Document layered model (this ADR + DUKESBANK-DEMO cross-links) | Done |
-| 2 | `source_comment` table + export in `java-ast-ssot` | 📋 Planned |
+| 2 | `source_comment` table + export in `java-ast-ssot` | Done |
 | 3 | `rewrite-recipes` repo — LST parse at recipe apply time | 📋 Planned |
 | 4 | Optional `source_span` sidecar | 💡 Idea |
 
