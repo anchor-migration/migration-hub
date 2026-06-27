@@ -48,12 +48,12 @@ Even when two names are “linked,” quality varies. SSOT must record **why** a
 
 After **normalization** (case, separators: `account_id`, `ACCOUNT_ID`, `accountId` → canonical `accountid`), remaining differences are classified:
 
-| Class | Meaning | Example | Edge color |
-|-------|---------|---------|------------|
-| **`none`** | Normalized names match; no semantic drift | `account_id` ↔ `accountId` | **Green** |
+| Class | Meaning | Example | Typical per-direction color |
+|-------|---------|---------|----------------------------|
+| **`none`** | Normalized names match; no semantic drift | `account_id` ↔ `accountId` | **Green** (each direction, unless type says otherwise) |
 | **`explainable`** | Understandable alias or abbreviation | `account` ↔ `acct` | **Yellow** |
 | **`questionable`** | Plausible but needs human review | `balance` ↔ `annual_balance` | **Orange** |
-| **`unexplainable`** | No reasonable semantic bridge | `userId` ↔ `orderId` | **Red** |
+| **`unexplainable`** | No reasonable semantic bridge | `userId` ↔ `orderId` | **Red** (both directions) |
 
 **Convention-only changes** (case, snake/camel) collapse to **`none`** after normalization — they are not drift.
 
@@ -98,23 +98,47 @@ Shared vocabulary per direction:
 | `parsed` | `String` → numeric (explicit parse; lossy) |
 | `incompatible` | no safe conversion |
 
-**Round-trip summary** (derived):
+**Round-trip summary** (optional derived label for filters/reports):
 
-| `round_trip_class` | Condition | Edge color floor |
-|--------------------|-----------|------------------|
-| `safe` | forward and backward both `exact` or benign widening | Green (if name `none`) |
-| `lossy_forward_only` | forward OK (`widening` / `stringified`); backward has `narrowing` / `parsed` | Yellow on read view; **orange** on write/parity view |
-| `unsafe_backward` | backward includes `narrowing`, `parsed`, or `incompatible` on persistence ↔ physical | **Orange** minimum; **red** if data loss or silent truncation |
-| `incompatible` | either direction broken | **Red** |
+| `round_trip_class` | Condition |
+|--------------------|-----------|
+| `safe` | Both directions **green** |
+| `asymmetric` | Forward green, backward yellow or worse (common for precision drift) |
+| `unsafe_backward` | Backward **orange** or **red** on persistence ↔ physical |
+| `incompatible` | Either direction **red** |
 
-**Color rules (name + type combined):**
+#### Bidirectional edge coloring (traffic-map model)
 
-- **`unexplainable` name** → always **red**, regardless of type.  
-- **`none` name + `lossy_forward_only`** → **green** on Explorer “read path” layer; show **yellow** badge if backward exists.  
-- **`none` name + `unsafe_backward` on persistence ↔ physical** → **orange** (migration / parity review required).  
-- **Parity-critical path** (persist + round-trip): rejects **red** and **`unsafe_backward`** unless explicitly waived with evidence.
+Crosswalk edges are **bidirectional** (`A ↔ B`). Alignment quality is **not** one color per edge — it is **one color per direction**, like a road map where one lane is clear and the other congested.
 
-Explorer should let users toggle **read path** vs **write path** — the same edge may look green in one direction and orange in the other.
+```
+   physical (INT)  ══════►  persistence (long)     forward:  🟢 green  (precision widens — OK)
+                   ◄══════                              backward: 🟡 yellow (narrowing — caution)
+
+   exact match     ══════►                              forward:  🟢 green
+                   ◄══════                              backward: 🟢 green
+```
+
+| Stored field | Meaning |
+|--------------|---------|
+| **`color_forward`** | Lower tier → higher tier (read / display / widen precision) |
+| **`color_backward`** | Higher tier → lower tier (write / persist / narrow precision) |
+
+Each direction is computed independently from **name drift** + **type relation on that direction**:
+
+| Direction | Inputs | Examples |
+|-----------|--------|----------|
+| Forward | `name_drift_class` + `type_relation_forward` | `INT`→`long` widening + name `none` → **green** |
+| Backward | `name_drift_class` + `type_relation_backward` | `long`→`INT` narrowing + name `none` → **yellow** (not red unless lossy/unsafe) |
+
+**Rules:**
+
+- **Full match** (name `none`, type `exact` both ways) → **`color_forward` = green, `color_backward` = green**.  
+- **Precision upgrade one way only** (e.g. `int`↔`long`) → forward **green**, backward **yellow** — *变过去罢了，变回来要当心*.  
+- **`unexplainable` name** → **both directions red**.  
+- **Parity-critical persist path** uses **`color_backward`** on persistence ↔ physical; forward-only green must not hide backward yellow/orange.
+
+Explorer **must render both directions** on the same edge (split stroke, dual arrowheads, or hover “A→B / B→A” legend). Toggling “highlight write path” emphasizes `color_backward` without losing forward context.
 
 #### Planned link metadata (extends ADR-004)
 
@@ -122,27 +146,30 @@ Explorer should let users toggle **read path** vs **write path** — the same ed
 name_drift_class:        none | explainable | questionable | unexplainable
 type_relation_forward:   exact | widening | narrowing | stringified | parsed | incompatible
 type_relation_backward:  exact | widening | narrowing | stringified | parsed | incompatible
-round_trip_class:        safe | lossy_forward_only | unsafe_backward | incompatible
+color_forward:           green | yellow | orange | red
+color_backward:          green | yellow | orange | red
+round_trip_class:        safe | asymmetric | unsafe_backward | incompatible  -- optional summary
 normalized_source:       accountid
 normalized_target:       accountid
 mapping_tier:            physical | persistence | domain | presentation
-display_color:           green | yellow | orange | red   -- worst of name + backward type for parity view
 ```
 
-v1 Duke's Bank (CMP XML authoritative): persistence ↔ physical edges default to **`none` + green** when schema column resolves.
+v1 Duke's Bank (CMP XML authoritative): persistence ↔ physical edges default to **`none` + green/green** when schema column and types align.
 
 ### 3. Edge coloring in visualization
 
-**Edge coloring** is the primary visual language for humans exploring mapping graphs.
+**Edge coloring** is **bidirectional** — the primary visual language in Explorer.
 
-| Color | Drift class | User action |
-|-------|-------------|-------------|
-| 🟢 **Green** | `none` | Trust for automation / parity |
-| 🟡 **Yellow** | `explainable` | OK with documented alias; show evidence |
-| 🟠 **Orange** | `questionable` | Review queue; do not auto-migrate silently |
-| 🔴 **Red** | `unexplainable` | Block recipes; fix mapping or data model |
+| Color | Drift / type (per direction) | User action |
+|-------|------------------------------|-------------|
+| 🟢 **Green** | Name `none` + safe type on **this** direction | Trust for that direction |
+| 🟡 **Yellow** | Explainable name and/or narrowing/parsed on **this** direction | Caution; document or review |
+| 🟠 **Orange** | Questionable name or unsafe backward persist | Review queue |
+| 🔴 **Red** | Unexplainable name or incompatible type on **this** direction | Block automation |
 
-Legend, filters (“show only orange+”), and drill-down to **`evidence_ref`** / **`crosswalk_issue`** are **required** in Explorer — not optional polish.
+**Same edge, two colors** — e.g. forward green + backward yellow for `int`↔`long`. Filters: “any backward orange+”, “both directions green”.
+
+Legend, bidirectional rendering, and drill-down to **`evidence_ref`** / **`crosswalk_issue`** are **required** — not optional polish.
 
 ### 4. SSOT Explorer — first-class human interface
 
@@ -174,7 +201,7 @@ crosswalk link ──────┘
 
 1. **Schema** — ER diagram of 5 tables  
 2. **Code** — packages / EJB entities  
-3. **Crosswalk** — persistence ↔ physical with **edge coloring**  
+3. **Crosswalk** — persistence ↔ physical with **bidirectional edge colors** (traffic-map edges)  
 4. **Issues** — `crosswalk_issue` + drift class summary  
 5. **Comments** (optional) — `source_comment` browse by file  
 
@@ -206,7 +233,7 @@ v0 may ship static JSON generated from SQLite; v1+ uses in-browser SQLite or a t
 | Step | Deliverable | Status |
 |------|-------------|--------|
 | 1 | Document tiers, drift classes, colors (this ADR) | Done |
-| 2 | Add `name_drift_class` / `type_relation` to link metadata (Java) | 📋 Planned |
+| 2 | Add alignment metadata + **`color_forward` / `color_backward`** to link rows (Java) | 📋 Planned |
 | 3 | **`ssot-explorer` repo** — MVP crosswalk graph + legend | 📋 Planned |
 | 4 | Domain / presentation tier profiles + edges | 💡 Idea |
 | 5 | Parity gate uses red / incompatible rules | 💡 Idea |

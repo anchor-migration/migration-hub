@@ -53,7 +53,7 @@ Verification is not optional in the intended workflow: migrate → verify → fi
 
 Explorer is **read-only** and lives in a **separate repo**. It is not optional glue for demos: as long as humans participate in migration review, Explorer is a **first-class interface** with proper architecture and UX — see [ADR-005](docs/ADR-005-multi-tier-alignment-and-ssot-explorer.md).
 
-Mapping quality uses **edge colors**: green (no drift), yellow (explainable), orange (questionable), red (unexplainable), plus orthogonal **type relation** warnings.
+Mapping quality uses **bidirectional edge colors** on each link: green/yellow/orange/red **per direction** (traffic-map model) — see [ADR-005](docs/ADR-005-multi-tier-alignment-and-ssot-explorer.md).
 
 ## Data contracts
 
