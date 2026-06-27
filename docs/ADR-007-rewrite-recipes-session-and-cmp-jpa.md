@@ -322,6 +322,8 @@ Evaluate **typical** Duke's Bank CMP (simpler than many production apps; harder 
 
 Contract extension for 3.3+: document in `rewrite-recipes/recipe.yml` metadata ([SSOT-SCHEMA.md](SSOT-SCHEMA.md) § OpenRewrite inputs).
 
+**Language modernization** (Vector, raw collections, tuple lists → result types) is a **separate recipe family** — tiers L1/L2/L3 — see [ADR-008](ADR-008-java-language-modernization-and-tuple-lists.md). Stack recipes must not assume collections are already generified; recommended run order: **L1 → stack migration → L2/L3** where analysis allows.
+
 ### 5. Verification strategy (until parity-verify)
 
 | Gate | Tool |

@@ -26,7 +26,8 @@ Public showcase: https://github.com/anchor-migration
 | 8 | [ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md) | Multi-tier alignment, edge coloring, Anchor Explorer |
 | 9 | [ADR-006](ADR-006-multi-role-decision-review.md) | Multi-role decision review before implementation |
 | 10 | [ADR-007](ADR-007-rewrite-recipes-session-and-cmp-jpa.md) | rewrite-recipes: Session→Service (BeanState) vs CMP→JPA |
-| 11 | [ROADMAP.md](ROADMAP.md) | What is done vs planned |
+| 11 | [ADR-008](ADR-008-java-language-modernization-and-tuple-lists.md) | Language modernization: generics, Vector, tuple lists → result classes |
+| 12 | [ROADMAP.md](ROADMAP.md) | What is done vs planned |
 | 12 | [db-metadata README](https://github.com/anchor-migration/db-metadata) | CLI: `export`, `verify`, `info` |
 
 **Private (if you have access):** `lab-notes/journal/2026-06-27-session-wrapup.md` — latest session log.

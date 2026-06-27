@@ -53,11 +53,15 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 | Item | Repo | Status |
 |------|------|--------|
 | [ADR-007](docs/ADR-007-rewrite-recipes-session-and-cmp-jpa.md) — Session→Service (BeanState) vs CMP→JPA | migration-hub | ✅ |
-| Recipe template and testing harness (3.0) | rewrite-recipes | 📋 |
+| Recipe template and testing harness (3.0) | rewrite-recipes | ✅ |
 | CMP→JPA capability matrix — Duke's Bank (3.1a) | rewrite-recipes | 📋 |
 | Session `BeanState` spike — `AccountControllerBean` (3.1b–3.2) | rewrite-recipes | 📋 |
 | Scalar CMP→JPA — `AccountBean` only (3.3) | rewrite-recipes | 📋 |
 | EJB `@Stateless` → `@Service` annotation-only | rewrite-recipes | ❌ Rejected (ADR-007) |
+| [ADR-008](docs/ADR-008-java-language-modernization-and-tuple-lists.md) — L1/L2/L3 language modernization | migration-hub | ✅ |
+| L1: `Vector` → `ArrayList` | rewrite-recipes | 📋 |
+| M2: tuple vs homogeneous list classifier (SSOT) | java-ast-ssot / rewrite-recipes | 📋 |
+| L3: tuple list → result class (proposal + human review) | rewrite-recipes | 📋 |
 
 ## Phase 4 — Parity verification
 
