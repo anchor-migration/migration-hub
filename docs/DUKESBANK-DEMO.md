@@ -9,7 +9,9 @@
 | Architecture & design decisions | **Design** — locked |
 | Database SSOT runbook | **Verified** — Docker MySQL 5.7, export + verify pass (2026-06-27) |
 | Java DRG / XML SSOT | **Alpha** — `java-ast-ssot` export verified on bank module (2026-06-27) |
-| Crosswalk examples | **Verified** — 4 entity beans linked to tables via XML |
+| Crosswalk + linked SSOT | **Verified** — 32 links, 0 errors (2026-06-27) |
+| Anchor Explorer UI | **Verified** — load `dukesbank-linked.db` (2026-06-27) |
+| **End-to-end runbook** | **Verified** — see [E2E quick path](#e2e-quick-path) below |
 
 ---
 
@@ -39,8 +41,9 @@ github/                          e.g. C:\github\
 ├── anchor-migration/
 │   ├── migration-hub/       # this documentation
 │   ├── db-metadata/         # schema export CLI
-│   ├── demo-dukesbank/      # Docker MySQL bridge (verified)
-│   └── java-ast-ssot/       # Java AST SSOT (alpha)
+│   ├── demo-dukesbank/      # Docker MySQL bridge + E2E scripts (verified)
+│   ├── java-ast-ssot/       # Java AST SSOT + crosswalk (alpha)
+│   └── anchor-explorer/     # Read-only crosswalk UI (alpha)
 └── dukesbank/               # external clone — NOT inside anchor-migration
     └── data/mysql/dukesbank.sql
 ```
@@ -377,6 +380,173 @@ Exit code `1` when schema targets are missing (`--fail-on-error`, default). Link
 
 ---
 
+## Phase C: Crosswalk + Anchor Explorer
+
+**Status: Verified (2026-06-27)** — `crosswalk` CLI produces linked SSOT; [anchor-explorer](https://github.com/anchor-migration/anchor-explorer) visualizes bidirectional edge colors ([ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md)).
+
+### C.1 Crosswalk (link code SSOT ↔ schema SSOT)
+
+Schema SSOT lives in **`db-metadata/metadata/`**; code + linked SSOT in **`java-ast-ssot/metadata/`**. No need to copy files if paths are passed explicitly.
+
+**Linux / macOS (Docker Maven):**
+
+```bash
+cd java-ast-ssot
+docker run --rm -v "$PWD:/app" -v "../db-metadata:/dbmeta:ro" -w /app \
+  maven:3.9-eclipse-temurin-17 \
+  java -jar target/java-ast-ssot-1.0.0-SNAPSHOT.jar crosswalk \
+  --code-db metadata/dukesbank-code.db \
+  --schema-db /dbmeta/metadata/dukesbank.db \
+  --db-schema dukesbank \
+  -o metadata/dukesbank-linked.db
+```
+
+**Windows (PowerShell):**
+
+```powershell
+cd C:\github\anchor-migration\java-ast-ssot
+docker run --rm `
+  -v "C:/github/anchor-migration/java-ast-ssot:/app" `
+  -v "C:/github/anchor-migration/db-metadata:/dbmeta:ro" `
+  -w /app maven:3.9-eclipse-temurin-17 `
+  java -jar target/java-ast-ssot-1.0.0-SNAPSHOT.jar crosswalk `
+  --code-db metadata/dukesbank-code.db `
+  --schema-db /dbmeta/metadata/dukesbank.db `
+  --db-schema dukesbank `
+  -o metadata/dukesbank-linked.db
+```
+
+**Expected (verified 2026-06-27):**
+
+| Metric | Expected |
+|--------|----------|
+| Links written | **32** |
+| Crosswalk errors | **0** |
+| Forward green | **32** |
+| `edge_kind` breakdown | 4× `type_maps_to_table`, 4× `stack_bridge`, 24× `field_maps_to_column` |
+
+> `java-ast-ssot info` targets **code** SSOT only. Linked DB has `crosswalk_run` / `code_schema_link` — use Explorer or SQLite queries (see C.2).
+
+### C.2 Anchor Explorer (human review)
+
+```bash
+cd anchor-explorer
+npm install
+npm run dev
+```
+
+Open http://127.0.0.1:5173/ and load:
+
+```
+java-ast-ssot/metadata/dukesbank-linked.db
+```
+
+**Verification checklist:**
+
+- [x] Header shows `dbSchema: dukesbank`, **Links: 32**, **Issues: 0**
+- [x] Crosswalk graph: code nodes (left) ↔ schema nodes (right)
+- [x] Edge labels show `→green ←green` (or mixed colors when drift exists)
+- [x] Link table filterable by `edge_kind`
+
+Production preview: `npm run build && npm run preview`.
+
+### C.3 Verification checklist (Phase C)
+
+- [x] `crosswalk` exits 0 with 32 links
+- [x] `crosswalk_issue` count is 0
+- [x] Explorer loads linked DB without error
+- [x] Stats match CLI alignment summary
+
+---
+
+## E2E quick path
+
+**Goal:** Live MySQL → schema SSOT → code SSOT → linked SSOT → Explorer — **~30 minutes** first time, **~10 minutes** with warm Docker cache.
+
+**Prerequisites:** Docker Desktop; Duke's Bank at `../../dukesbank` (sibling of `anchor-migration`); `db-metadata` installed (`pip install -e ".[mysql]"`); Node.js 20+ for Explorer; optional local JDK 17+ or Docker Maven only.
+
+### Step 0 — Layout
+
+```
+github/
+├── anchor-migration/    (db-metadata, demo-dukesbank, java-ast-ssot, anchor-explorer)
+└── dukesbank/           (external clone)
+```
+
+### Step 1 — MySQL (Phase A)
+
+```bash
+cd demo-dukesbank
+docker compose up -d
+# wait until healthy
+```
+
+Or run the helper script (Windows):
+
+```powershell
+cd demo-dukesbank
+.\scripts\run-e2e.ps1
+```
+
+### Step 2 — Schema SSOT
+
+```bash
+cd db-metadata
+db-migration export \
+  --url "mysql+pymysql://dukesbank:dukesbank@localhost:3306/dukesbank" \
+  --out metadata/dukesbank.db
+db-migration verify metadata/dukesbank.db \
+  --url "mysql+pymysql://dukesbank:dukesbank@localhost:3306/dukesbank"
+```
+
+### Step 3 — Code SSOT (Phase B)
+
+Build + export with Docker Maven (mount bank source read-only):
+
+```bash
+cd java-ast-ssot
+docker run --rm -v "$PWD:/app" -w /app maven:3.9-eclipse-temurin-17 mvn -B -q package -DskipTests
+
+docker run --rm \
+  -v "$PWD:/app" \
+  -v "/path/to/dukesbank/src/j2eetutorial14/examples/bank:/bank:ro" \
+  -w /app maven:3.9-eclipse-temurin-17 \
+  java -jar target/java-ast-ssot-1.0.0-SNAPSHOT.jar export \
+  -s /bank --profile javaee-ejb2-jboss -o metadata/dukesbank-code.db
+```
+
+Windows bank mount: `C:/github/dukesbank/src/j2eetutorial14/examples/bank:/bank:ro`
+
+### Step 4 — Crosswalk (Phase C.1)
+
+See [Phase C](#phase-c-crosswalk--anchor-explorer) — schema DB from `db-metadata`, output `java-ast-ssot/metadata/dukesbank-linked.db`.
+
+### Step 5 — Explorer (Phase C.2)
+
+Load `dukesbank-linked.db` in anchor-explorer dev server.
+
+### E2E artifact map
+
+| File | Repo | Role |
+|------|------|------|
+| `metadata/dukesbank.db` | `db-metadata` | Schema SSOT |
+| `metadata/dukesbank-code.db` | `java-ast-ssot` | Code + profile SSOT |
+| `metadata/dukesbank-linked.db` | `java-ast-ssot` | Crosswalk + alignment colors |
+
+All `metadata/*.db` files are gitignored — regenerate via this runbook.
+
+### E2E verification summary (2026-06-27)
+
+| Stage | Command / tool | Result |
+|-------|----------------|--------|
+| MySQL | `docker compose ps` | healthy |
+| Schema | `db-migration verify` | 36 matched, exit 0 |
+| Code | `export --profile javaee-ejb2-jboss` | 61 types, 8 EJB entities |
+| Crosswalk | `crosswalk … -o dukesbank-linked.db` | 32 links, 0 errors |
+| Explorer | load linked.db | graph + table render |
+
+---
+
 ## Relationship to other docs
 
 | Document | Relevance |
@@ -385,6 +555,8 @@ Exit code `1` when schema targets are missing (`--fail-on-error`, default). Link
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Program layers |
 | [DEVELOPMENT-MODEL.md](DEVELOPMENT-MODEL.md) | AI-assisted build; deterministic extractors |
 | [ROADMAP.md](ROADMAP.md) | Phase 1–2 scheduling |
+| [ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md) | Edge coloring + Explorer |
+| [demo-dukesbank README](https://github.com/anchor-migration/demo-dukesbank) | Docker bridge + `scripts/run-e2e.ps1` |
 
 ---
 
@@ -403,5 +575,6 @@ Exit code `1` when schema targets are missing (`--fail-on-error`, default). Link
 
 | Date | Change |
 |------|--------|
+| 2026-06-27 | **E2E runbook** — Phase C (crosswalk + anchor-explorer), quick path verified (32 links) |
 | 2026-06-27 | Phase A + B verified locally — MySQL 5.7 verify fix, java-ast-ssot export |
 | 2026-06-27 | Initial design doc — architecture locked, runbooks planned |

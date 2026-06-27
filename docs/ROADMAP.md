@@ -41,7 +41,8 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 | Item | Repo | Status |
 |------|------|--------|
 | [ADR-005](docs/ADR-005-multi-tier-alignment-and-ssot-explorer.md) — tiers, drift classes, edge coloring | migration-hub | ✅ |
-| **`anchor-explorer`** — crosswalk graph + color legend (Duke's Bank) | anchor-explorer | 🚧 Alpha |
+| **`anchor-explorer`** — crosswalk graph + color legend (Duke's Bank) | anchor-explorer | ✅ Alpha (E2E verified) |
+| Duke's Bank E2E runbook (crosswalk + Explorer) | migration-hub + demo-dukesbank | ✅ |
 | Link metadata: `name_drift_class`, `type_relation`, bidirectional colors | java-ast-ssot | ✅ Alpha |
 | Domain / presentation tier edges | java-ast-ssot profiles | 💡 |
 

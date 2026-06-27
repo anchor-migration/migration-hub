@@ -82,6 +82,7 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | Duke's Bank MySQL Docker demo | ✅ |
 | `java-ast-ssot` export on bank module | ✅ Alpha |
 | `java-ast-ssot crosswalk` (code + schema SSOT) | ✅ Alpha |
+| Duke's Bank E2E (linked.db + anchor-explorer) | ✅ Verified |
 
 ## Language-specific AST repos
 
@@ -100,9 +101,11 @@ Extractors use **`{language}-ast-ssot`** names. **`java-ast-ssot`** = generic Ja
 
 ## Next work (priority)
 
-1. **Duke's Bank end-to-end** — export schema + code, run `crosswalk`, validate links
+1. **`rewrite-recipes` kickoff** — ADR-006 gate: first OpenRewrite recipe + test harness (see [ADR-006](ADR-006-multi-role-decision-review.md))
 2. **`jpa` / `mybatis` profiles** — ADR-004 Step 4–5
-3. Blog draft from [lab-notes backlog](https://github.com/anchor-migration/anchor-migration-lab-notes) (private)
+3. Blog draft from lab-notes backlog (private)
+
+**Done:** Duke's Bank E2E — [DUKESBANK-DEMO.md#e2e-quick-path](DUKESBANK-DEMO.md#e2e-quick-path) + `demo-dukesbank/scripts/run-e2e.ps1`
 
 See **[AGENTS.md](../AGENTS.md)** at the root of this repository for session bootstrap instructions.
 

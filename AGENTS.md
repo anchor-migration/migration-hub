@@ -61,8 +61,8 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 
 ## Current status (update via journal if stale)
 
-- **Done:** `db-metadata` alpha, Duke's Bank demo, `java-ast-ssot` v1.0 (core + profiles + crosswalk CLI), ADR-002–004  
-- **Next:** Duke's Bank end-to-end crosswalk run, `jpa` profile, `rewrite-recipes`
+- **Done:** `db-metadata` alpha, Duke's Bank E2E, `java-ast-ssot` v1.0 (core + profiles + crosswalk), `anchor-explorer` alpha, ADR-002–006  
+- **Next:** `rewrite-recipes` (ADR-006 gate), `jpa` profile
 
 ## Typical tasks
 
