@@ -16,7 +16,7 @@ Legacy **stack** concerns (Java EE EJB 2.x, Spring, JPA, etc.) are **optional pr
 |-------|--------|------------|
 | **Core** | Java sources → types, methods, fields, imports, source files | Yes |
 | **Stack profile** | Deployment descriptors and stack-specific bindings | No — enabled by profile or auto-detect |
-| **Crosswalk** | Edges linking code SSOT ↔ schema SSOT or across stack entities | Profile-dependent |
+| **Crosswalk** | Edges linking code SSOT ↔ schema SSOT or across stack entities | Profile-dependent; normalized per [ADR-004](ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md) |
 
 ### v0.1 POC (current code, pre-refactor)
 
@@ -87,6 +87,7 @@ Future profiles add tables or use `extension_*` / `artifact_type` columns — se
 
 - [ADR-002](ADR-002-java-ast-ssot-core-and-profiles.md) — core vs stack profiles
 - [ADR-003](ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) — AST sidecars vs LST rewrite layer
+- [ADR-004](ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md) — crosswalk mapping roles and edge kinds
 - [ARCHITECTURE.md](ARCHITECTURE.md) — extraction layer
 - [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md) — reference app runbook
 - [SSOT-SCHEMA.md](SSOT-SCHEMA.md) — core vs extension contracts

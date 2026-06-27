@@ -34,7 +34,7 @@ Verification scripts in `db-metadata` use the same keys for reconciliation.
 ## Java AST SSOT
 
 **Owner:** `java-ast-ssot`  
-**Design:** [ADR-002 — core vs stack profiles](ADR-002-java-ast-ssot-core-and-profiles.md), [ADR-003 — sidecars vs LST](ADR-003-ast-sidecar-vs-lst-rewrite-layer.md)  
+**Design:** [ADR-002 — core vs stack profiles](ADR-002-java-ast-ssot-core-and-profiles.md), [ADR-003 — sidecars vs LST](ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), [ADR-004 — crosswalk contract](ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md)  
 **Format:** SQLite  
 
 Language-specific by design — not a generic `code-ast-ssot`. The repo exports **Java source structure**; legacy stack bindings (Java EE, Spring, …) are **optional profiles**.
@@ -72,7 +72,8 @@ Tables: `javaee_ejb2_jboss_bean`, `javaee_ejb2_jboss_cmp_field`, `javaee_ejb2_jb
 | Profile | Inputs | Purpose |
 |---------|--------|---------|
 | `spring` | `@Configuration`, component scan, XML | Spring bean graph |
-| `jpa` | `@Entity`, `persistence.xml` | JPA ↔ schema crosswalk |
+| `jpa` | `@Entity`, `persistence.xml` | JPA ↔ schema crosswalk (`persistent_entity`, `read_model`) |
+| `mybatis` | mapper XML, annotations | SQL-backed mappings; JOIN read models |
 
 Each profile adds tables or extension rows; core IDs remain stable.
 
@@ -87,16 +88,59 @@ Optional layers on core AST — not full OpenRewrite LST. See [ADR-003](ADR-003-
 
 ## Linking schema SSOT ↔ Java AST SSOT
 
-Future crosswalk table (location TBD):
+**Design:** [ADR-004 — crosswalk contract](ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md)
 
-| Code entity | Schema entity | Link type |
-|-------------|---------------|-----------|
-| `@Entity` class (JPA profile) | `db_table` row | `maps_to_table` |
-| EJB entity bean (javaee profile) | `db_table` row | `ejb_to_table` → schema |
-| `@Column` field | `db_column` row | `maps_to_column` |
-| `@JoinColumn` | `db_foreign_key` row | `maps_to_fk` |
+Crosswalk is **two steps**: (1) stack **profiles** extract binding facts during code export; (2) **`java-ast-ssot crosswalk`** normalizes facts into canonical edges and validates them against schema SSOT.
 
-Both sides must reference the same `export_run_id` (or compatible snapshot timestamps).
+### Mapping roles
+
+Not every Java type maps 1:1 to a table. Each linked type carries a **`mapping_role`**:
+
+| Role | Schema link pattern |
+|------|---------------------|
+| `persistent_entity` | `type_maps_to_table` + `field_maps_to_column` |
+| `read_model` | `type_backed_by_sql` + `field_maps_to_column_via` + `sql_references_table` |
+| `transfer_object` | Usually no table edges |
+| `repository_boundary` | `method_executes_sql` → SQL artifact |
+
+See ADR-004 for parity policy per role.
+
+### Canonical edge kinds (`code_schema_link`)
+
+| edge_kind | Code side | Schema / SQL side |
+|-----------|-----------|-------------------|
+| `type_maps_to_table` | `{package}.{Type}` | `{schema}.{table}` |
+| `field_maps_to_column` | `{Type}#{field}` | `{schema}.{table}.{column}` |
+| `field_maps_to_column_via` | `{Type}#{field}` | `{schema}.{table}.{column}` (JOIN/alias) |
+| `type_backed_by_sql` | `{package}.{Type}` | `sql:{mapper}#{statementId}` |
+| `method_executes_sql` | `{Type}#{method}(…)` | `sql:{mapper}#{statementId}` |
+| `sql_references_table` | `sql:…` | `{schema}.{table}` |
+| `relationship_maps_to_table` | `ejb:{name}` or `{Type}` | xref / link table |
+| `stack_bridge` | Profile-specific intermediate | Profile-specific |
+
+Metadata per row: `profile_id`, `binding_source`, `evidence_ref`, `confidence` (`authoritative` \| `inferred`), `code_export_run_id`, `schema_export_run_id`.
+
+### Profile binding signals (summary)
+
+| Profile | Primary signals | Typical role |
+|---------|-----------------|--------------|
+| `javaee-ejb2-jboss` | `ejb-jar.xml`, `jbosscmp-jdbc.xml` | `persistent_entity` |
+| `jpa` (planned) | `@Entity`, `@Column`, `persistence.xml` | `persistent_entity` or `read_model` |
+| `mybatis` (planned) | mapper XML, `@Select`, `resultMap` | `persistent_entity` or `read_model` |
+
+Profile-local edges (e.g. `ejb_to_table`) are normalized at link time — see ADR-004.
+
+### Planned link CLI
+
+```bash
+java-ast-ssot crosswalk \
+  --code-db metadata/dukesbank-code.db \
+  --schema-db metadata/dukesbank.db \
+  --db-schema dukesbank \
+  --out metadata/dukesbank-linked.db
+```
+
+Both input snapshots must pin compatible `export_run_id` values (or explicit run flags). Link output is a third SQLite file in v1.
 
 ## OpenRewrite recipe inputs (planned)
 

@@ -28,11 +28,12 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 |------|------|--------|
 | [ADR-002](docs/ADR-002-java-ast-ssot-core-and-profiles.md) — core vs profiles | migration-hub | ✅ |
 | [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) — AST sidecars vs LST rewrite layer | migration-hub | ✅ |
+| [ADR-004](docs/ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md) — crosswalk mapping roles & edge kinds | migration-hub | ✅ |
 | [Duke's Bank DRG design](DUKESBANK-DEMO.md) — AST/XML/LST decisions | migration-hub | ✅ |
 | JavaParser prototype (core) | java-ast-ssot | ✅ Alpha |
 | Profile `javaee-ejb2-jboss` on Duke's Bank | java-ast-ssot | ✅ Alpha (implicit in v0.1) |
 | **Refactor:** `--profile`, core-only export, schema split | java-ast-ssot | ✅ 1.0 (breaking) |
-| Cross-reference: profile crosswalk ↔ schema SSOT | java-ast-ssot + db-metadata | 📋 |
+| Cross-reference: profile crosswalk ↔ schema SSOT (`crosswalk` CLI) | java-ast-ssot + db-metadata | ✅ Alpha — see [ADR-004](docs/ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md) |
 
 ## Phase 3 — OpenRewrite integration
 

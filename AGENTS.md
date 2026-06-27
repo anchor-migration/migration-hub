@@ -49,6 +49,7 @@ Instructions for AI coding assistants (Cursor, etc.) in a **new session** with n
 | Code SSOT parser | **JavaParser** for core; deployment XML via **profiles** — not OpenRewrite LST for SSOT |
 | LST | Transform-time only in `rewrite-recipes`; not stored as SSOT — see [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) |
 | Comments | Optional `source_comment` sidecar; no v1 semantic comment→statement mapping — [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) |
+| Crosswalk | Profile extract + link step; `mapping_role` + canonical `edge_kind` — [ADR-004](docs/ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md) |
 | AST repo naming | **`{language}-ast-ssot`** (e.g. `java-ast-ssot`); reserved for future e.g. `cobol-ast-ssot` |
 | Repos | Multi-repo under org; not a monorepo |
 
@@ -56,8 +57,8 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 
 ## Current status (update via journal if stale)
 
-- **Done:** `db-metadata` alpha, Duke's Bank demo, `java-ast-ssot` v1.0 (core + profiles), ADR-002, ADR-003  
-- **Next:** crosswalk CLI, `rewrite-recipes`
+- **Done:** `db-metadata` alpha, Duke's Bank demo, `java-ast-ssot` v1.0 (core + profiles + crosswalk CLI), ADR-002–004  
+- **Next:** Duke's Bank end-to-end crosswalk run, `jpa` profile, `rewrite-recipes`
 
 ## Typical tasks
 
@@ -65,7 +66,8 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 |----------|----------------|
 | Export / verify database schema | `db-metadata/` |
 | Docker Duke's Bank MySQL | `demo-dukesbank/` |
-| Java AST / EJB XML extraction | `java-ast-ssot/` — core + `--profile javaee-ejb2-jboss`; read ADR-002 + DUKESBANK-DEMO Phase B |
+| Java AST / EJB XML extraction | `java-ast-ssot/` — core + `--profile javaee-ejb2-jboss`; read ADR-002 + ADR-004 + DUKESBANK-DEMO Phase B |
+| Code ↔ schema crosswalk | `java-ast-ssot crosswalk` — `--code-db`, `--schema-db`, `--db-schema`, `-o`; see ADR-004 |
 | Program docs / blog outline | `migration-hub/docs/` or private `lab-notes/blog-drafts/` |
 | Session log | private `lab-notes/journal/` |
 

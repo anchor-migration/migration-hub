@@ -122,8 +122,8 @@ flowchart TB
     JavaDB[(Java AST SSOT SQLite)]
   end
 
-  subgraph link [Crosswalk planned]
-    XWalk[entity to table edges]
+  subgraph link [Crosswalk]
+    XWalk[code_schema_link]
   end
 
   MySQL --> DBMeta --> SchemaDB
@@ -191,6 +191,8 @@ This matches OpenRewrite practice: comments travel with the token stream, not wi
 
 ## Crosswalk example: AccountBean ↔ ACCOUNT
 
+> **Formal contract:** [ADR-004 — mapping roles and edge kinds](ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md). Duke's Bank entity beans are **`persistent_entity`** (`type_maps_to_table` + `field_maps_to_column` after link).
+
 ### XML (`jbosscmp-jdbc.xml`)
 
 ```xml
@@ -220,16 +222,17 @@ Expected stable IDs (MySQL database name = schema in MySQL dialect):
 
 **Column name case:** MySQL on Linux may expose uppercase table/column names as defined in `dukesbank.sql`. Exporter records names as returned by the live catalog — always reconcile with `db-metadata verify`.
 
-### Planned crosswalk edge
+### Planned crosswalk edge (normalized, post-link)
 
 ```
-(java_type: com.sun.ebank.ejb.account.AccountBean)
-  --maps_to_ejb--> (ejb_name: AccountBean)
-  --maps_to_table--> (schema_table: dukesbank.ACCOUNT)
-  --field_maps_to_column--> (accountId → ACCOUNT_ID)
+mapping_role: persistent_entity
+
+(com.sun.ebank.ejb.account.AccountBean)
+  --type_maps_to_table--> (dukesbank.ACCOUNT)
+  --field_maps_to_column--> (accountId → dukesbank.ACCOUNT.ACCOUNT_ID)
 ```
 
-Each edge gets a deterministic `edge_id` in `java-ast-ssot` and references pinned `export_run_id` from both SSOT files.
+Profile export also records intermediate edges (`java_type_to_ejb`, `ejb_to_table`) before normalization — see ADR-004.
 
 ---
 
@@ -353,14 +356,17 @@ java -jar target/java-ast-ssot-1.0.0-SNAPSHOT.jar info \
 | EJB beans | 8 (4 entity CMP + 4 session) |
 | Crosswalk edges | 8 (4 `java_type_to_ejb` + 4 `ejb_to_table`) |
 
-Planned next:
+Planned next → **implemented** (`crosswalk` CLI, ADR-004 Step 2):
 
 ```bash
-java-ast-ssot crosswalk \
+java -jar target/java-ast-ssot-1.0.0-SNAPSHOT.jar crosswalk \
   --code-db metadata/dukesbank-code.db \
   --schema-db metadata/dukesbank.db \
-  --out metadata/dukesbank-linked.db
+  --db-schema dukesbank \
+  -o metadata/dukesbank-linked.db
 ```
+
+Exit code `1` when schema targets are missing (`--fail-on-error`, default). Linked DB tables: `crosswalk_run`, `code_schema_link`, `crosswalk_issue`.
 
 ### B.4 Verification checklist
 

@@ -22,8 +22,9 @@ Public showcase: https://github.com/anchor-migration
 | 4 | [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md) | Reference demo; DRG design, AST/LST/XML decisions |
 | 5 | [ADR-002](ADR-002-java-ast-ssot-core-and-profiles.md) | `java-ast-ssot` core vs stack profiles |
 | 6 | [ADR-003](ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) | AST + sidecars vs LST at rewrite time |
-| 7 | [ROADMAP.md](ROADMAP.md) | What is done vs planned |
-| 8 | [db-metadata README](https://github.com/anchor-migration/db-metadata) | CLI: `export`, `verify`, `info` |
+| 7 | [ADR-004](ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md) | Code ↔ schema crosswalk; mapping roles |
+| 8 | [ROADMAP.md](ROADMAP.md) | What is done vs planned |
+| 9 | [db-metadata README](https://github.com/anchor-migration/db-metadata) | CLI: `export`, `verify`, `info` |
 
 **Private (if you have access):** `lab-notes/journal/2026-06-27-session-wrapup.md` — latest session log.
 
@@ -59,7 +60,7 @@ C:\github\dukesbank\        Duke's Bank legacy sample (external to org)
 ```
 Live MySQL ──db-metadata──► schema SSOT (SQLite)
 Legacy Java + XML ──java-ast-ssot──► Java AST SSOT (SQLite)
-         └─ crosswalk ─► entity ↔ table links
+         └─ crosswalk ─► code_schema_link (ADR-004: roles + edge kinds)
 OpenRewrite recipes ──► modernized code                 [planned]
 verify / parity ──► proof                               [planned]
 ```
@@ -73,6 +74,7 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | `db-metadata` export + verify (SQLite source) | ✅ pytest + manual |
 | Duke's Bank MySQL Docker demo | ✅ |
 | `java-ast-ssot` export on bank module | ✅ Alpha |
+| `java-ast-ssot crosswalk` (code + schema SSOT) | ✅ Alpha |
 
 ## Language-specific AST repos
 
@@ -91,8 +93,9 @@ Extractors use **`{language}-ast-ssot`** names. **`java-ast-ssot`** = generic Ja
 
 ## Next work (priority)
 
-1. **`java-ast-ssot crosswalk`** — link profile output to `db-metadata` schema SSOT
-2. Blog draft from [lab-notes backlog](https://github.com/anchor-migration/anchor-migration-lab-notes) (private)
+1. **Duke's Bank end-to-end** — export schema + code, run `crosswalk`, validate links
+2. **`jpa` / `mybatis` profiles** — ADR-004 Step 4–5
+3. Blog draft from [lab-notes backlog](https://github.com/anchor-migration/anchor-migration-lab-notes) (private)
 
 See **[AGENTS.md](../AGENTS.md)** at the root of this repository for session bootstrap instructions.
 

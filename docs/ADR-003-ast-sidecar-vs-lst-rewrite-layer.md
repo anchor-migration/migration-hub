@@ -115,4 +115,5 @@ A plugin on AST can recover **some** LST-like capabilities (comments, spans, opt
 - [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md) — DRG design; § AST vs LST vs XML
 - [ARCHITECTURE.md](ARCHITECTURE.md) — extraction vs transformation layers
 - [SSOT-SCHEMA.md](SSOT-SCHEMA.md) — core vs extension contracts
+- [ADR-004](ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md) — crosswalk mapping roles and edge kinds
 - Private lab-notes ADR-001 — original AST-not-LST-for-SSOT decision
