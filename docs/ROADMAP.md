@@ -54,7 +54,7 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 |------|------|--------|
 | [ADR-007](docs/ADR-007-rewrite-recipes-session-and-cmp-jpa.md) — Session→Service (BeanState) vs CMP→JPA | migration-hub | ✅ |
 | Recipe template and testing harness (3.0) | rewrite-recipes | ✅ |
-| CMP→JPA capability matrix — Duke's Bank (3.1a) | rewrite-recipes | 📋 |
+| CMP→JPA capability matrix — Duke's Bank (3.1a) | rewrite-recipes | ✅ |
 | Session `BeanState` spike — `AccountControllerBean` (3.1b–3.2) | rewrite-recipes | 📋 |
 | Scalar CMP→JPA — `AccountBean` only (3.3) | rewrite-recipes | 📋 |
 | EJB `@Stateless` → `@Service` annotation-only | rewrite-recipes | ❌ Rejected (ADR-007) |
