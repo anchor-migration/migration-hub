@@ -23,8 +23,9 @@ Public showcase: https://github.com/anchor-migration
 | 5 | [ADR-002](ADR-002-java-ast-ssot-core-and-profiles.md) | `java-ast-ssot` core vs stack profiles |
 | 6 | [ADR-003](ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) | AST + sidecars vs LST at rewrite time |
 | 7 | [ADR-004](ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md) | Code ↔ schema crosswalk; mapping roles |
-| 8 | [ROADMAP.md](ROADMAP.md) | What is done vs planned |
-| 9 | [db-metadata README](https://github.com/anchor-migration/db-metadata) | CLI: `export`, `verify`, `info` |
+| 8 | [ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md) | Multi-tier alignment, edge coloring, SSOT Explorer |
+| 9 | [ROADMAP.md](ROADMAP.md) | What is done vs planned |
+| 10 | [db-metadata README](https://github.com/anchor-migration/db-metadata) | CLI: `export`, `verify`, `info` |
 
 **Private (if you have access):** `lab-notes/journal/2026-06-27-session-wrapup.md` — latest session log.
 
@@ -60,7 +61,8 @@ C:\github\dukesbank\        Duke's Bank legacy sample (external to org)
 ```
 Live MySQL ──db-metadata──► schema SSOT (SQLite)
 Legacy Java + XML ──java-ast-ssot──► Java AST SSOT (SQLite)
-         └─ crosswalk ─► code_schema_link (ADR-004: roles + edge kinds)
+         └─ crosswalk ──► code_schema_link (edge colors: ADR-005)
+ssot-explorer ──► human UI (read-only)                 [planned]
 OpenRewrite recipes ──► modernized code                 [planned]
 verify / parity ──► proof                               [planned]
 ```

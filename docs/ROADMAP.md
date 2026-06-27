@@ -35,6 +35,15 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 | **Refactor:** `--profile`, core-only export, schema split | java-ast-ssot | ✅ 1.0 (breaking) |
 | Cross-reference: profile crosswalk ↔ schema SSOT (`crosswalk` CLI) | java-ast-ssot + db-metadata | ✅ Alpha — see [ADR-004](docs/ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md) |
 
+## Phase 2.5 — SSOT Explorer (human interface)
+
+| Item | Repo | Status |
+|------|------|--------|
+| [ADR-005](docs/ADR-005-multi-tier-alignment-and-ssot-explorer.md) — tiers, drift classes, edge coloring | migration-hub | ✅ |
+| **`ssot-explorer`** — crosswalk graph + color legend (Duke's Bank) | ssot-explorer | 📋 |
+| Link metadata: `name_drift_class`, `type_relation` | java-ast-ssot | 📋 |
+| Domain / presentation tier edges | java-ast-ssot profiles | 💡 |
+
 ## Phase 3 — OpenRewrite integration
 
 | Item | Repo | Status |

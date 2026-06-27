@@ -120,6 +120,8 @@ See ADR-004 for parity policy per role.
 
 Metadata per row: `profile_id`, `binding_source`, `evidence_ref`, `confidence` (`authoritative` \| `inferred`), `code_export_run_id`, `schema_export_run_id`.
 
+**Alignment quality (planned — [ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md)):** `name_drift_class`, **`type_relation_forward` / `type_relation_backward`** (read vs write direction), `round_trip_class`, `mapping_tier`, derived **`display_color`** for Explorer. *Forward* widening/stringify is often tolerable; *backward* narrowing/parsing is the danger zone.
+
 ### Profile binding signals (summary)
 
 | Profile | Primary signals | Typical role |

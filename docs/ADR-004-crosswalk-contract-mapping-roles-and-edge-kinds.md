@@ -200,4 +200,5 @@ Link step responsibilities:
 - [ADR-002](ADR-002-java-ast-ssot-core-and-profiles.md) — profiles as stack adapters
 - [SSOT-SCHEMA.md](SSOT-SCHEMA.md) — stable IDs; linking section
 - [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md) — crosswalk example; dual SSOT diagram
-- [ARCHITECTURE.md](ARCHITECTURE.md) — extract → link → transform
+- [ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md) — alignment quality, edge coloring, Explorer
+- [ARCHITECTURE.md](ARCHITECTURE.md) — extract → link → transform → verify

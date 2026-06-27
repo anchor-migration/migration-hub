@@ -45,6 +45,16 @@ AI-assisted refactoring handles non-mechanical cases; outputs remain subject to 
 
 Verification is not optional in the intended workflow: migrate → verify → fix → re-verify.
 
+### 4. Human interface — SSOT Explorer
+
+| Input | Tool | Output |
+|-------|------|--------|
+| Schema + code + linked SSOT (SQLite) | **`ssot-explorer`** | Interactive graphs: schema ER, code structure, crosswalk with **edge coloring** |
+
+Explorer is **read-only** and lives in a **separate repo**. It is not optional glue for demos: as long as humans participate in migration review, Explorer is a **first-class interface** with proper architecture and UX — see [ADR-005](docs/ADR-005-multi-tier-alignment-and-ssot-explorer.md).
+
+Mapping quality uses **edge colors**: green (no drift), yellow (explainable), orange (questionable), red (unexplainable), plus orthogonal **type relation** warnings.
+
 ## Data contracts
 
 See [SSOT-SCHEMA.md](SSOT-SCHEMA.md) for cross-repo schema versioning and entity key conventions.
