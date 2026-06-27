@@ -12,6 +12,7 @@ The developer is responsible for:
 - **Boundary protocols** — contracts between tools (SQLite schemas, entity key formats, CLI semantics, verification rules) co-authored and locked with AI before implementation
 - **Acceptance criteria** — what “correct” means for each stage (e.g. export reconciliation, parity checks)
 - **Final judgment** — merging only when deterministic gates pass
+- **Decision integration** — after multi-role review on gated changes, records ADR + acceptance criteria before bulk AI implementation — see [ADR-006](docs/ADR-006-multi-role-decision-review.md)
 
 The developer does **not** need to hand-write every line of code. The developer owns **intent, structure, and proof obligations**.
 
@@ -109,6 +110,7 @@ AI accelerates building and extending the toolchain; determinism ensures the too
 
 Every change should satisfy:
 
+0. **Decision gate** (when [ADR-006](docs/ADR-006-multi-role-decision-review.md) applies) — four-role review complete; ADR + acceptance criteria written before bulk implementation
 1. **Contract** — documented and versioned if the boundary changes
 2. **Tests** — pytest / JUnit; no merge on broken CI
 3. **Verification** — where applicable, `verify` against live or containerized fixtures

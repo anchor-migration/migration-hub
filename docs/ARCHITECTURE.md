@@ -6,6 +6,8 @@ Anchor Migration is a **multi-repo program** for legacy Java modernization. Each
 
 **Visual maps:** [Program overview](#program-overview) · [Crosswalk & alignment](#crosswalk-and-alignment) · [Repository map](#repository-map) · [Mapping tiers](#mapping-tiers)
 
+**Process:** Significant design changes follow the multi-role decision gate — [ADR-006](ADR-006-multi-role-decision-review.md).
+
 ## Program overview
 
 Repos are **independent**; integration is via **SQLite snapshot files**, not shared libraries.
