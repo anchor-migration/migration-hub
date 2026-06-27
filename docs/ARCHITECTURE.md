@@ -4,6 +4,172 @@
 
 Anchor Migration is a **multi-repo program** for legacy Java modernization. Each repository owns one stage of the pipeline. Shared contracts (SQLite schemas, entity key formats, pattern IDs) link the stages without tight coupling.
 
+**Visual maps:** [Program overview](#program-overview) · [Crosswalk & alignment](#crosswalk-and-alignment) · [Repository map](#repository-map) · [Mapping tiers](#mapping-tiers)
+
+## Program overview
+
+Repos are **independent**; integration is via **SQLite snapshot files**, not shared libraries.
+
+```mermaid
+flowchart LR
+  subgraph sources["Legacy sources"]
+    DB[(Live DB)]
+    SRC[Java + stack XML]
+  end
+
+  subgraph L1["Layer 1 — Extraction"]
+    DM["db-metadata<br/>(Python)"]
+    JA["java-ast-ssot<br/>(Java)"]
+  end
+
+  subgraph snaps["SSOT snapshots (.db)"]
+    SDB[(schema SSOT)]
+    CDB[(code SSOT)]
+    LDB[(linked SSOT)]
+  end
+
+  subgraph L4["Layer 4 — Human interface"]
+    AE["anchor-explorer<br/>(React)"]
+  end
+
+  subgraph L2["Layer 2 — Transform (planned)"]
+    RR[rewrite-recipes]
+    ORW[OpenRewrite]
+  end
+
+  subgraph L3["Layer 3 — Verification"]
+    PV[parity-verify]
+    VF["db-metadata verify"]
+  end
+
+  DB --> DM --> SDB
+  SRC --> JA --> CDB
+  SDB --> JA
+  CDB --> JA
+  JA -->|"crosswalk CLI"| LDB
+  SDB --> LDB
+  LDB --> AE
+
+  CDB --> RR
+  SDB --> RR
+  RR --> ORW --> PV
+  DB --> VF
+```
+
+| Stage | Repo | Input | Output |
+|-------|------|-------|--------|
+| Schema export | `db-metadata` | Live RDBMS | Schema SSOT SQLite |
+| Code export | `java-ast-ssot` | Java tree + optional profile | Code SSOT SQLite |
+| Crosswalk | `java-ast-ssot` | Code + schema SSOT | Linked SSOT (`code_schema_link`) |
+| Review UI | `anchor-explorer` | Linked SSOT | Graphs, tables, edge colors |
+| Rewrite | `rewrite-recipes` | SSOT + patterns | OpenRewrite recipes |
+| Parity | `parity-verify` | Old + new code | Diff / test reports |
+
+Duke's Bank (`demo-dukesbank` + external `dukesbank` sample) is the **reference E2E path** — not a boundary of any single repo.
+
+## Crosswalk and alignment
+
+Crosswalk links **code stable IDs** to **schema stable IDs** via stack-specific **profiles** (e.g. `javaee-ejb2-jboss`). Each edge carries **bidirectional quality colors** (ADR-005).
+
+```mermaid
+flowchart TB
+  subgraph profile["Profile extract (java-ast-ssot)"]
+    EJB[EJB / CMP descriptors]
+    XML[JBoss deployment XML]
+  end
+
+  subgraph codeSide["Code SSOT"]
+    JT[java_type / java_field]
+    PE[profile_entity tables]
+  end
+
+  subgraph schemaSide["Schema SSOT"]
+    DT[db_table]
+    DC[db_column]
+  end
+
+  subgraph link["Linked SSOT — code_schema_link"]
+    E["edge_kind + mapping_role"]
+    A["name_drift_class"]
+    F["color_forward →"]
+    B["color_backward ←"]
+  end
+
+  subgraph ui["anchor-explorer"]
+    G[Crosswalk graph]
+    T[Link table + legend]
+  end
+
+  EJB --> PE
+  XML --> PE
+  JT --> PE
+  DT --> DC
+  PE --> E
+  DC --> E
+  E --> A
+  E --> F
+  E --> B
+  F --> G
+  B --> G
+  E --> T
+```
+
+**Color model (traffic-map):** one direction can be green while the other is yellow — e.g. `int` → `long` is safe forward, narrowing backward. See [ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md).
+
+## Repository map
+
+```mermaid
+flowchart TB
+  HUB["migration-hub<br/>docs · ADRs · contracts"]
+
+  HUB -.-> DM
+  HUB -.-> JA
+  HUB -.-> AE
+  HUB -.-> DEMO
+
+  DM[db-metadata]
+  JA[java-ast-ssot]
+  AE[anchor-explorer]
+  DEMO[demo-dukesbank]
+
+  RR[rewrite-recipes]
+  PV[parity-verify]
+  PC[pattern-catalog]
+
+  HUB -.->|"planned"| RR
+  HUB -.->|"planned"| PV
+  HUB -.->|"planned"| PC
+
+  DM -->|"schema .db"| JA
+  JA -->|"linked .db"| AE
+  PC -->|"pattern ID"| RR
+```
+
+Solid arrows = **artifact flow** today. Dotted = **documentation / planned** coupling via `migration-hub` contracts ([SSOT-SCHEMA.md](SSOT-SCHEMA.md)).
+
+## Mapping tiers
+
+Long-term alignment spans four tiers (ADR-005). Phase 2.5 implements **DB ↔ data entity** edges; domain and UI tiers are future profiles.
+
+```mermaid
+flowchart LR
+  DB["DB schema<br/>db_table · db_column"]
+  ENT["Data entity<br/>EJB / JPA / DTO"]
+  DOM["Domain model"]
+  UI["Presentation<br/>JSP / JSF / REST"]
+
+  DB <-->|"crosswalk today"| ENT
+  ENT -.->|"future profile"| DOM
+  DOM -.->|"future profile"| UI
+```
+
+| Tier | Example (Duke's Bank) | Status |
+|------|------------------------|--------|
+| DB schema | `dukesbank.ACCOUNT.BALANCE` | ✅ `db-metadata` |
+| Data entity | `Account#balance` + EJB CMP | ✅ `javaee-ejb2-jboss` profile |
+| Domain | Business rules layer | 💡 planned |
+| Presentation | JSP / web tier | 💡 planned |
+
 ## Layers
 
 ### 1. Extraction → SSOT
@@ -45,11 +211,11 @@ AI-assisted refactoring handles non-mechanical cases; outputs remain subject to 
 
 Verification is not optional in the intended workflow: migrate → verify → fix → re-verify.
 
-### 4. Human interface — SSOT Explorer
+### 4. Human interface — Anchor Explorer
 
 | Input | Tool | Output |
 |-------|------|--------|
-| Schema + code + linked SSOT (SQLite) | **`ssot-explorer`** | Interactive graphs: schema ER, code structure, crosswalk with **edge coloring** |
+| Schema + code + linked SSOT (SQLite) | **`anchor-explorer`** | Interactive graphs: schema ER, code structure, crosswalk with **edge coloring** |
 
 Explorer is **read-only** and lives in a **separate repo**. It is not optional glue for demos: as long as humans participate in migration review, Explorer is a **first-class interface** with proper architecture and UX — see [ADR-005](docs/ADR-005-multi-tier-alignment-and-ssot-explorer.md).
 

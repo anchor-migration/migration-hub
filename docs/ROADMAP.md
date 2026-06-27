@@ -40,8 +40,8 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 | Item | Repo | Status |
 |------|------|--------|
 | [ADR-005](docs/ADR-005-multi-tier-alignment-and-ssot-explorer.md) — tiers, drift classes, edge coloring | migration-hub | ✅ |
-| **`ssot-explorer`** — crosswalk graph + color legend (Duke's Bank) | ssot-explorer | 📋 |
-| Link metadata: `name_drift_class`, `type_relation` | java-ast-ssot | 📋 |
+| **`anchor-explorer`** — crosswalk graph + color legend (Duke's Bank) | anchor-explorer | 🚧 Alpha |
+| Link metadata: `name_drift_class`, `type_relation`, bidirectional colors | java-ast-ssot | ✅ Alpha |
 | Domain / presentation tier edges | java-ast-ssot profiles | 💡 |
 
 ## Phase 3 — OpenRewrite integration

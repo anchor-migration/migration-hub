@@ -30,6 +30,7 @@ Instructions for AI coding assistants (Cursor, etc.) in a **new session** with n
 | `../dukesbank/` or `C:\github\dukesbank` | external | Duke's Bank J2EE 1.4 sample, MySQL SQL in `data/mysql/` |
 | `demo-dukesbank/` | public | MySQL Docker bridge for Duke's Bank |
 | `java-ast-ssot/` | public | Java AST SSOT CLI (core + stack profiles) |
+| `anchor-explorer/` | public | Read-only UI: load linked SQLite, crosswalk graph + colors |
 
 ## Hard conventions
 
@@ -50,7 +51,7 @@ Instructions for AI coding assistants (Cursor, etc.) in a **new session** with n
 | LST | Transform-time only in `rewrite-recipes`; not stored as SSOT — see [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) |
 | Comments | Optional `source_comment` sidecar; no v1 semantic comment→statement mapping — [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) |
 | Crosswalk | Profile extract + link; mapping tiers; **edge colors** (green/yellow/orange/red) — [ADR-004](docs/ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md), [ADR-005](docs/ADR-005-multi-tier-alignment-and-ssot-explorer.md) |
-| SSOT Explorer | Read-only human UI over SQLite snapshots — first-class interface — [ADR-005](docs/ADR-005-multi-tier-alignment-and-ssot-explorer.md) |
+| Anchor Explorer | Read-only human UI over SQLite snapshots — first-class interface — [ADR-005](docs/ADR-005-multi-tier-alignment-and-ssot-explorer.md) |
 | AST repo naming | **`{language}-ast-ssot`** (e.g. `java-ast-ssot`); reserved for future e.g. `cobol-ast-ssot` |
 | Repos | Multi-repo under org; not a monorepo |
 

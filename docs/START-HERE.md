@@ -17,13 +17,13 @@ Public showcase: https://github.com/anchor-migration
 | Step | Document | Why |
 |------|----------|-----|
 | 1 | [DEVELOPMENT-MODEL.md](DEVELOPMENT-MODEL.md) | How we build; deterministic core vs optional AI nodes |
-| 2 | [ARCHITECTURE.md](ARCHITECTURE.md) | Layers: extract → transform → verify |
+| 2 | [ARCHITECTURE.md](ARCHITECTURE.md) | Layers + **architecture diagrams** (Mermaid) |
 | 3 | [SSOT-SCHEMA.md](SSOT-SCHEMA.md) | Cross-repo contracts, stable IDs |
 | 4 | [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md) | Reference demo; DRG design, AST/LST/XML decisions |
 | 5 | [ADR-002](ADR-002-java-ast-ssot-core-and-profiles.md) | `java-ast-ssot` core vs stack profiles |
 | 6 | [ADR-003](ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) | AST + sidecars vs LST at rewrite time |
 | 7 | [ADR-004](ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md) | Code ↔ schema crosswalk; mapping roles |
-| 8 | [ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md) | Multi-tier alignment, edge coloring, SSOT Explorer |
+| 8 | [ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md) | Multi-tier alignment, edge coloring, Anchor Explorer |
 | 9 | [ROADMAP.md](ROADMAP.md) | What is done vs planned |
 | 10 | [db-metadata README](https://github.com/anchor-migration/db-metadata) | CLI: `export`, `verify`, `info` |
 
@@ -40,6 +40,7 @@ Public showcase: https://github.com/anchor-migration
 | **java-ast-ssot** | public | Java AST SSOT (core + optional stack profiles) | Alpha |
 | **rewrite-recipes** | public | OpenRewrite catalog | Planned |
 | **parity-verify** | public | Old vs new parity | Planned |
+| **anchor-explorer** | public | Read-only UI over linked SSOT snapshots | Alpha |
 | **pattern-catalog** | public | Migration patterns | Planned |
 
 ## Local workspace (author machine)
@@ -51,6 +52,7 @@ C:\github\anchor-migration\
 ├── lab-notes/              → github.com/anchor-migration/anchor-migration-lab-notes (private)
 ├── demo-dukesbank/         MySQL bridge for Duke's Bank demo
 ├── java-ast-ssot/          Java AST SSOT exporter
+├── anchor-explorer/        Read-only crosswalk UI (React + Vite)
 └── anchor-migration.code-workspace
 
 C:\github\dukesbank\        Duke's Bank legacy sample (external to org)
@@ -58,11 +60,13 @@ C:\github\dukesbank\        Duke's Bank legacy sample (external to org)
 
 ## Pipeline (one picture)
 
+See **[architecture diagrams](ARCHITECTURE.md#program-overview)** in ARCHITECTURE.md for full Mermaid maps (repos, crosswalk, tiers).
+
 ```
 Live MySQL ──db-metadata──► schema SSOT (SQLite)
 Legacy Java + XML ──java-ast-ssot──► Java AST SSOT (SQLite)
-         └─ crosswalk ──► code_schema_link (edge colors: ADR-005)
-ssot-explorer ──► human UI (read-only)                 [planned]
+         └─ crosswalk ──► linked SSOT (code_schema_link + edge colors)
+anchor-explorer ──► human UI (read-only)               [alpha]
 OpenRewrite recipes ──► modernized code                 [planned]
 verify / parity ──► proof                               [planned]
 ```

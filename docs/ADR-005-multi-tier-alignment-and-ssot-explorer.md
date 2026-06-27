@@ -8,7 +8,7 @@ This ADR defines:
 
 1. **Multi-tier mapping** as a first-class concept extending crosswalk.  
 2. **Alignment quality** and **edge coloring** for human review and visualization.  
-3. **`ssot-explorer`** as a **first-class human interface** — not a disposable demo sketch.
+3. **`anchor-explorer`** as a **first-class human interface** — not a disposable demo sketch.
 
 Complements [ADR-004](ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md) (persistence crosswalk) and [ARCHITECTURE.md](ARCHITECTURE.md) (extract → link → transform → verify).
 
@@ -177,11 +177,11 @@ Explorer exists to **communicate** SSOT value, but as long as humans use Anchor 
 
 #### Repository
 
-New repo: **`ssot-explorer`** (name TBD; public under anchor-migration org).
+New repo: **`anchor-explorer`** (public under anchor-migration org).
 
 ```
 db-metadata export ──┐
-java-ast-ssot export ├──► SQLite snapshots ──► ssot-explorer (read-only)
+java-ast-ssot export ├──► SQLite snapshots ──► anchor-explorer (read-only)
 crosswalk link ──────┘
 ```
 
@@ -234,7 +234,7 @@ v0 may ship static JSON generated from SQLite; v1+ uses in-browser SQLite or a t
 |------|-------------|--------|
 | 1 | Document tiers, drift classes, colors (this ADR) | Done |
 | 2 | Add alignment metadata + **`color_forward` / `color_backward`** to link rows (Java) | Done (1.0.0-SNAPSHOT) |
-| 3 | **`ssot-explorer` repo** — MVP crosswalk graph + legend | 📋 Planned |
+| 3 | **`anchor-explorer` repo** — MVP crosswalk graph + legend | 🚧 Alpha |
 | 4 | Domain / presentation tier profiles + edges | 💡 Idea |
 | 5 | Parity gate uses red / incompatible rules | 💡 Idea |
 
