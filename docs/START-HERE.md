@@ -103,11 +103,11 @@ Extractors use **`{language}-ast-ssot`** names. **`java-ast-ssot`** = generic Ja
 
 ## Next work (priority)
 
-1. **`rewrite-recipes` 3.3** — Scalar CMP→JPA for `AccountBean` only ([ADR-007](ADR-007-rewrite-recipes-session-and-cmp-jpa.md))
+1. **ADR-008 M2** — list usage classifier (homogeneous / tuple / unknown) in `java-ast-ssot`
 2. **`jpa` / `mybatis` profiles** — ADR-004 Step 4–5
 3. Blog draft from lab-notes backlog (private)
 
-**Done:** `rewrite-recipes` 3.2 Session→Service chain — [session-bean-to-spring-service-account-controller.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/session-bean-to-spring-service-account-controller.md); 3.1b BeanState spike — [session-beanstate-spike-account-controller.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/session-beanstate-spike-account-controller.md); 3.1a CMP matrix — [cmp-jpa-capability-matrix.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/cmp-jpa-capability-matrix.md); 3.0 harness — `.\scripts\run-test.ps1`; Duke's Bank E2E — [DUKESBANK-DEMO.md#e2e-quick-path](DUKESBANK-DEMO.md#e2e-quick-path)
+**Done:** `rewrite-recipes` ADR-008 L1 `Vector`→`ArrayList` — [vector-to-arraylist-l1.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/vector-to-arraylist-l1.md); 3.3 CMP→JPA scalar `AccountBean` — [cmp-scalar-entity-to-jpa-account-bean.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/cmp-scalar-entity-to-jpa-account-bean.md); 3.2 Session→Service chain — [session-bean-to-spring-service-account-controller.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/session-bean-to-spring-service-account-controller.md); 3.0 harness — `.\scripts\run-test.ps1`; Duke's Bank E2E — [DUKESBANK-DEMO.md#e2e-quick-path](DUKESBANK-DEMO.md#e2e-quick-path)
 
 See **[AGENTS.md](../AGENTS.md)** at the root of this repository for session bootstrap instructions.
 
