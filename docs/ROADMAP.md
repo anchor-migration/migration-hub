@@ -60,7 +60,9 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 | Scalar CMP→JPA — `AccountBean` only (3.3) | rewrite-recipes | ✅ |
 | EJB `@Stateless` → `@Service` annotation-only | rewrite-recipes | ❌ Rejected (ADR-007) |
 | [ADR-008](docs/ADR-008-java-language-modernization-and-tuple-lists.md) — L1/L2/L3 language modernization | migration-hub | ✅ |
-| L1: `Vector` → `ArrayList` | rewrite-recipes | ✅ |
+| L1: `Vector` → `ArrayList` (+ L1 YAML composite) | rewrite-recipes | ✅ |
+| [ADR-009](docs/ADR-009-rewrite-engine-presets-and-run-manifest.md) — preset manifests | migration-hub + rewrite-recipes | ✅ |
+| Preset catalog (`Smoke`, `LanguageL1Only`, `DukesBankStackMigration`) | rewrite-recipes | ✅ |
 | M2: tuple vs homogeneous list classifier (SSOT) | java-ast-ssot / rewrite-recipes | 📋 |
 | L3: tuple list → result class (proposal + human review) | rewrite-recipes | 📋 |
 
