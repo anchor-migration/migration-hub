@@ -51,7 +51,7 @@ Instructions for AI coding assistants (Cursor, etc.) in a **new session** with n
 | Code SSOT parser | **JavaParser** for core; deployment XML via **profiles** — not OpenRewrite LST for SSOT |
 | LST | Transform-time only in `rewrite-recipes`; not stored as SSOT — see [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) |
 | Rewrite phasing | Session→`@Service` via **BeanState** (3.2), then scalar CMP→JPA `AccountBean` (3.3) — [ADR-007](docs/ADR-007-rewrite-recipes-session-and-cmp-jpa.md) |
-| Language modernization | L1/L2/L3; tuple `List` → result class — [ADR-008](docs/ADR-008-java-language-modernization-and-tuple-lists.md) |
+| Language modernization | L1/L2/L3; **`classify-lists`** (M2, on-demand JSON) before L2; tuple `List` → result class — [ADR-008](docs/ADR-008-java-language-modernization-and-tuple-lists.md) |
 | Comments | Optional `source_comment` sidecar; no v1 semantic comment→statement mapping — [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) |
 | Crosswalk | Profile extract + link; mapping tiers; **edge colors** (green/yellow/orange/red) — [ADR-004](docs/ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md), [ADR-005](docs/ADR-005-multi-tier-alignment-and-ssot-explorer.md) |
 | Anchor Explorer | Read-only human UI over SQLite snapshots — first-class interface — [ADR-005](docs/ADR-005-multi-tier-alignment-and-ssot-explorer.md) |
@@ -63,8 +63,8 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 
 ## Current status (update via journal if stale)
 
-- **Done:** `db-metadata` alpha, Duke's Bank E2E, `java-ast-ssot` v1.0 (core + profiles + crosswalk), `anchor-explorer` alpha, ADR-002–006  
-- **Next:** `rewrite-recipes` 3.0 harness ([ADR-007](docs/ADR-007-rewrite-recipes-session-and-cmp-jpa.md)); `jpa` profile
+- **Done:** `db-metadata` alpha; Duke's Bank E2E; `java-ast-ssot` v1.0 (core + profiles + crosswalk + **`classify-lists` M2**); `anchor-explorer` alpha; `rewrite-recipes` 3.0–3.3 + ADR-008 L1 + ADR-009 presets; ADR-002–009  
+- **Next:** ADR-008 M3 L2 homogeneous recipe (`rewrite-recipes`); `jpa` profile ([ADR-004](docs/ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md))
 
 ## Typical tasks
 
@@ -73,6 +73,7 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 | Export / verify database schema | `db-metadata/` |
 | Docker Duke's Bank MySQL | `demo-dukesbank/` |
 | Java AST / EJB XML extraction | `java-ast-ssot/` — core + `--profile javaee-ejb2-jboss`; read ADR-002 + ADR-004 + DUKESBANK-DEMO Phase B |
+| Raw list usage (homogeneous / tuple) | `java-ast-ssot classify-lists` — on-demand JSON, no cache; [list-usage-classifier.md](https://github.com/anchor-migration/java-ast-ssot/blob/main/docs/list-usage-classifier.md) |
 | Code ↔ schema crosswalk | `java-ast-ssot crosswalk` — `--code-db`, `--schema-db`, `--db-schema`, `-o`; see ADR-004 |
 | Program docs / blog outline | `migration-hub/docs/` or private `lab-notes/blog-drafts/` |
 | Session log | private `lab-notes/journal/` |

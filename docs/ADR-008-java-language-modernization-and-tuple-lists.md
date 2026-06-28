@@ -99,8 +99,8 @@ failOnTupleList: true                # L2 must not run on classified tuple lists
 
 **Acceptance (M2 classifier):**
 
-- [ ] On a compilation unit, emit `list_usage` records: `homogeneous`, `tuple`, `unknown`
-- [ ] Tuple detection: same local list variable receives **≥2 incompatible types** from `add()` or consumed via **casts to ≥2 types** from `get(index)`
+- [x] On a compilation unit, emit `list_usage` records: `homogeneous`, `tuple`, `unknown`
+- [x] Tuple detection: same local list variable receives **≥2 incompatible types** from `add()` or consumed via **casts to ≥2 types** from `get(index)`
 
 ---
 
@@ -193,11 +193,13 @@ User-proposed principle (accepted): *heterogeneous return list → return class 
 
 ### 3. SSOT-assisted classification (M2)
 
-Extend analysis output (sidecar table or report — exact DDL TBD in `java-ast-ssot` or `rewrite-recipes`):
+**Shipped (v0.1):** on-demand CLI `java-ast-ssot classify-lists` — ephemeral JSON report, **no SQLite sidecar, no cache** ([list-usage-classifier.md](https://github.com/anchor-migration/java-ast-ssot/blob/main/docs/list-usage-classifier.md)). Re-run when sources change.
+
+Report record fields:
 
 | Field | Meaning |
 |-------|---------|
-| `stable_id` | Method or local symbol ref |
+| `stable_id` | Site ref (`siteStableId` in JSON — method local, field, or parameter) |
 | `collection_kind` | `vector`, `array_list`, `raw_list`, … |
 | `usage_class` | `homogeneous`, `tuple`, `unknown` |
 | `element_types` | JSON or comma-separated inferred types |
@@ -209,7 +211,7 @@ Extend analysis output (sidecar table or report — exact DDL TBD in `java-ast-s
 - `anchor-explorer` (future) — highlight tuple lists for review  
 - `pattern-catalog` — link detection heuristics to recipes  
 
-L2 recipe input: optional `--analysis-report` from SSOT export; fail-closed on `tuple`.
+L2 recipe input: optional `--analysis-report` JSON from `classify-lists`; fail-closed on `tuple`.
 
 ### 4. Relationship to ADR-007
 
@@ -274,7 +276,7 @@ Behavioral parity: still **future parity-verify** — structural proof first.
 | 1 | ADR-008 (this document) | Accepted |
 | 2 | Accept ADR-008; add `recipeFamily` convention to rewrite-recipes scaffold | ✅ |
 | 3 | M1 — L1 `Vector` → `ArrayList` recipe + test | ✅ |
-| 4 | M2 — list usage classifier spec + Duke's Bank report spike | 📋 |
+| 4 | M2 — list usage classifier spec + Duke's Bank report spike | ✅ |
 | 5 | M3 — L2 homogeneous recipe (bank module) | 📋 |
 | 6 | M4 — L3 tuple fixture + proposal-only recipe | 📋 |
 

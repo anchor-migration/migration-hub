@@ -63,7 +63,7 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 | L1: `Vector` → `ArrayList` (+ L1 YAML composite) | rewrite-recipes | ✅ |
 | [ADR-009](docs/ADR-009-rewrite-engine-presets-and-run-manifest.md) — preset manifests | migration-hub + rewrite-recipes | ✅ |
 | Preset catalog (`Smoke`, `LanguageL1Only`, `DukesBankStackMigration`) | rewrite-recipes | ✅ |
-| M2: tuple vs homogeneous list classifier (SSOT) | java-ast-ssot / rewrite-recipes | 📋 |
+| M2: tuple vs homogeneous list classifier (SSOT) | java-ast-ssot | ✅ (on-demand CLI, no cache) |
 | L3: tuple list → result class (proposal + human review) | rewrite-recipes | 📋 |
 
 ## Phase 4 — Parity verification
