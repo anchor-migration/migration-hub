@@ -56,7 +56,7 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 | Recipe template and testing harness (3.0) | rewrite-recipes | ✅ |
 | CMP→JPA capability matrix — Duke's Bank (3.1a) | rewrite-recipes | ✅ |
 | Session `BeanState` spike — `AccountControllerBean` (3.1b) | rewrite-recipes | ✅ |
-| Session→Service recipe chain — `AccountControllerBean` (3.2) | rewrite-recipes | 📋 |
+| Session→Service recipe chain — `AccountControllerBean` (3.2) | rewrite-recipes | ✅ |
 | Scalar CMP→JPA — `AccountBean` only (3.3) | rewrite-recipes | 📋 |
 | EJB `@Stateless` → `@Service` annotation-only | rewrite-recipes | ❌ Rejected (ADR-007) |
 | [ADR-008](docs/ADR-008-java-language-modernization-and-tuple-lists.md) — L1/L2/L3 language modernization | migration-hub | ✅ |

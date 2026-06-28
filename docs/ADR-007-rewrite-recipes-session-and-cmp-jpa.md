@@ -367,7 +367,7 @@ Contract extension for 3.3+: document in `rewrite-recipes/recipe.yml` metadata (
 | 2 | Accept ADR-007; create `rewrite-recipes` repo + 3.0 harness | 📋 |
 | 3 | 3.1a — CMP capability matrix doc in `rewrite-recipes/docs/` (may refine §3 above) | ✅ |
 | 4 | 3.1b — BeanState spike test on `AccountControllerBean` subset | ✅ |
-| 5 | 3.2 — `ExtractSessionBeanState` + `DeclareSpringService` recipes | 📋 |
+| 5 | 3.2 — `ExtractSessionBeanState` + `ThreadBeanStateThroughMethods` + `DeclareSpringService` + `RemoveSessionBeanLifecycle` | ✅ |
 | 6 | 3.3 — `CmpScalarEntityToJpa` for `AccountBean` | 📋 |
 | 7 | Update [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md) Phase D (rewrite) | 📋 |
 
