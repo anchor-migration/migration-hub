@@ -34,7 +34,7 @@ flowchart LR
     AE["anchor-explorer<br/>(React)"]
   end
 
-  subgraph L2["Layer 2 — Transform (planned)"]
+  subgraph L2["Layer 2 — Transform"]
     RR[rewrite-recipes]
     ORW[OpenRewrite]
   end
@@ -138,12 +138,14 @@ flowchart TB
   PV[parity-verify]
   PC[pattern-catalog]
 
-  HUB -.->|"planned"| RR
+  HUB -.->|"docs"| RR
   HUB -.->|"planned"| PV
   HUB -.->|"planned"| PC
 
   DM -->|"schema .db"| JA
   JA -->|"linked .db"| AE
+  JA -->|"classify-lists JSON"| RR
+  RR -->|"OpenRewrite"| ORW[OpenRewrite]
   PC -->|"pattern ID"| RR
 ```
 
@@ -198,9 +200,19 @@ Reference **demo application**, not the boundary of `java-ast-ssot`. It validate
 | Input | Tool | Output |
 |-------|------|--------|
 | Code SSOT + Schema SSOT + pattern ID | `rewrite-recipes` | OpenRewrite recipes tuned to detected patterns |
+| On-demand list classifier (ADR-008 M2) | `java-ast-ssot classify-lists` | Ephemeral JSON (`homogeneous` / `tuple` / `unknown`) — optional gate for L2 |
 | Recipes + source tree | OpenRewrite CLI / Maven plugin | Refactored source |
 
-Schema SSOT informs entity/table mapping (e.g. `@Table`, `@Column`, relationship cardinality). Code SSOT informs safe, scoped recipe application.
+**Shipped recipe families (Phase 3):**
+
+| Family | Tier | Examples |
+|--------|------|----------|
+| Stack migration (ADR-007) | — | Session→Service (`BeanState`), CMP→JPA scalar |
+| Language modernization (ADR-008) | L1 | `Vector`→`ArrayList`, `Hashtable`→`HashMap` |
+| Language modernization (ADR-008) | L2 | Homogeneous raw `ArrayList` → `ArrayList<E>` |
+| Presets (ADR-009) | — | `DukesBankStackMigration`, `LanguageL1Only`, `LanguageL2Only` |
+
+Recommended run order on the same files: **L1 → stack migration → L2** (after `classify-lists` review for production targets).
 
 AI-assisted refactoring handles non-mechanical cases; outputs remain subject to parity verification.
 

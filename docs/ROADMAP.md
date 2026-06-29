@@ -62,8 +62,9 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 | [ADR-008](docs/ADR-008-java-language-modernization-and-tuple-lists.md) — L1/L2/L3 language modernization | migration-hub | ✅ |
 | L1: `Vector` → `ArrayList` (+ L1 YAML composite) | rewrite-recipes | ✅ |
 | [ADR-009](docs/ADR-009-rewrite-engine-presets-and-run-manifest.md) — preset manifests | migration-hub + rewrite-recipes | ✅ |
-| Preset catalog (`Smoke`, `LanguageL1Only`, `DukesBankStackMigration`) | rewrite-recipes | ✅ |
+| Preset catalog (`Smoke`, `LanguageL1Only`, `LanguageL2Only`, `DukesBankStackMigration`) | rewrite-recipes | ✅ |
 | M2: tuple vs homogeneous list classifier (SSOT) | java-ast-ssot | ✅ (on-demand CLI, no cache) |
+| L2: homogeneous raw `ArrayList` typing | rewrite-recipes | ✅ |
 | L3: tuple list → result class (proposal + human review) | rewrite-recipes | 📋 |
 
 ## Phase 4 — Parity verification

@@ -17,9 +17,27 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 | [**migration-hub**](https://github.com/anchor-migration/migration-hub) | Program overview, architecture, roadmap | Active |
 | [**db-metadata**](https://github.com/anchor-migration/db-metadata) | Live DB → schema SSOT (SQLite) | Alpha |
 | [**java-ast-ssot**](https://github.com/anchor-migration/java-ast-ssot) | Java AST SSOT (core + stack profiles) | Alpha |
-| [**rewrite-recipes**](https://github.com/anchor-migration/rewrite-recipes) | OpenRewrite rule catalog | Planned |
+| [**rewrite-recipes**](https://github.com/anchor-migration/rewrite-recipes) | OpenRewrite rule catalog (stack + language modernization) | Alpha |
+| [**anchor-explorer**](https://github.com/anchor-migration/anchor-explorer) | Read-only SSOT crosswalk UI | Alpha |
 | [**parity-verify**](https://github.com/anchor-migration/parity-verify) | Old vs new business parity verification | Planned |
 | [**pattern-catalog**](https://github.com/anchor-migration/pattern-catalog) | Migration pattern docs and examples | Planned |
+
+## Program progress (2026-06)
+
+| Phase | Milestone | Status |
+|-------|-----------|--------|
+| 1 | Schema SSOT + Duke's Bank MySQL demo | ✅ Alpha |
+| 2 | Java AST SSOT (core + `javaee-ejb2-jboss` profile + crosswalk) | ✅ Alpha |
+| 2.5 | Anchor Explorer + Duke's Bank E2E | ✅ Alpha |
+| 3.0 | OpenRewrite harness + smoke recipes | ✅ |
+| 3.1–3.3 | Session→Service + CMP→JPA (Duke's Bank) | ✅ |
+| 3.x | ADR-008 L1 (`Vector`→`ArrayList`) + L2 (homogeneous `ArrayList` typing) | ✅ |
+| 3.x | ADR-009 preset manifests (`Smoke`, `LanguageL1Only`, `LanguageL2Only`, `DukesBankStackMigration`) | ✅ |
+| 3.x | ADR-008 M2 `classify-lists` (on-demand JSON, no cache) | ✅ |
+| 4 | Parity verification | 📋 Planned |
+| 3.x | ADR-008 M4 L3 tuple list → result class | 📋 Next |
+
+Details: [ROADMAP.md](docs/ROADMAP.md) · [START-HERE.md](docs/START-HERE.md)
 
 ## Pipeline
 
@@ -82,7 +100,8 @@ anchor-migration/
 ├── db-metadata/         # Python CLI — schema export
 ├── demo-dukesbank/      # Duke's Bank MySQL Docker (verified)
 ├── java-ast-ssot/       # Java AST SSOT exporter (alpha)
-├── rewrite-recipes/     # (planned)
+├── anchor-explorer/     # Read-only crosswalk UI (alpha)
+├── rewrite-recipes/     # OpenRewrite catalog (alpha)
 ├── parity-verify/       # (planned)
 └── pattern-catalog/     # (planned)
 ```

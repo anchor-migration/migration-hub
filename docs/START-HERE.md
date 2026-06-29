@@ -57,6 +57,7 @@ C:\github\anchor-migration\
 ├── demo-dukesbank/         MySQL bridge for Duke's Bank demo
 ├── java-ast-ssot/          Java AST SSOT exporter
 ├── anchor-explorer/        Read-only crosswalk UI (React + Vite)
+├── rewrite-recipes/        OpenRewrite catalog (alpha)
 └── anchor-migration.code-workspace
 
 C:\github\dukesbank\        Duke's Bank legacy sample (external to org)
@@ -71,7 +72,8 @@ Live MySQL ──db-metadata──► schema SSOT (SQLite)
 Legacy Java + XML ──java-ast-ssot──► Java AST SSOT (SQLite)
          └─ crosswalk ──► linked SSOT (code_schema_link + edge colors)
 anchor-explorer ──► human UI (read-only)               [alpha]
-OpenRewrite recipes ──► modernized code                 [alpha — presets ADR-009]
+OpenRewrite recipes ──► modernized code                 [alpha — stack 3.0–3.3 + L1/L2 + presets]
+classify-lists (on-demand) ──► L2 gate JSON             [alpha — ADR-008 M2]
 verify / parity ──► proof                               [planned]
 ```
 
@@ -85,7 +87,25 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | Duke's Bank MySQL Docker demo | ✅ |
 | `java-ast-ssot` export on bank module | ✅ Alpha |
 | `java-ast-ssot crosswalk` (code + schema SSOT) | ✅ Alpha |
+| `java-ast-ssot classify-lists` (homogeneous / tuple / unknown) | ✅ Alpha |
 | Duke's Bank E2E (linked.db + anchor-explorer) | ✅ Verified |
+| `rewrite-recipes` harness + smoke (3.0) | ✅ 14 tests |
+| Session→Service + CMP→JPA on Duke's Bank fixtures (3.1–3.3) | ✅ |
+| Language modernization L1 + L2 (ADR-008 M1/M3) | ✅ |
+| Preset catalog ADR-009 (`Smoke`, `LanguageL1Only`, `LanguageL2Only`, `DukesBankStackMigration`) | ✅ |
+
+## Program progress snapshot
+
+| Area | Latest milestone |
+|------|------------------|
+| Schema SSOT | `db-metadata` alpha; Duke's Bank verified |
+| Code SSOT | `java-ast-ssot` 1.0 — core + `javaee-ejb2-jboss` + crosswalk |
+| List analysis | `classify-lists` — ephemeral JSON, no SQLite sidecar |
+| Human review | `anchor-explorer` alpha — crosswalk graph |
+| Stack rewrite | Session `BeanState` → Spring service; scalar CMP → JPA |
+| Language rewrite | L1 mechanical swaps; L2 homogeneous `ArrayList<E>` |
+| Orchestration | ADR-009 YAML presets + `anchor.rewrite.preset` property |
+| **Next** | ADR-008 M4 — L3 tuple list → result class (proposal-only) |
 
 ## Language-specific AST repos
 
@@ -104,11 +124,11 @@ Extractors use **`{language}-ast-ssot`** names. **`java-ast-ssot`** = generic Ja
 
 ## Next work (priority)
 
-1. **ADR-008 M3** — L2 homogeneous recipe on Duke's Bank lists (after `classify-lists` report)
+1. **ADR-008 M4** — L3 tuple list → result class (proposal-only)
 2. **`jpa` / `mybatis` profiles** — ADR-004 Step 4–5
 3. Blog draft from lab-notes backlog (private)
 
-**Done:** ADR-008 M2 `classify-lists` — [list-usage-classifier.md](https://github.com/anchor-migration/java-ast-ssot/blob/main/docs/list-usage-classifier.md); ADR-009 preset manifests — [rewrite-presets.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/rewrite-presets.md); ADR-008 L1 — [vector-to-arraylist-l1.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/vector-to-arraylist-l1.md); 3.3 CMP→JPA scalar `AccountBean` — [cmp-scalar-entity-to-jpa-account-bean.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/cmp-scalar-entity-to-jpa-account-bean.md); 3.2 Session→Service chain — [session-bean-to-spring-service-account-controller.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/session-bean-to-spring-service-account-controller.md); 3.0 harness — `.\scripts\run-test.ps1`; Duke's Bank E2E — [DUKESBANK-DEMO.md#e2e-quick-path](DUKESBANK-DEMO.md#e2e-quick-path)
+**Done:** ADR-008 M3 L2 — [homogeneous-raw-list-l2.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/homogeneous-raw-list-l2.md); ADR-008 M2 `classify-lists` — [list-usage-classifier.md](https://github.com/anchor-migration/java-ast-ssot/blob/main/docs/list-usage-classifier.md); ADR-009 preset manifests — [rewrite-presets.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/rewrite-presets.md); ADR-008 L1 — [vector-to-arraylist-l1.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/vector-to-arraylist-l1.md); 3.3 CMP→JPA scalar `AccountBean` — [cmp-scalar-entity-to-jpa-account-bean.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/cmp-scalar-entity-to-jpa-account-bean.md); 3.2 Session→Service chain — [session-bean-to-spring-service-account-controller.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/session-bean-to-spring-service-account-controller.md); 3.0 harness — `.\scripts\run-test.ps1`; Duke's Bank E2E — [DUKESBANK-DEMO.md#e2e-quick-path](DUKESBANK-DEMO.md#e2e-quick-path)
 
 See **[AGENTS.md](../AGENTS.md)** at the root of this repository for session bootstrap instructions.
 
