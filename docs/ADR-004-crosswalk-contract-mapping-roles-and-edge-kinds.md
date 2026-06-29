@@ -124,16 +124,16 @@ Duke's Bank: MySQL seed has **no FK constraints**; relationship edges come from 
 
 v1: JavaParser scan of `@Entity`, `@Table`, `@Column`, `@Id` on `.java` sources; `JpaCrosswalkContributor` emits direct `java_type` → table edges (no `stack_bridge`). `binding_source` = `jpa_annotation`.
 
-#### `mybatis` (planned)
+#### `mybatis` (implemented — v1)
 
 | Signal | Role | Canonical edges |
 |--------|------|-----------------|
-| `resultMap` + single-table CRUD | `persistent_entity` | `type_maps_to_table`, `field_maps_to_column` |
-| `@Results` / `@Result` annotations | `persistent_entity` | same |
-| `<select>` with JOIN → DTO | `read_model` | `type_backed_by_sql`, `sql_references_table`, `field_maps_to_column_via` |
-| Mapper interface method | `repository_boundary` | `method_executes_sql` |
+| `resultMap` + single-table `select` | `persistent_entity` | `type_maps_to_table`, `field_maps_to_column` |
+| `<select>` with `JOIN` → DTO | `read_model` | `type_backed_by_sql`, `sql_references_table`, `field_maps_to_column_via` |
+| `@Results` / `@Result` annotations | `persistent_entity` | same (planned) |
+| Mapper interface method | `repository_boundary` | `method_executes_sql` (planned) |
 
-**Do not** collapse a JOIN-backed DTO into `type_maps_to_table` for one arbitrary table — that loses JOIN semantics and breaks safe refactors.
+v1: DOM parse of `*Mapper.xml` — `resultMap` bindings, lightweight SQL table/column extraction; JOIN queries classified as `read_model` (no false `type_maps_to_table`). `binding_source` = `mybatis_xml`; SQL table refs from parsed `FROM`/`JOIN` are `inferred`.
 
 ### Crosswalk link CLI (planned)
 
@@ -194,7 +194,7 @@ Link step responsibilities:
 | 2 | `crosswalk` CLI + `code_schema_link` DDL; Duke's Bank EJB `persistent_entity` | Done (1.0.0-SNAPSHOT) |
 | 3 | Normalize `javaee_ejb2_jboss_*` → canonical edges; `--db-schema` on link | Done |
 | 4 | `jpa` profile + link | ✅ Done (scalar `persistent_entity`; 1.0.0-SNAPSHOT) |
-| 5 | `mybatis` profile: SQL artifacts + `read_model` edges | 📋 Planned |
+| 5 | `mybatis` profile: SQL artifacts + `read_model` edges | ✅ Done (mapper XML v1; 1.0.0-SNAPSHOT) |
 | 6 | EJB relationship → xref table edges (Duke's Bank) | 💡 Idea |
 
 ## References

@@ -71,12 +71,15 @@ Tables: `javaee_ejb2_jboss_bean`, `javaee_ejb2_jboss_cmp_field`, `javaee_ejb2_jb
 
 Tables: `jpa_entity`, `jpa_field`. Extracts `@Entity`, `@Table`, `@Column`, `@Id` from `.java` sources. Crosswalk contributor emits `type_maps_to_table` and `field_maps_to_column` with `binding_source` = `jpa_annotation` (no EJB-style `stack_bridge`).
 
+#### Profile `mybatis` (implemented — v1)
+
+Tables: `mybatis_result_map`, `mybatis_result_field`, `mybatis_statement`, `mybatis_statement_table`. Parses `*Mapper.xml` `resultMap` bindings and classifies single-table vs JOIN `select` statements. Crosswalk emits `persistent_entity` or `read_model` edges per ADR-004 (`type_backed_by_sql`, `sql_references_table`, `field_maps_to_column_via` for JOIN DTOs).
+
 ### Future profiles (planned)
 
 | Profile | Inputs | Purpose |
 |---------|--------|---------|
 | `spring` | `@Configuration`, component scan, XML | Spring bean graph |
-| `mybatis` | mapper XML, annotations | SQL-backed mappings; JOIN read models |
 
 Each profile adds tables or extension rows; core IDs remain stable.
 
@@ -131,7 +134,7 @@ Metadata per row: `profile_id`, `binding_source`, `evidence_ref`, `confidence` (
 |---------|-----------------|--------------|
 | `javaee-ejb2-jboss` | `ejb-jar.xml`, `jbosscmp-jdbc.xml` | `persistent_entity` |
 | `jpa` | `@Entity`, `@Table`, `@Column`, `@Id` | `persistent_entity` (`type_maps_to_table`, `field_maps_to_column`) |
-| `mybatis` (planned) | mapper XML, `@Select`, `resultMap` | `persistent_entity` or `read_model` |
+| `mybatis` | mapper XML (`resultMap`, JOIN `select`) | `persistent_entity` or `read_model` |
 
 Profile-local edges (e.g. `ejb_to_table`) are normalized at link time — see ADR-004.
 

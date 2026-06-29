@@ -36,7 +36,7 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 | 3.x | ADR-008 M2 `classify-lists` (on-demand JSON, no cache) | ✅ |
 | 4 | Parity verification | 📋 Planned |
 | 4 | `jpa` profile (ADR-004 Step 4) | ✅ Alpha |
-| 4 | `mybatis` profile (ADR-004 Step 5) | 📋 Next |
+| 4 | `mybatis` profile (ADR-004 Step 5) | ✅ Alpha |
 
 Details: [ROADMAP.md](docs/ROADMAP.md) · [START-HERE.md](docs/START-HERE.md)
 
