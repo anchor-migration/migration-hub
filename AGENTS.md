@@ -63,8 +63,8 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 
 ## Current status (update via journal if stale)
 
-- **Done:** `db-metadata` alpha; Duke's Bank E2E; `java-ast-ssot` v1.0 (core + profiles + crosswalk + **`classify-lists` M2**); `anchor-explorer` alpha; `rewrite-recipes` 3.0–3.3 + ADR-008 L1/L2/L3 + ADR-009 presets; ADR-002–009  
-- **Next:** `jpa` profile ([ADR-004](docs/ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md)); consumer-site tuple `get(i)` refactors (L3 follow-up)
+- **Done:** `db-metadata` alpha; Duke's Bank E2E; `java-ast-ssot` v1.0 (core + `javaee-ejb2-jboss` + **`jpa`** + crosswalk + **`classify-lists` M2**); `anchor-explorer` alpha; `rewrite-recipes` 3.0–3.3 + ADR-008 L1/L2/L3 + ADR-009 presets; ADR-002–009  
+- **Next:** `mybatis` profile ([ADR-004](docs/ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md) Step 5); JPA Duke's Bank E2E re-export; consumer-site tuple `get(i)` refactors (L3 follow-up)
 
 ## Typical tasks
 
@@ -72,7 +72,7 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 |----------|----------------|
 | Export / verify database schema | `db-metadata/` |
 | Docker Duke's Bank MySQL | `demo-dukesbank/` |
-| Java AST / EJB XML extraction | `java-ast-ssot/` — core + `--profile javaee-ejb2-jboss`; read ADR-002 + ADR-004 + DUKESBANK-DEMO Phase B |
+| Java AST / EJB XML extraction | `java-ast-ssot/` — core + `--profile javaee-ejb2-jboss` or `--profile jpa`; read ADR-002 + ADR-004 + DUKESBANK-DEMO Phase B |
 | Raw list usage (homogeneous / tuple) | `java-ast-ssot classify-lists` — on-demand JSON, no cache; [list-usage-classifier.md](https://github.com/anchor-migration/java-ast-ssot/blob/main/docs/list-usage-classifier.md) |
 | Code ↔ schema crosswalk | `java-ast-ssot crosswalk` — `--code-db`, `--schema-db`, `--db-schema`, `-o`; see ADR-004 |
 | Program docs / blog outline | `migration-hub/docs/` or private `lab-notes/blog-drafts/` |

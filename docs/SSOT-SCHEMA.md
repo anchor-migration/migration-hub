@@ -67,12 +67,15 @@ Tables: `javaee_ejb2_jboss_bean`, `javaee_ejb2_jboss_cmp_field`, `javaee_ejb2_jb
 
 **Reference validation:** Duke's Bank bank module — not a product boundary.
 
+#### Profile `jpa` (implemented — scalar v1)
+
+Tables: `jpa_entity`, `jpa_field`. Extracts `@Entity`, `@Table`, `@Column`, `@Id` from `.java` sources. Crosswalk contributor emits `type_maps_to_table` and `field_maps_to_column` with `binding_source` = `jpa_annotation` (no EJB-style `stack_bridge`).
+
 ### Future profiles (planned)
 
 | Profile | Inputs | Purpose |
 |---------|--------|---------|
 | `spring` | `@Configuration`, component scan, XML | Spring bean graph |
-| `jpa` | `@Entity`, `persistence.xml` | JPA ↔ schema crosswalk (`persistent_entity`, `read_model`) |
 | `mybatis` | mapper XML, annotations | SQL-backed mappings; JOIN read models |
 
 Each profile adds tables or extension rows; core IDs remain stable.
@@ -127,7 +130,7 @@ Metadata per row: `profile_id`, `binding_source`, `evidence_ref`, `confidence` (
 | Profile | Primary signals | Typical role |
 |---------|-----------------|--------------|
 | `javaee-ejb2-jboss` | `ejb-jar.xml`, `jbosscmp-jdbc.xml` | `persistent_entity` |
-| `jpa` (planned) | `@Entity`, `@Column`, `persistence.xml` | `persistent_entity` or `read_model` |
+| `jpa` | `@Entity`, `@Table`, `@Column`, `@Id` | `persistent_entity` (`type_maps_to_table`, `field_maps_to_column`) |
 | `mybatis` (planned) | mapper XML, `@Select`, `resultMap` | `persistent_entity` or `read_model` |
 
 Profile-local edges (e.g. `ejb_to_table`) are normalized at link time — see ADR-004.

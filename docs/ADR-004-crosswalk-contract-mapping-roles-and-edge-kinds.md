@@ -113,14 +113,16 @@ Schema targets continue to use `db-metadata` keys: `{schema}.{table}`, `{schema}
 
 Duke's Bank: MySQL seed has **no FK constraints**; relationship edges come from EJB/XML, not schema SSOT alone.
 
-#### `jpa` (planned)
+#### `jpa` (implemented — scalar `persistent_entity` v1)
 
 | Signal | Role | Canonical edges |
 |--------|------|-----------------|
 | `@Entity` + `@Table` | `persistent_entity` | `type_maps_to_table` |
-| `@Column` / field name default | | `field_maps_to_column` |
-| `@JoinColumn`, `@ManyToMany` | | `relationship_maps_to_table` or FK target |
-| `@SqlResultSetMapping`, native query DTO | `read_model` | `type_backed_by_sql`, `field_maps_to_column_via` |
+| `@Column` / `@Id` field | | `field_maps_to_column` |
+| `@JoinColumn`, `@ManyToMany` | | `relationship_maps_to_table` or FK target (planned) |
+| `@SqlResultSetMapping`, native query DTO | `read_model` | `type_backed_by_sql`, `field_maps_to_column_via` (planned) |
+
+v1: JavaParser scan of `@Entity`, `@Table`, `@Column`, `@Id` on `.java` sources; `JpaCrosswalkContributor` emits direct `java_type` → table edges (no `stack_bridge`). `binding_source` = `jpa_annotation`.
 
 #### `mybatis` (planned)
 
@@ -191,7 +193,7 @@ Link step responsibilities:
 | 1 | Document contract (this ADR + SSOT-SCHEMA update) | Done |
 | 2 | `crosswalk` CLI + `code_schema_link` DDL; Duke's Bank EJB `persistent_entity` | Done (1.0.0-SNAPSHOT) |
 | 3 | Normalize `javaee_ejb2_jboss_*` → canonical edges; `--db-schema` on link | Done |
-| 4 | `jpa` profile + link | 📋 Planned |
+| 4 | `jpa` profile + link | ✅ Done (scalar `persistent_entity`; 1.0.0-SNAPSHOT) |
 | 5 | `mybatis` profile: SQL artifacts + `read_model` edges | 📋 Planned |
 | 6 | EJB relationship → xref table edges (Duke's Bank) | 💡 Idea |
 

@@ -33,6 +33,7 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 | [Duke's Bank DRG design](DUKESBANK-DEMO.md) — AST/XML/LST decisions | migration-hub | ✅ |
 | JavaParser prototype (core) | java-ast-ssot | ✅ Alpha |
 | Profile `javaee-ejb2-jboss` on Duke's Bank | java-ast-ssot | ✅ Alpha (implicit in v0.1) |
+| Profile `jpa` — `@Entity` / `@Table` / `@Column` crosswalk | java-ast-ssot | ✅ Alpha (ADR-004 Step 4) |
 | **Refactor:** `--profile`, core-only export, schema split | java-ast-ssot | ✅ 1.0 (breaking) |
 | Cross-reference: profile crosswalk ↔ schema SSOT (`crosswalk` CLI) | java-ast-ssot + db-metadata | ✅ Alpha — see [ADR-004](docs/ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md) |
 
