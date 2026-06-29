@@ -66,7 +66,7 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 ## Current status (update via journal if stale)
 
 - **Done:** `db-metadata` alpha; Duke's Bank E2E; `java-ast-ssot` v1.0 (core + `javaee-ejb2-jboss` + `jpa` + `mybatis` + crosswalk + `classify-lists` M2); `anchor-explorer` alpha; `rewrite-recipes` 3.0–3.3 + ADR-008 L1/L2/L3 + ADR-009 presets; `parity-verify` v0.1 (structural JSON diff); `anchor-stubborn` v0.3 (token budget, metrics, Docker E2E); ADR-002–010  
-- **Next:** JPA Duke's Bank E2E re-export; parity-verify behavioral tests + HTML report; consumer-site tuple `get(i)` refactors (L3 follow-up)
+- **Next:** parity-verify behavioral tests + HTML report; consumer-site tuple `get(i)` refactors (L3 follow-up)
 
 ## Typical tasks
 

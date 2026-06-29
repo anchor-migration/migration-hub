@@ -545,6 +545,15 @@ All `metadata/*.db` files are gitignored — regenerate via this runbook.
 | Crosswalk | `crosswalk … -o dukesbank-linked.db` | 32 links, 0 errors |
 | Explorer | load linked.db | graph + table render |
 
+### Step 6 — JPA re-export + parity (ADR-004 Step 4d)
+
+```powershell
+cd demo-dukesbank
+.\scripts\run-e2e-jpa-parity.ps1
+```
+
+Applies `CmpScalarEntityToJpa` to on-disk `AccountBean.java`, re-exports with auto-detected profiles (`javaee-ejb2-jboss` + `jpa`), runs crosswalk before/after, and emits `parity-verify/metadata/dukesbank-parity-report.json`. See [demo-dukesbank README](https://github.com/anchor-migration/demo-dukesbank#jpa-re-export--parity-adr-004-step-4d).
+
 ---
 
 ## Relationship to other docs
