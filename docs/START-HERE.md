@@ -72,7 +72,7 @@ Live MySQL ──db-metadata──► schema SSOT (SQLite)
 Legacy Java + XML ──java-ast-ssot──► Java AST SSOT (SQLite)
          └─ crosswalk ──► linked SSOT (code_schema_link + edge colors)
 anchor-explorer ──► human UI (read-only)               [alpha]
-OpenRewrite recipes ──► modernized code                 [alpha — stack 3.0–3.3 + L1/L2 + presets]
+OpenRewrite recipes ──► modernized code                 [alpha — stack 3.0–3.3 + L1/L2/L3 + presets]
 classify-lists (on-demand) ──► L2 gate JSON             [alpha — ADR-008 M2]
 verify / parity ──► proof                               [planned]
 ```
@@ -89,7 +89,7 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | `java-ast-ssot crosswalk` (code + schema SSOT) | ✅ Alpha |
 | `java-ast-ssot classify-lists` (homogeneous / tuple / unknown) | ✅ Alpha |
 | Duke's Bank E2E (linked.db + anchor-explorer) | ✅ Verified |
-| `rewrite-recipes` harness + smoke (3.0) | ✅ 14 tests |
+| `rewrite-recipes` harness + smoke (3.0) | ✅ 16 tests |
 | Session→Service + CMP→JPA on Duke's Bank fixtures (3.1–3.3) | ✅ |
 | Language modernization L1 + L2 (ADR-008 M1/M3) | ✅ |
 | Language modernization L3 tuple proposals (ADR-008 M4) | ✅ |

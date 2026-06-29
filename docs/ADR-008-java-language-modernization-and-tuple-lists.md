@@ -138,7 +138,7 @@ failOnTupleList: true                # L2 must not run on classified tuple lists
 2. **Stack migration (ADR-007) and language modernization are separate recipe bundles** — may run in either order; recommended: **L1 before stack recipes** on same files (cleaner parse).
 3. **Tuple lists → dedicated result types (L3)** — align with user direction: *what looks like a return-value list should become a return-value class*.
 4. **L2/L3 depend on analysis** — extend `java-ast-ssot` or a sidecar report before applying L2 on ambiguous sites.
-5. **Duke's Bank:** use for **L2 homogeneous** examples; add **synthetic or customer tuple fixture** for L3 proof.
+5. **Duke's Bank:** use for **L2 homogeneous** examples; **synthetic tuple fixture** (`TupleFixture`) validates L3 proposal/apply.
 
 **Start implementation:** **Y** for M1/L1 after ADR-008 **Accepted**; M2 classifier before any broad L2 rollout.
 

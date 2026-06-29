@@ -106,7 +106,7 @@ A plugin on AST can recover **some** LST-like capabilities (comments, spans, opt
 |------|-------------|--------|
 | 1 | Document layered model (this ADR + DUKESBANK-DEMO cross-links) | Done |
 | 2 | `source_comment` table + export in `java-ast-ssot` | Done |
-| 3 | `rewrite-recipes` repo — LST parse at recipe apply time | 📋 Planned |
+| 3 | `rewrite-recipes` repo — LST parse at recipe apply time | ✅ Alpha (3.0–3.3 + ADR-008 L1/L2/L3) |
 | 4 | Optional `source_span` sidecar | 💡 Idea |
 
 ## References

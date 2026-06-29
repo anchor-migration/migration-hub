@@ -6,11 +6,11 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 
 | Item | Repo | Status |
 |------|------|--------|
-| Program hub and architecture docs | migration-hub | 🚧 |
+| Program hub and architecture docs | migration-hub | ✅ |
 | [ADR-006](docs/ADR-006-multi-role-decision-review.md) — multi-role decision gate | migration-hub | ✅ |
 | Schema export CLI (multi-DB) | db-metadata | ✅ Alpha |
 | Export verification (source vs SQLite) | db-metadata | ✅ Alpha |
-| Local workspace layout | anchor-migration/ | 🚧 |
+| Local workspace layout | anchor-migration/ | ✅ |
 | GitHub Organization setup | anchor-migration | 📋 |
 
 ## Phase 1 — Schema SSOT hardening

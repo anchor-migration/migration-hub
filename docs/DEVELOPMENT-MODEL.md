@@ -34,8 +34,8 @@ Everything shipped from this organization targets **100% deterministic execution
 | Layer | Deterministic artifact | Language |
 |-------|------------------------|----------|
 | Schema extraction | `db-metadata` CLI, SQLite SSOT | Python |
-| Code analysis (planned) | AST export, graph queries | Java / Python |
-| Transformation (planned) | OpenRewrite recipes, codemods | Java |
+| Code analysis | `java-ast-ssot` export, `classify-lists`, crosswalk | Java |
+| Transformation | `rewrite-recipes` OpenRewrite catalog (stack + L1/L2/L3) | Java |
 | Verification | `verify` commands, AST diff, test suites | Python / Java |
 
 Given the same inputs (source DB snapshot, source tree, recipe set, config), runs produce **reproducible outputs**. No non-deterministic behavior in the core pipeline.
