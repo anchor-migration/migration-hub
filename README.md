@@ -19,7 +19,7 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 | [**java-ast-ssot**](https://github.com/anchor-migration/java-ast-ssot) | Java AST SSOT (core + stack profiles) | Alpha |
 | [**rewrite-recipes**](https://github.com/anchor-migration/rewrite-recipes) | OpenRewrite rule catalog (stack + language modernization) | Alpha |
 | [**anchor-explorer**](https://github.com/anchor-migration/anchor-explorer) | Read-only SSOT crosswalk UI | Alpha |
-| [**parity-verify**](https://github.com/anchor-migration/parity-verify) | Old vs new business parity verification | Planned |
+| [**parity-verify**](https://github.com/anchor-migration/parity-verify) | Before/after AST structural parity (JSON) | Alpha |
 | [**pattern-catalog**](https://github.com/anchor-migration/pattern-catalog) | Migration pattern docs and examples | Planned |
 
 ## Program progress (2026-06)
@@ -34,7 +34,7 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 | 3.x | ADR-008 L1 + L2 + **L3** (language modernization complete for v1 spike) | ✅ |
 | 3.x | ADR-009 preset manifests (`Smoke`, `LanguageL1Only`, `LanguageL2Only`, `LanguageL3Only`, `DukesBankStackMigration`) | ✅ |
 | 3.x | ADR-008 M2 `classify-lists` (on-demand JSON, no cache) | ✅ |
-| 4 | Parity verification | 📋 Planned |
+| 4 | Parity verification (`parity-verify` structural diff) | ✅ Alpha |
 | 4 | `jpa` profile (ADR-004 Step 4) | ✅ Alpha |
 | 4 | `mybatis` profile (ADR-004 Step 5) | ✅ Alpha |
 
@@ -103,7 +103,7 @@ anchor-migration/
 ├── java-ast-ssot/       # Java AST SSOT exporter (alpha)
 ├── anchor-explorer/     # Read-only crosswalk UI (alpha)
 ├── rewrite-recipes/     # OpenRewrite catalog (alpha)
-├── parity-verify/       # (planned)
+├── parity-verify/       # Before/after AST structural diff (Alpha)
 └── pattern-catalog/     # (planned)
 ```
 

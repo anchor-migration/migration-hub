@@ -73,9 +73,9 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 
 | Item | Repo | Status |
 |------|------|--------|
-| AST subtree diff (old vs new) | parity-verify | 📋 |
+| AST subtree diff (old vs new) | parity-verify | ✅ Alpha (v0.1 JSON) |
 | AI-assisted test case generation (bounded) | parity-verify | 📋 |
-| Parity report format (HTML / JSON) | parity-verify | 📋 |
+| Parity report format (HTML / JSON) | parity-verify | 🔄 JSON done; HTML planned |
 
 ## Phase 5 — Ecosystem
 
