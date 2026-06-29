@@ -73,9 +73,10 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 
 | Item | Repo | Status |
 |------|------|--------|
-| AST subtree diff (old vs new) | parity-verify | ✅ Alpha (v0.1 JSON) |
+| AST subtree diff (old vs new) | parity-verify | ✅ Beta (v0.2 JSON + HTML) |
+| Behavioral matrix (`dukesbank-cmp-jpa`) | parity-verify | ✅ Beta |
 | AI-assisted test case generation (bounded) | parity-verify | 📋 |
-| Parity report format (HTML / JSON) | parity-verify | 🔄 JSON done; HTML planned |
+| Parity report format (HTML / JSON) | parity-verify | ✅ JSON + HTML |
 
 ## Phase 5 — Ecosystem
 

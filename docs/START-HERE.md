@@ -45,7 +45,7 @@ Public showcase: https://github.com/anchor-migration
 | **lab-notes** | **private** | Journals, ADR drafts, blog drafts | Active |
 | **java-ast-ssot** | public | Java AST SSOT (core + optional stack profiles) | Alpha |
 | **rewrite-recipes** | public | OpenRewrite catalog | Alpha |
-| **parity-verify** | public | Before/after AST structural diff | Alpha |
+| **parity-verify** | public | Before/after AST diff + behavioral matrix + HTML | Beta |
 | **anchor-explorer** | public | Read-only UI over linked SSOT snapshots | Alpha |
 | **anchor-stubborn** | public | SCIP → symbol graph → LLM context stubs ([ADR-010](ADR-010-anchor-stubborn-integration.md); horizontal) | Alpha |
 | **pattern-catalog** | public | Migration patterns | Planned |
@@ -61,7 +61,7 @@ C:\github\anchor-migration\
 ├── java-ast-ssot/          Java AST SSOT exporter
 ├── anchor-explorer/        Read-only crosswalk UI (React + Vite)
 ├── rewrite-recipes/        OpenRewrite catalog (alpha)
-├── parity-verify/          Before/after AST structural diff (alpha)
+├── parity-verify/          Before/after AST diff + behavioral matrix + HTML (beta)
 ├── anchor-stubborn/        LLM context compiler (horizontal; ADR-010)
 └── anchor-migration.code-workspace
 
@@ -79,7 +79,7 @@ Legacy Java + XML ──java-ast-ssot──► Java AST SSOT (SQLite)
 anchor-explorer ──► human UI (read-only)               [alpha]
 OpenRewrite recipes ──► modernized code                 [alpha — stack 3.0–3.3 + L1/L2/L3 + presets]
 classify-lists (on-demand) ──► L2 gate JSON             [alpha — ADR-008 M2]
-verify / parity ──► proof                               [alpha — parity-verify]
+verify / parity ──► proof                               [beta — parity-verify v0.2]
 anchor-stubborn ──► optional LLM context (SCIP → stubs) [alpha — ADR-010; not in SSOT path]
 ```
 
@@ -112,10 +112,10 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | Stack rewrite | Session `BeanState` → Spring service; scalar CMP → JPA |
 | Language rewrite | L1 mechanical swaps; L2 homogeneous `ArrayList<E>`; **L3 tuple → result class** |
 | Orchestration | ADR-009 YAML presets + `anchor.rewrite.preset` property |
-| Parity | `parity-verify` v0.1 — before/after AST stable-ID diff (JSON) |
+| Parity | `parity-verify` v0.2 — AST diff + `dukesbank-cmp-jpa` behavioral matrix + HTML |
 | LLM context | `anchor-stubborn` v0.3 — metrics KPI; ~86% token savings on demo-spring `OrderService` |
 | Duke's Bank JPA E2E | `run-e2e-jpa-parity.ps1` — CMP→JPA apply + re-export + parity |
-| **Next** | parity-verify behavioral tests + HTML report |
+| **Next** | parity-verify custom matrix YAML; AI-assisted test generation |
 
 ## Language-specific AST repos
 
@@ -134,7 +134,7 @@ Extractors use **`{language}-ast-ssot`** names. **`java-ast-ssot`** = generic Ja
 
 ## Next work (priority)
 
-1. **parity-verify** behavioral matrix + HTML report
+1. **parity-verify** custom matrix YAML loader + pattern-catalog checklists
 2. Blog draft from lab-notes backlog (private)
 
 **Done:** ADR-004 Step 5 `mybatis` profile + crosswalk (`resultMap`, JOIN `read_model`); ADR-004 Step 4 `jpa` profile + crosswalk (`@Entity` / `@Table` / `@Column`); ADR-008 M4 L3 — [tuple-list-l3.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/tuple-list-l3.md); ADR-008 M3 L2 — [homogeneous-raw-list-l2.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/homogeneous-raw-list-l2.md); ADR-008 M2 `classify-lists` — [list-usage-classifier.md](https://github.com/anchor-migration/java-ast-ssot/blob/main/docs/list-usage-classifier.md); ADR-009 preset manifests — [rewrite-presets.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/rewrite-presets.md); ADR-008 L1 — [vector-to-arraylist-l1.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/vector-to-arraylist-l1.md); 3.3 CMP→JPA scalar `AccountBean` — [cmp-scalar-entity-to-jpa-account-bean.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/cmp-scalar-entity-to-jpa-account-bean.md); 3.2 Session→Service chain — [session-bean-to-spring-service-account-controller.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/session-bean-to-spring-service-account-controller.md); 3.0 harness — `.\scripts\run-test.ps1`; Duke's Bank E2E — [DUKESBANK-DEMO.md#e2e-quick-path](DUKESBANK-DEMO.md#e2e-quick-path)

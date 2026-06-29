@@ -552,7 +552,7 @@ cd demo-dukesbank
 .\scripts\run-e2e-jpa-parity.ps1
 ```
 
-Applies `CmpScalarEntityToJpa` to on-disk `AccountBean.java`, re-exports with auto-detected profiles (`javaee-ejb2-jboss` + `jpa`), runs crosswalk before/after, and emits `parity-verify/metadata/dukesbank-parity-report.json`. See [demo-dukesbank README](https://github.com/anchor-migration/demo-dukesbank#jpa-re-export--parity-adr-004-step-4d).
+Applies `CmpScalarEntityToJpa` to on-disk `AccountBean.java`, re-exports with auto-detected profiles (`javaee-ejb2-jboss` + `jpa`), runs crosswalk before/after, and emits `parity-verify/metadata/dukesbank-parity-report.json` plus HTML with behavioral matrix `dukesbank-cmp-jpa`. See [demo-dukesbank README](https://github.com/anchor-migration/demo-dukesbank#jpa-re-export--parity-adr-004-step-4d).
 
 ---
 

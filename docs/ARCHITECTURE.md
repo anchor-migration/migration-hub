@@ -259,7 +259,7 @@ AI-assisted refactoring handles non-mechanical cases; outputs remain subject to 
 
 | Input | Tool | Output |
 |-------|------|--------|
-| Old + new codebases | `parity-verify` | Parity report: AST diffs, behavioral test matrix, gaps |
+| Old + new codebases | `parity-verify` | Parity report: AST diffs, **`dukesbank-cmp-jpa` behavioral matrix**, HTML + JSON |
 | Schema SSOT | `db-metadata verify` | Export reconciliation against live DB |
 
 Verification is not optional in the intended workflow: migrate → verify → fix → re-verify.
