@@ -210,7 +210,8 @@ Reference **demo application**, not the boundary of `java-ast-ssot`. It validate
 | Stack migration (ADR-007) | — | Session→Service (`BeanState`), CMP→JPA scalar |
 | Language modernization (ADR-008) | L1 | `Vector`→`ArrayList`, `Hashtable`→`HashMap` |
 | Language modernization (ADR-008) | L2 | Homogeneous raw `ArrayList` → `ArrayList<E>` |
-| Presets (ADR-009) | — | `DukesBankStackMigration`, `LanguageL1Only`, `LanguageL2Only` |
+| Language modernization (ADR-008) | L3 | Tuple list → result class (proposal + approved apply) |
+| Presets (ADR-009) | — | `DukesBankStackMigration`, `LanguageL1Only`, `LanguageL2Only`, `LanguageL3Only` |
 
 Recommended run order on the same files: **L1 → stack migration → L2** (after `classify-lists` review for production targets).
 

@@ -63,8 +63,8 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 
 ## Current status (update via journal if stale)
 
-- **Done:** `db-metadata` alpha; Duke's Bank E2E; `java-ast-ssot` v1.0 (core + profiles + crosswalk + **`classify-lists` M2**); `anchor-explorer` alpha; `rewrite-recipes` 3.0–3.3 + ADR-008 L1/L2 + ADR-009 presets; ADR-002–009  
-- **Next:** ADR-008 M4 L3 tuple → result class (`rewrite-recipes`); `jpa` profile ([ADR-004](docs/ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md))
+- **Done:** `db-metadata` alpha; Duke's Bank E2E; `java-ast-ssot` v1.0 (core + profiles + crosswalk + **`classify-lists` M2**); `anchor-explorer` alpha; `rewrite-recipes` 3.0–3.3 + ADR-008 L1/L2/L3 + ADR-009 presets; ADR-002–009  
+- **Next:** `jpa` profile ([ADR-004](docs/ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md)); consumer-site tuple `get(i)` refactors (L3 follow-up)
 
 ## Typical tasks
 

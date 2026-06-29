@@ -278,7 +278,7 @@ Behavioral parity: still **future parity-verify** — structural proof first.
 | 3 | M1 — L1 `Vector` → `ArrayList` recipe + test | ✅ |
 | 4 | M2 — list usage classifier spec + Duke's Bank report spike | ✅ |
 | 5 | M3 — L2 homogeneous recipe (bank module) | ✅ |
-| 6 | M4 — L3 tuple fixture + proposal-only recipe | 📋 |
+| 6 | M4 — L3 tuple fixture + proposal-only recipe | ✅ |
 
 ---
 

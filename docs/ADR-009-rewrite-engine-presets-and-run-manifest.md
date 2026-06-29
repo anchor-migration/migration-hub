@@ -51,6 +51,7 @@ OpenRewrite is the **reference implementation** of the rewrite port ([ADR-003](A
 | `com.anchor.migration.presets.Smoke` | `AddAnchorProbeComment` |
 | `com.anchor.migration.presets.LanguageL1Only` | `LanguageModernizationL1` |
 | `com.anchor.migration.presets.LanguageL2Only` | `LanguageModernizationL2` — homogeneous raw `ArrayList` typing |
+| `com.anchor.migration.presets.LanguageL3Only` | `LanguageModernizationL3` — tuple list proposals |
 | `com.anchor.migration.presets.DukesBankStackMigration` | L1 → `SessionBeanToSpringService` → `CmpScalarEntityToJpa` |
 
 Duke's Bank stack order matches ADR-007 + ADR-008 recommended run order.

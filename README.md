@@ -31,11 +31,11 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 | 2.5 | Anchor Explorer + Duke's Bank E2E | ✅ Alpha |
 | 3.0 | OpenRewrite harness + smoke recipes | ✅ |
 | 3.1–3.3 | Session→Service + CMP→JPA (Duke's Bank) | ✅ |
-| 3.x | ADR-008 L1 (`Vector`→`ArrayList`) + L2 (homogeneous `ArrayList` typing) | ✅ |
-| 3.x | ADR-009 preset manifests (`Smoke`, `LanguageL1Only`, `LanguageL2Only`, `DukesBankStackMigration`) | ✅ |
+| 3.x | ADR-008 L1 + L2 + **L3** (language modernization complete for v1 spike) | ✅ |
+| 3.x | ADR-009 preset manifests (`Smoke`, `LanguageL1Only`, `LanguageL2Only`, `LanguageL3Only`, `DukesBankStackMigration`) | ✅ |
 | 3.x | ADR-008 M2 `classify-lists` (on-demand JSON, no cache) | ✅ |
 | 4 | Parity verification | 📋 Planned |
-| 3.x | ADR-008 M4 L3 tuple list → result class | 📋 Next |
+| 4 | `jpa` / `mybatis` profiles (ADR-004) | 📋 Next |
 
 Details: [ROADMAP.md](docs/ROADMAP.md) · [START-HERE.md](docs/START-HERE.md)
 

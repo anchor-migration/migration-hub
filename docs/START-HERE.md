@@ -92,7 +92,8 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | `rewrite-recipes` harness + smoke (3.0) | ✅ 14 tests |
 | Session→Service + CMP→JPA on Duke's Bank fixtures (3.1–3.3) | ✅ |
 | Language modernization L1 + L2 (ADR-008 M1/M3) | ✅ |
-| Preset catalog ADR-009 (`Smoke`, `LanguageL1Only`, `LanguageL2Only`, `DukesBankStackMigration`) | ✅ |
+| Language modernization L3 tuple proposals (ADR-008 M4) | ✅ |
+| Preset catalog ADR-009 (`Smoke`, `LanguageL1Only`, `LanguageL2Only`, `LanguageL3Only`, `DukesBankStackMigration`) | ✅ |
 
 ## Program progress snapshot
 
@@ -103,9 +104,9 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | List analysis | `classify-lists` — ephemeral JSON, no SQLite sidecar |
 | Human review | `anchor-explorer` alpha — crosswalk graph |
 | Stack rewrite | Session `BeanState` → Spring service; scalar CMP → JPA |
-| Language rewrite | L1 mechanical swaps; L2 homogeneous `ArrayList<E>` |
+| Language rewrite | L1 mechanical swaps; L2 homogeneous `ArrayList<E>`; **L3 tuple → result class** |
 | Orchestration | ADR-009 YAML presets + `anchor.rewrite.preset` property |
-| **Next** | ADR-008 M4 — L3 tuple list → result class (proposal-only) |
+| **Next** | `jpa` / `mybatis` profiles (ADR-004 Step 4–5) |
 
 ## Language-specific AST repos
 
@@ -124,11 +125,10 @@ Extractors use **`{language}-ast-ssot`** names. **`java-ast-ssot`** = generic Ja
 
 ## Next work (priority)
 
-1. **ADR-008 M4** — L3 tuple list → result class (proposal-only)
-2. **`jpa` / `mybatis` profiles** — ADR-004 Step 4–5
-3. Blog draft from lab-notes backlog (private)
+1. **`jpa` / `mybatis` profiles** — ADR-004 Step 4–5
+2. Blog draft from lab-notes backlog (private)
 
-**Done:** ADR-008 M3 L2 — [homogeneous-raw-list-l2.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/homogeneous-raw-list-l2.md); ADR-008 M2 `classify-lists` — [list-usage-classifier.md](https://github.com/anchor-migration/java-ast-ssot/blob/main/docs/list-usage-classifier.md); ADR-009 preset manifests — [rewrite-presets.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/rewrite-presets.md); ADR-008 L1 — [vector-to-arraylist-l1.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/vector-to-arraylist-l1.md); 3.3 CMP→JPA scalar `AccountBean` — [cmp-scalar-entity-to-jpa-account-bean.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/cmp-scalar-entity-to-jpa-account-bean.md); 3.2 Session→Service chain — [session-bean-to-spring-service-account-controller.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/session-bean-to-spring-service-account-controller.md); 3.0 harness — `.\scripts\run-test.ps1`; Duke's Bank E2E — [DUKESBANK-DEMO.md#e2e-quick-path](DUKESBANK-DEMO.md#e2e-quick-path)
+**Done:** ADR-008 M4 L3 — [tuple-list-l3.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/tuple-list-l3.md); ADR-008 M3 L2 — [homogeneous-raw-list-l2.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/homogeneous-raw-list-l2.md); ADR-008 M2 `classify-lists` — [list-usage-classifier.md](https://github.com/anchor-migration/java-ast-ssot/blob/main/docs/list-usage-classifier.md); ADR-009 preset manifests — [rewrite-presets.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/rewrite-presets.md); ADR-008 L1 — [vector-to-arraylist-l1.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/vector-to-arraylist-l1.md); 3.3 CMP→JPA scalar `AccountBean` — [cmp-scalar-entity-to-jpa-account-bean.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/cmp-scalar-entity-to-jpa-account-bean.md); 3.2 Session→Service chain — [session-bean-to-spring-service-account-controller.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/session-bean-to-spring-service-account-controller.md); 3.0 harness — `.\scripts\run-test.ps1`; Duke's Bank E2E — [DUKESBANK-DEMO.md#e2e-quick-path](DUKESBANK-DEMO.md#e2e-quick-path)
 
 See **[AGENTS.md](../AGENTS.md)** at the root of this repository for session bootstrap instructions.
 
