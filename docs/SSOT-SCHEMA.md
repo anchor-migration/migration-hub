@@ -170,6 +170,22 @@ Parity verifier consumes:
 
 Output: machine-readable parity report with pass / fail / unknown per check.
 
+## Symbol graph SSOT (LLM context)
+
+**Owner:** `anchor-stubborn`  
+**Design:** [ADR-010 — anchor-stubborn integration](ADR-010-anchor-stubborn-integration.md)  
+**Version:** 1  
+**Format:** SQLite  
+**DDL:** [anchor-stubborn/src/anchor_stubborn/store/schema/v1.sql](https://github.com/anchor-migration/anchor-stubborn/blob/main/src/anchor_stubborn/store/schema/v1.sql)
+
+Separate from Java AST SSOT. Ingests SCIP symbol indexes; stores symbols, references, and document metadata for pruning and weaving.
+
+### Consumption guidelines
+
+- **read-only** — treat like other SSOT snapshots; derive stub text or metrics, do not mutate in place
+- **optional** — migration runbooks do not require this artifact for export, crosswalk, rewrite, or parity
+- **privacy** — woven output excludes method bodies; see ADR-010 privacy contract
+
 ## Versioning policy
 
 1. Increment SSOT major version on breaking DDL or ID format changes.

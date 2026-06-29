@@ -20,6 +20,7 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 | [**rewrite-recipes**](https://github.com/anchor-migration/rewrite-recipes) | OpenRewrite rule catalog (stack + language modernization) | Alpha |
 | [**anchor-explorer**](https://github.com/anchor-migration/anchor-explorer) | Read-only SSOT crosswalk UI | Alpha |
 | [**parity-verify**](https://github.com/anchor-migration/parity-verify) | Before/after AST structural parity (JSON) | Alpha |
+| [**anchor-stubborn**](https://github.com/anchor-migration/anchor-stubborn) | SCIP → symbol graph → LLM context stubs (horizontal; [ADR-010](docs/ADR-010-anchor-stubborn-integration.md)) | Alpha |
 | [**pattern-catalog**](https://github.com/anchor-migration/pattern-catalog) | Migration pattern docs and examples | Planned |
 
 ## Program progress (2026-06)
@@ -37,6 +38,7 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 | 4 | Parity verification (`parity-verify` structural diff) | ✅ Alpha |
 | 4 | `jpa` profile (ADR-004 Step 4) | ✅ Alpha |
 | 4 | `mybatis` profile (ADR-004 Step 5) | ✅ Alpha |
+| Ecosystem | `anchor-stubborn` v0.3 — token budget, metrics, Docker E2E (~86% savings on demo-spring) | ✅ Alpha |
 
 Details: [ROADMAP.md](docs/ROADMAP.md) · [START-HERE.md](docs/START-HERE.md)
 
@@ -81,6 +83,8 @@ flowchart TB
   ASTDiff --> Parity
 ```
 
+**Horizontal (optional):** [anchor-stubborn](https://github.com/anchor-migration/anchor-stubborn) compiles SCIP symbol graphs into token-bounded stub text for LLMs — used when drafting mappings or recipe designs, not inside the SSOT → rewrite → verify path. See [ADR-010](docs/ADR-010-anchor-stubborn-integration.md).
+
 ## Design principles
 
 1. **SSoT first** — Schema and AST are exported from live systems, not inferred from docs.
@@ -104,6 +108,7 @@ anchor-migration/
 ├── anchor-explorer/     # Read-only crosswalk UI (alpha)
 ├── rewrite-recipes/     # OpenRewrite catalog (alpha)
 ├── parity-verify/       # Before/after AST structural diff (Alpha)
+├── anchor-stubborn/     # LLM context compiler (horizontal; ADR-010)
 └── pattern-catalog/     # (planned)
 ```
 
@@ -118,6 +123,7 @@ Open `anchor-migration.code-workspace` in Cursor/VS Code to work across repos.
 - [Architecture](docs/ARCHITECTURE.md)
 - [Roadmap](docs/ROADMAP.md)
 - [SSoT schema contracts](docs/SSOT-SCHEMA.md)
+- [ADR-010 — anchor-stubborn integration](docs/ADR-010-anchor-stubborn-integration.md)
 
 ## Getting started
 

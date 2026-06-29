@@ -137,9 +137,11 @@ flowchart TB
   RR[rewrite-recipes]
   PV[parity-verify]
   PC[pattern-catalog]
+  AS[anchor-stubborn]
 
   HUB -.->|"docs"| RR
-  HUB -.->|"planned"| PV
+  HUB -.->|"docs"| PV
+  HUB -.->|"ADR-010"| AS
   HUB -.->|"planned"| PC
 
   DM -->|"schema .db"| JA
@@ -147,9 +149,45 @@ flowchart TB
   JA -->|"classify-lists JSON"| RR
   RR -->|"OpenRewrite"| ORW[OpenRewrite]
   PC -->|"pattern ID"| RR
+  AS -.->|"stub text"| LLM[LLM / agents]
 ```
 
-Solid arrows = **artifact flow** today. Dotted = **documentation / planned** coupling via `migration-hub` contracts ([SSOT-SCHEMA.md](SSOT-SCHEMA.md)).
+Solid arrows = **artifact flow** today. Dotted = **documentation / optional** coupling via `migration-hub` contracts ([SSOT-SCHEMA.md](SSOT-SCHEMA.md)). `anchor-stubborn` is horizontal — not in Layers 1–4; see [ADR-010](ADR-010-anchor-stubborn-integration.md).
+
+## Horizontal capabilities
+
+Tools that serve the program (and other consumers) **without** sitting in the SSOT → rewrite → verify pipeline.
+
+### anchor-stubborn — LLM context compiler
+
+| Input | Tool | Output |
+|-------|------|--------|
+| SCIP index (e.g. `scip-java`) | `anchor-stubborn index` | Symbol graph SQLite |
+| Symbol graph + target stable ID | `anchor-stubborn context` | Privacy-safe stub text (token-bounded) |
+| Symbol graph + source tree | `anchor-stubborn metrics` | Compression KPI (JSON) |
+
+```mermaid
+flowchart TB
+  subgraph pipeline["Migration pipeline (Layers 1–4)"]
+    DM[db-metadata]
+    JA[java-ast-ssot]
+    AE[anchor-explorer]
+    RR[rewrite-recipes]
+    PV[parity-verify]
+  end
+
+  subgraph horizontal["Horizontal"]
+    AS[anchor-stubborn]
+  end
+
+  SCIP[scip-java / SCIP index] --> AS
+  AS -->|"stub text"| LLM[LLM / agents]
+  AS -.->|"optional: mapping draft"| RR
+```
+
+**When to use:** LLM-assisted mapping design, recipe brainstorming, PR context — feed stubs instead of raw sources.  
+**When not to use:** Explorer crosswalk, schema linking, OpenRewrite apply, parity diff — use pipeline tools.  
+**Contract:** [ADR-010](ADR-010-anchor-stubborn-integration.md), symbol-graph DDL in [SSOT-SCHEMA.md](SSOT-SCHEMA.md).
 
 ## Mapping tiers
 

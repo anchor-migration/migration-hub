@@ -37,8 +37,11 @@ Everything shipped from this organization targets **100% deterministic execution
 | Code analysis | `java-ast-ssot` export, `classify-lists`, crosswalk | Java |
 | Transformation | `rewrite-recipes` OpenRewrite catalog (stack + L1/L2/L3) | Java |
 | Verification | `verify` commands, AST diff, test suites | Python / Java |
+| LLM context (horizontal) | `anchor-stubborn` index, context, metrics | Python |
 
 Given the same inputs (source DB snapshot, source tree, recipe set, config), runs produce **reproducible outputs**. No non-deterministic behavior in the core pipeline.
+
+`anchor-stubborn` is **outside** the migration SSOT → rewrite → verify path but follows the same philosophy: SQLite snapshots, stable IDs, deterministic CLI output. See [ADR-010](docs/ADR-010-anchor-stubborn-integration.md).
 
 ## Boundary protocols
 

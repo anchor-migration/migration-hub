@@ -28,8 +28,10 @@ Public showcase: https://github.com/anchor-migration
 | 10 | [ADR-007](ADR-007-rewrite-recipes-session-and-cmp-jpa.md) | rewrite-recipes: Session→Service (BeanState) vs CMP→JPA |
 | 11 | [ADR-008](ADR-008-java-language-modernization-and-tuple-lists.md) | Language modernization: generics, Vector, tuple lists → result classes |
 | 12 | [ADR-009](ADR-009-rewrite-engine-presets-and-run-manifest.md) | Rewrite presets, YAML composites, swappable engine port |
-| 13 | [ROADMAP.md](ROADMAP.md) | What is done vs planned |
-| 12 | [db-metadata README](https://github.com/anchor-migration/db-metadata) | CLI: `export`, `verify`, `info` |
+| 13 | [ADR-010](ADR-010-anchor-stubborn-integration.md) | **anchor-stubborn** — horizontal LLM context (optional; not a pipeline layer) |
+| 14 | [ROADMAP.md](ROADMAP.md) | What is done vs planned |
+| 15 | [db-metadata README](https://github.com/anchor-migration/db-metadata) | CLI: `export`, `verify`, `info` |
+| — | [anchor-stubborn README](https://github.com/anchor-migration/anchor-stubborn) | SCIP ingest, context weaving, metrics KPI (independent repo) |
 
 **Private (if you have access):** `lab-notes/journal/2026-06-27-session-wrapup.md` — latest session log.
 
@@ -45,6 +47,7 @@ Public showcase: https://github.com/anchor-migration
 | **rewrite-recipes** | public | OpenRewrite catalog | Alpha |
 | **parity-verify** | public | Before/after AST structural diff | Alpha |
 | **anchor-explorer** | public | Read-only UI over linked SSOT snapshots | Alpha |
+| **anchor-stubborn** | public | SCIP → symbol graph → LLM context stubs ([ADR-010](ADR-010-anchor-stubborn-integration.md); horizontal) | Alpha |
 | **pattern-catalog** | public | Migration patterns | Planned |
 
 ## Local workspace (author machine)
@@ -58,6 +61,8 @@ C:\github\anchor-migration\
 ├── java-ast-ssot/          Java AST SSOT exporter
 ├── anchor-explorer/        Read-only crosswalk UI (React + Vite)
 ├── rewrite-recipes/        OpenRewrite catalog (alpha)
+├── parity-verify/          Before/after AST structural diff (alpha)
+├── anchor-stubborn/        LLM context compiler (horizontal; ADR-010)
 └── anchor-migration.code-workspace
 
 C:\github\dukesbank\        Duke's Bank legacy sample (external to org)
@@ -74,10 +79,11 @@ Legacy Java + XML ──java-ast-ssot──► Java AST SSOT (SQLite)
 anchor-explorer ──► human UI (read-only)               [alpha]
 OpenRewrite recipes ──► modernized code                 [alpha — stack 3.0–3.3 + L1/L2/L3 + presets]
 classify-lists (on-demand) ──► L2 gate JSON             [alpha — ADR-008 M2]
-verify / parity ──► proof                               [planned]
+verify / parity ──► proof                               [alpha — parity-verify]
+anchor-stubborn ──► optional LLM context (SCIP → stubs) [alpha — ADR-010; not in SSOT path]
 ```
 
-Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.md).
+Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.md), [ADR-010](ADR-010-anchor-stubborn-integration.md).
 
 ## What is verified today
 
@@ -107,6 +113,7 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | Language rewrite | L1 mechanical swaps; L2 homogeneous `ArrayList<E>`; **L3 tuple → result class** |
 | Orchestration | ADR-009 YAML presets + `anchor.rewrite.preset` property |
 | Parity | `parity-verify` v0.1 — before/after AST stable-ID diff (JSON) |
+| LLM context | `anchor-stubborn` v0.3 — metrics KPI; ~86% token savings on demo-spring `OrderService` |
 | **Next** | JPA Duke's Bank E2E re-export (4d); parity-verify behavioral tests + HTML report |
 
 ## Language-specific AST repos

@@ -31,6 +31,7 @@ Instructions for AI coding assistants (Cursor, etc.) in a **new session** with n
 | `demo-dukesbank/` | public | MySQL Docker bridge for Duke's Bank |
 | `java-ast-ssot/` | public | Java AST SSOT CLI (core + stack profiles) |
 | `anchor-explorer/` | public | Read-only UI: load linked SQLite, crosswalk graph + colors |
+| `anchor-stubborn/` | public | LLM context compiler: SCIP → symbol graph → stub text ([ADR-010](docs/ADR-010-anchor-stubborn-integration.md)) |
 
 ## Hard conventions
 
@@ -57,13 +58,14 @@ Instructions for AI coding assistants (Cursor, etc.) in a **new session** with n
 | Anchor Explorer | Read-only human UI over SQLite snapshots — first-class interface — [ADR-005](docs/ADR-005-multi-tier-alignment-and-ssot-explorer.md) |
 | Decision process | Multi-role review before gated implementation — [ADR-006](docs/ADR-006-multi-role-decision-review.md) |
 | AST repo naming | **`{language}-ast-ssot`** (e.g. `java-ast-ssot`); reserved for future e.g. `cobol-ast-ssot` |
+| LLM context | **`anchor-stubborn`** — horizontal; complements (does not replace) `java-ast-ssot` — [ADR-010](docs/ADR-010-anchor-stubborn-integration.md) |
 | Repos | Multi-repo under org; not a monorepo |
 
 See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-001 (private), or DUKESBANK-DEMO § AST vs LST.
 
 ## Current status (update via journal if stale)
 
-- **Done:** `db-metadata` alpha; Duke's Bank E2E; `java-ast-ssot` v1.0 (core + `javaee-ejb2-jboss` + `jpa` + `mybatis` + crosswalk + `classify-lists` M2); `anchor-explorer` alpha; `rewrite-recipes` 3.0–3.3 + ADR-008 L1/L2/L3 + ADR-009 presets; `parity-verify` v0.1 (structural JSON diff); ADR-002–009  
+- **Done:** `db-metadata` alpha; Duke's Bank E2E; `java-ast-ssot` v1.0 (core + `javaee-ejb2-jboss` + `jpa` + `mybatis` + crosswalk + `classify-lists` M2); `anchor-explorer` alpha; `rewrite-recipes` 3.0–3.3 + ADR-008 L1/L2/L3 + ADR-009 presets; `parity-verify` v0.1 (structural JSON diff); `anchor-stubborn` v0.3 (token budget, metrics, Docker E2E); ADR-002–010  
 - **Next:** JPA Duke's Bank E2E re-export; parity-verify behavioral tests + HTML report; consumer-site tuple `get(i)` refactors (L3 follow-up)
 
 ## Typical tasks
@@ -76,11 +78,12 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 | Raw list usage (homogeneous / tuple) | `java-ast-ssot classify-lists` — on-demand JSON, no cache; [list-usage-classifier.md](https://github.com/anchor-migration/java-ast-ssot/blob/main/docs/list-usage-classifier.md) |
 | Code ↔ schema crosswalk | `java-ast-ssot crosswalk` — `--code-db`, `--schema-db`, `--db-schema`, `-o`; see ADR-004 |
 | Parity / structural diff | `parity-verify compare` — `--before-db`, `--after-db`, `-o` JSON report; optional `--linked-before` / `--linked-after` |
+| LLM context for migration target | `anchor-stubborn/` — SCIP index → `context` / `metrics`; see [ADR-010](docs/ADR-010-anchor-stubborn-integration.md) |
 | Program docs / blog outline | `migration-hub/docs/` or private `lab-notes/blog-drafts/` |
 | Session log | private `lab-notes/journal/` |
 
 ## Workspace file
 
-User opens `anchor-migration.code-workspace` for multi-root: migration-hub, db-metadata, java-ast-ssot, demo-dukesbank, rewrite-recipes, parity-verify, lab-notes.
+User opens `anchor-migration.code-workspace` for multi-root: migration-hub, db-metadata, java-ast-ssot, demo-dukesbank, rewrite-recipes, parity-verify, anchor-stubborn, lab-notes.
 
 Root pointer: `../README.md` (parent of migration-hub — local workspace root).

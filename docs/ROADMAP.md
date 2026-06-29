@@ -81,6 +81,10 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 
 | Item | Repo | Status |
 |------|------|--------|
+| [ADR-010](docs/ADR-010-anchor-stubborn-integration.md) — anchor-stubborn horizontal LLM context | migration-hub + anchor-stubborn | ✅ |
+| `anchor-stubborn` v0.3 — token budget, `metrics` KPI, Docker E2E | anchor-stubborn | ✅ Alpha |
+| `anchor-stubborn` MCP server (`get_context`) | anchor-stubborn | 📋 |
+| migration-bridge example (Duke's Bank LLM workflow) | anchor-stubborn | ✅ |
 | Pattern catalog (5+ documented patterns) | pattern-catalog | 📋 |
 | Demo legacy application | demo-legacy-app | 💡 |
 | Contributing guide and good-first issues | all | 📋 |
