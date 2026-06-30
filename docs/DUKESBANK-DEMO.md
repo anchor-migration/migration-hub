@@ -552,7 +552,7 @@ cd demo-dukesbank
 .\scripts\run-e2e-jpa-parity.ps1
 ```
 
-Applies `CmpScalarEntityToJpa` to on-disk `AccountBean.java`, re-exports with auto-detected profiles (`javaee-ejb2-jboss` + `jpa`), runs crosswalk before/after, and emits `parity-verify/metadata/dukesbank-parity-report.json` plus HTML with behavioral matrix `dukesbank-cmp-jpa`. See [demo-dukesbank README](https://github.com/anchor-migration/demo-dukesbank#jpa-re-export--parity-adr-004-step-4d).
+Applies CMP→JPA recipes to **AccountBean**, **CustomerBean**, and **TxBean**, re-exports with auto-detected profiles (`javaee-ejb2-jboss` + `jpa`), runs crosswalk before/after, and emits per-entity parity reports under `parity-verify/metadata/` (`dukesbank-parity-account|customer|txbean.{json,html}`) with `--pattern-catalog` matrices. See [demo-dukesbank README](https://github.com/anchor-migration/demo-dukesbank#jpa-re-export--parity-adr-004-step-4d--adr-007-v04-multi-entity).
 
 ---
 
