@@ -74,7 +74,8 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 | Item | Repo | Status |
 |------|------|--------|
 | AST subtree diff (old vs new) | parity-verify | ✅ Beta (v0.2 JSON + HTML) |
-| Behavioral matrix (`dukesbank-cmp-jpa`) | parity-verify | ✅ Beta |
+| Behavioral matrix (`dukesbank-cmp-jpa`) | parity-verify | ✅ Beta (YAML-backed) |
+| Custom matrix YAML loader (`--matrix-file`) | parity-verify | ✅ Beta |
 | AI-assisted test case generation (bounded) | parity-verify | 📋 |
 | Parity report format (HTML / JSON) | parity-verify | ✅ JSON + HTML |
 
