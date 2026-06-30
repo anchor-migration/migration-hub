@@ -76,7 +76,8 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 | AST subtree diff (old vs new) | parity-verify | ✅ Beta (v0.2 JSON + HTML) |
 | Behavioral matrix (`dukesbank-cmp-jpa`) | parity-verify | ✅ Beta (YAML-backed) |
 | Custom matrix YAML loader (`--matrix-file`) | parity-verify | ✅ Beta |
-| AI-assisted test case generation (bounded) | parity-verify | 📋 |
+| Pattern-catalog checklists (`pattern_id`) | parity-verify + pattern-catalog | ✅ Alpha |
+| AI-assisted test stub generation (`generate-tests`) | parity-verify | ✅ Beta |
 | Parity report format (HTML / JSON) | parity-verify | ✅ JSON + HTML |
 
 ## Phase 5 — Ecosystem
@@ -87,7 +88,7 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 | `anchor-stubborn` v0.3 — token budget, `metrics` KPI, Docker E2E | anchor-stubborn | ✅ Alpha |
 | `anchor-stubborn` MCP server (`get_context`) | anchor-stubborn | 📋 |
 | migration-bridge example (Duke's Bank LLM workflow) | anchor-stubborn | ✅ |
-| Pattern catalog (5+ documented patterns) | pattern-catalog | 📋 |
+| Pattern catalog (5+ documented patterns) | pattern-catalog | 🚧 Alpha (2 patterns) |
 | Demo legacy application | demo-legacy-app | 💡 |
 | Contributing guide and good-first issues | all | 📋 |
 | End-to-end video / blog walkthrough | migration-hub | 💡 |

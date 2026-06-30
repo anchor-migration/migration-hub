@@ -19,7 +19,8 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 | [**java-ast-ssot**](https://github.com/anchor-migration/java-ast-ssot) | Java AST SSOT (core + stack profiles) | Alpha |
 | [**rewrite-recipes**](https://github.com/anchor-migration/rewrite-recipes) | OpenRewrite rule catalog (stack + language modernization) | Alpha |
 | [**anchor-explorer**](https://github.com/anchor-migration/anchor-explorer) | Read-only SSOT crosswalk UI | Alpha |
-| [**parity-verify**](https://github.com/anchor-migration/parity-verify) | Before/after AST diff + behavioral matrix + HTML reports | Beta |
+| [**pattern-catalog**](https://github.com/anchor-migration/pattern-catalog) | Migration patterns + parity checklists | Alpha |
+| [**parity-verify**](https://github.com/anchor-migration/parity-verify) | Before/after AST diff + behavioral matrix + HTML | Beta |
 | [**anchor-stubborn**](https://github.com/anchor-migration/anchor-stubborn) | SCIP → symbol graph → LLM context stubs (horizontal; [ADR-010](docs/ADR-010-anchor-stubborn-integration.md)) | Alpha |
 | [**pattern-catalog**](https://github.com/anchor-migration/pattern-catalog) | Migration pattern docs and examples | Planned |
 

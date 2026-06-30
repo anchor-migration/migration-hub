@@ -65,8 +65,8 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 
 ## Current status (update via journal if stale)
 
-- **Done:** `db-metadata` alpha; Duke's Bank E2E; `java-ast-ssot` v1.0 (core + `javaee-ejb2-jboss` + `jpa` + `mybatis` + crosswalk + `classify-lists` M2); `anchor-explorer` alpha; `rewrite-recipes` 3.0–3.3 + ADR-008 L1/L2/L3 + ADR-009 presets; `parity-verify` v0.2 (structural JSON + `dukesbank-cmp-jpa` behavioral matrix + HTML); `anchor-stubborn` v0.3 (token budget, metrics, Docker E2E); ADR-002–010  
-- **Next:** pattern-catalog matrix checklists; parity-verify `generate-tests` command
+- **Done:** `db-metadata` alpha; Duke's Bank E2E; `java-ast-ssot` v1.0; `anchor-explorer` alpha; `rewrite-recipes` 3.0–3.3 + ADR-008 L1/L2/L3 + **v0.4a `CmpManyToManyToJpa`**; `parity-verify` v0.2 (YAML matrix, `pattern_id`, `generate-tests`, HTML); `pattern-catalog` alpha; `anchor-stubborn` v0.3; ADR-002–010  
+- **Next:** rewrite-recipes v0.4b FK CMR; pattern-catalog detection heuristics
 
 ## Typical tasks
 
@@ -77,7 +77,8 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 | Java AST / EJB XML / JPA / MyBatis extraction | `java-ast-ssot/` — core + `--profile javaee-ejb2-jboss|jpa|mybatis`; read ADR-002 + ADR-004 + DUKESBANK-DEMO Phase B |
 | Raw list usage (homogeneous / tuple) | `java-ast-ssot classify-lists` — on-demand JSON, no cache; [list-usage-classifier.md](https://github.com/anchor-migration/java-ast-ssot/blob/main/docs/list-usage-classifier.md) |
 | Code ↔ schema crosswalk | `java-ast-ssot crosswalk` — `--code-db`, `--schema-db`, `--db-schema`, `-o`; see ADR-004 |
-| Parity / structural diff | `parity-verify compare` — `-o` JSON; `--matrix` (built-in YAML) or `--matrix-file`; `--html-out`, `--fail-on-matrix` |
+| Parity / structural diff | `parity-verify compare` — `--matrix` / `--matrix-file`, `--pattern-catalog`, `--html-out`, `--fail-on-matrix` |
+| Parity / generate-tests | `parity-verify generate-tests` — `--report`, `--target-class`, `-o` |
 | LLM context for migration target | `anchor-stubborn/` — SCIP index → `context` / `metrics`; see [ADR-010](docs/ADR-010-anchor-stubborn-integration.md) |
 | Program docs / blog outline | `migration-hub/docs/` or private `lab-notes/blog-drafts/` |
 | Session log | private `lab-notes/journal/` |
