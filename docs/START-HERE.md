@@ -82,7 +82,7 @@ anchor-explorer ──► human UI (read-only)               [alpha]
 OpenRewrite recipes ──► modernized code                 [alpha — stack 3.0–3.3 + v0.4 CMP + L1/L2/L3]
 classify-lists (on-demand) ──► L2 gate JSON             [alpha — ADR-008 M2]
 verify / parity ──► proof                               [beta — parity-verify v0.2]
-anchor-stubborn ──► optional LLM context (SCIP → stubs) [alpha — ADR-010; not in SSOT path]
+anchor-stubborn ──► optional LLM context (SCIP → stubs) [beta — ADR-010; not in SSOT path]
 ```
 
 Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.md), [ADR-010](ADR-010-anchor-stubborn-integration.md).
@@ -105,7 +105,7 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | `parity-verify` structural diff + behavioral matrices + HTML | ✅ Beta |
 | Duke's Bank multi-entity JPA E2E (`run-e2e-jpa-parity.ps1`) | ✅ Verified |
 | `pattern-catalog` — 6 CMP→JPA patterns + checklists | ✅ Alpha |
-| `anchor-stubborn` Docker E2E + `metrics` KPI (demo-spring) | ✅ Alpha |
+| `anchor-stubborn` Docker E2E + weave switches (demo-spring; Duke's Bank runbook) | ✅ Beta |
 
 ## Program progress snapshot
 
@@ -120,7 +120,7 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | Orchestration | ADR-009 YAML presets + `anchor.rewrite.preset` property |
 | Parity | `parity-verify` v0.2 — AST diff + per-entity behavioral matrices + HTML |
 | Patterns | `pattern-catalog` alpha — 6 CMP→JPA patterns + parity checklists |
-| LLM context | `anchor-stubborn` v0.3 — metrics KPI; ~86% token savings on demo-spring `OrderService` |
+| LLM context | `anchor-stubborn` **Beta** (`0.9.0b1`) — demo-spring ~81% savings; Duke's Bank [Step 7](DUKESBANK-DEMO.md#step-7--llm-context-anchor-stubborn) |
 | Duke's Bank JPA E2E | `run-e2e-jpa-parity.ps1` — 4 entities + NextId; per-entity parity gates |
 | **Next** | v0.5 EJB-QL finders; `LocalNextIdHome` call-site migration; pattern detection heuristics |
 

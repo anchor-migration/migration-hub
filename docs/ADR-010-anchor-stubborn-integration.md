@@ -62,7 +62,8 @@ Feed the output to the LLM instead of raw sources. For `anchor-dsl`, use the [LL
 
 Reference examples:
 
-- [migration-bridge](https://github.com/anchor-migration/anchor-stubborn/tree/main/examples/migration-bridge) — Duke's Bank–style workflow
+- [migration-bridge](https://github.com/anchor-migration/anchor-stubborn/tree/main/examples/migration-bridge) — minimal consumer pattern
+- [dukesbank](https://github.com/anchor-migration/anchor-stubborn/tree/main/examples/dukesbank) — Duke's Bank Step 7 E2E + case docs
 - [demo-spring](https://github.com/anchor-migration/anchor-stubborn/tree/main/examples/demo-spring) — primary in-repo E2E
 - [spring-petclinic](https://github.com/anchor-migration/anchor-stubborn/tree/main/examples/spring-petclinic) — scale-up validation
 
@@ -74,6 +75,7 @@ Reference examples:
 | demo-spring | `OrderController` | ≥75% | Web → service case |
 | demo-spring | `OrderService#payOrder` | ~80% | Method-level payment flow |
 | spring-petclinic | `VetController` | ~90% | ~375 index symbols; weekly CI |
+| dukesbank | `AccountControllerBean` | ≥70% | [Step 7 runbook](https://github.com/anchor-migration/migration-hub/blob/main/docs/DUKESBANK-DEMO.md#step-7--llm-context-anchor-stubborn) |
 
 ### 3. When migration does NOT use Stubborn
 

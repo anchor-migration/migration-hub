@@ -41,7 +41,7 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 | 4 | Duke's Bank multi-entity JPA E2E + per-entity parity (`run-e2e-jpa-parity.ps1`) | ✅ |
 | 4 | `jpa` profile (ADR-004 Step 4) | ✅ Alpha |
 | 4 | `mybatis` profile (ADR-004 Step 5) | ✅ Alpha |
-| Ecosystem | `anchor-stubborn` v0.3 — token budget, metrics, Docker E2E (~86% savings on demo-spring) | ✅ Alpha |
+| Ecosystem | `anchor-stubborn` Beta — SCIP context, MCP, weave switches; Duke's Bank runbook | ✅ Beta |
 
 Details: [ROADMAP.md](docs/ROADMAP.md) · [START-HERE.md](docs/START-HERE.md)
 
