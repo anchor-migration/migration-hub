@@ -2,8 +2,8 @@
 
 **Status:** Accepted  
 **Date:** 2026-06-29  
-**Last updated:** 2026-07-01 (beta `0.9.0b1`, weave granularity switches)  
-**Context:** [anchor-stubborn](https://github.com/anchor-migration/anchor-stubborn) is an independent **code context compiler** (SCIP → symbol graph → privacy-safe stub text). The migration program already has full-depth SSOT tools (`java-ast-ssot`, `db-metadata`) and human review (`anchor-explorer`). Teams also need **token-bounded LLM context** when drafting mappings, recipe designs, or PR reviews — without shipping raw source bodies to models.
+**Last updated:** 2026-07-02 (migrated to [stubborn-ai/stubborn](https://github.com/stubborn-ai/stubborn))  
+**Context:** [stubborn](https://github.com/stubborn-ai/stubborn) (formerly `anchor-migration/anchor-stubborn`) is an independent **code context compiler** (SCIP → symbol graph → privacy-safe stub text). The migration program already has full-depth SSOT tools (`java-ast-ssot`, `db-metadata`) and human review (`anchor-explorer`). Teams also need **token-bounded LLM context** when drafting mappings, recipe designs, or PR reviews — without shipping raw source bodies to models.
 
 Complements [ADR-002](ADR-002-java-ast-ssot-core-and-profiles.md) (full AST SSOT), [ADR-003](ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) (LST at rewrite time), [ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md) (human Explorer UI).
 
@@ -54,24 +54,24 @@ anchor-stubborn metrics metadata/code-context.db \
   --sources /path/to/src/main/java
 ```
 
-Feed the output to the LLM instead of raw sources. For `anchor-dsl`, use the [LLM prompt snippet](https://github.com/anchor-migration/anchor-stubborn/blob/main/docs/ANCHOR-DSL-LLM.txt) or the embedded `# Guide` header in each block.
+Feed the output to the LLM instead of raw sources. For `anchor-dsl`, use the [LLM prompt snippet](https://github.com/stubborn-ai/stubborn/blob/main/docs/ANCHOR-DSL-LLM.txt) or the embedded `# Guide` header in each block.
 
-**Weave granularity** (token vs detail): `--member-signatures off|target|neighbors|all` and `--javadoc off|summary|full` on `context`, `metrics`, and MCP `get_context`. Defaults preserve beta KPI baselines (`target` + format-aware Javadoc). See [ANCHOR-DSL-GUIDE](https://github.com/anchor-migration/anchor-stubborn/blob/main/docs/ANCHOR-DSL-GUIDE.md#granularity-switches-token-vs-detail).
+**Weave granularity** (token vs detail): `--member-signatures off|target|neighbors|all` and `--javadoc off|summary|full` on `context`, `metrics`, and MCP `get_context`. Defaults preserve beta KPI baselines (`target` + format-aware Javadoc). See [ANCHOR-DSL-GUIDE](https://github.com/stubborn-ai/stubborn/blob/main/docs/ANCHOR-DSL-GUIDE.md#granularity-switches-token-vs-detail).
 
-**Agents:** run `anchor-stubborn mcp` (stdio) — tools `get_context`, `list_symbols`, `metrics`. See [MCP.md](https://github.com/anchor-migration/anchor-stubborn/blob/main/docs/MCP.md).
+**Agents:** run `anchor-stubborn mcp` (stdio) — tools `get_context`, `list_symbols`, `metrics`. See [MCP.md](https://github.com/stubborn-ai/stubborn/blob/main/docs/MCP.md).
 
 Reference examples:
 
-- [migration-bridge](https://github.com/anchor-migration/anchor-stubborn/tree/main/examples/migration-bridge) — minimal consumer pattern
-- [dukesbank](https://github.com/anchor-migration/anchor-stubborn/tree/main/examples/dukesbank) — Duke's Bank Step 7 E2E + case docs
-- [demo-spring](https://github.com/anchor-migration/anchor-stubborn/tree/main/examples/demo-spring) — primary in-repo E2E
-- [spring-petclinic](https://github.com/anchor-migration/anchor-stubborn/tree/main/examples/spring-petclinic) — scale-up validation
+- [migration-bridge](https://github.com/stubborn-ai/stubborn/tree/main/examples/migration-bridge) — minimal consumer pattern
+- [dukesbank](https://github.com/stubborn-ai/stubborn/tree/main/examples/dukesbank) — Duke's Bank Step 7 E2E + case docs
+- [demo-spring](https://github.com/stubborn-ai/stubborn/tree/main/examples/demo-spring) — primary in-repo E2E
+- [spring-petclinic](https://github.com/stubborn-ai/stubborn/tree/main/examples/spring-petclinic) — scale-up validation
 
 **Baseline KPIs (Docker E2E, pinned toolchains):**
 
 | Example | Target | Token savings | Notes |
 |---------|--------|---------------|-------|
-| demo-spring | `OrderService` | ~81% | [order-service-context.md](https://github.com/anchor-migration/anchor-stubborn/blob/main/examples/demo-spring/cases/order-service-context.md) |
+| demo-spring | `OrderService` | ~81% | [order-service-context.md](https://github.com/stubborn-ai/stubborn/blob/main/examples/demo-spring/cases/order-service-context.md) |
 | demo-spring | `OrderController` | ≥75% | Web → service case |
 | demo-spring | `OrderService#payOrder` | ~80% | Method-level payment flow |
 | spring-petclinic | `VetController` | ~90% | ~375 index symbols; weekly CI |
@@ -98,12 +98,12 @@ Stubborn **does not replace** `java-ast-ssot`. It answers a different question: 
 
 ### 5. Symbol-graph SSOT (Stubborn-owned)
 
-Stubborn maintains a separate SQLite schema for SCIP symbol graphs — not merged into Java AST SSOT. DDL: [anchor-stubborn/.../v1.sql](https://github.com/anchor-migration/anchor-stubborn/blob/main/src/anchor_stubborn/store/schema/v1.sql). Documented in [SSOT-SCHEMA.md](SSOT-SCHEMA.md).
+Stubborn maintains a separate SQLite schema for SCIP symbol graphs — not merged into Java AST SSOT. DDL: [anchor-stubborn/.../v1.sql](https://github.com/stubborn-ai/stubborn/blob/main/src/anchor_stubborn/store/schema/v1.sql). Documented in [SSOT-SCHEMA.md](SSOT-SCHEMA.md).
 
 ### 6. CI integration (shipped)
 
 - `anchor-stubborn diff` — symbol reconcile between two indexes (exit 1 on missing symbols)
-- [pr-symbol-diff.yml](https://github.com/anchor-migration/anchor-stubborn/blob/main/.github/workflows/pr-symbol-diff.yml) — PR guard workflow
+- [pr-symbol-diff.yml](https://github.com/stubborn-ai/stubborn/blob/main/.github/workflows/pr-symbol-diff.yml) — PR guard workflow
 - demo-spring Docker E2E on every PR; spring-petclinic scale-up weekly / manual
 
 ---
@@ -111,13 +111,13 @@ Stubborn maintains a separate SQLite schema for SCIP symbol graphs — not merge
 ## Consequences
 
 - Program docs (`README`, `START-HERE`, `ARCHITECTURE`, `ROADMAP`) list `anchor-stubborn` as a sibling repo with **horizontal** role
-- `anchor-migration.code-workspace` includes the repo for local multi-root work
+- `anchor-migration.code-workspace` should include `stubborn-ai/stubborn` for local multi-root work (no longer under `anchor-migration/`)
 - MCP server and Anchor-DSL weaver are **Stubborn deliverables** (v0.4 / v0.7); migration-hub references them in runbooks but does not implement them
-- Java-first **beta** at **`0.9.0b1`** — [BETA.md](https://github.com/anchor-migration/anchor-stubborn/blob/main/docs/BETA.md)
+- Java-first **beta** at **`0.9.0b1`** — [BETA.md](https://github.com/stubborn-ai/stubborn/blob/main/docs/BETA.md)
 
 ## References
 
-- [anchor-stubborn README](https://github.com/anchor-migration/anchor-stubborn)
-- [POSITIONING.md](https://github.com/anchor-migration/anchor-stubborn/blob/main/docs/POSITIONING.md)
-- [INTEGRATION.md](https://github.com/anchor-migration/anchor-stubborn/blob/main/docs/INTEGRATION.md) (repo-local detail; this ADR is the program SSOT)
-- [ANCHOR-DSL.md](https://github.com/anchor-migration/anchor-stubborn/blob/main/docs/ANCHOR-DSL.md)
+- [anchor-stubborn README](https://github.com/stubborn-ai/stubborn)
+- [POSITIONING.md](https://github.com/stubborn-ai/stubborn/blob/main/docs/POSITIONING.md)
+- [INTEGRATION.md](https://github.com/stubborn-ai/stubborn/blob/main/docs/INTEGRATION.md) (repo-local detail; this ADR is the program SSOT)
+- [ANCHOR-DSL.md](https://github.com/stubborn-ai/stubborn/blob/main/docs/ANCHOR-DSL.md)

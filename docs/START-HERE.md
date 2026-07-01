@@ -31,7 +31,7 @@ Public showcase: https://github.com/anchor-migration
 | 13 | [ADR-010](ADR-010-anchor-stubborn-integration.md) | **anchor-stubborn** — horizontal LLM context (optional; not a pipeline layer) |
 | 14 | [ROADMAP.md](ROADMAP.md) | What is done vs planned |
 | 15 | [db-metadata README](https://github.com/anchor-migration/db-metadata) | CLI: `export`, `verify`, `info` |
-| — | [anchor-stubborn README](https://github.com/anchor-migration/anchor-stubborn) | **Beta `0.9.0b1`** — SCIP, MCP, [format guide](https://github.com/anchor-migration/anchor-stubborn/blob/main/docs/ANCHOR-DSL-GUIDE.md) |
+| — | [anchor-stubborn README](https://github.com/stubborn-ai/stubborn) | **Beta `0.9.0b1`** — SCIP, MCP, [format guide](https://github.com/stubborn-ai/stubborn/blob/main/docs/ANCHOR-DSL-GUIDE.md) |
 
 **Private (if you have access):** `lab-notes/journal/2026-06-27-session-wrapup.md` — latest session log.
 

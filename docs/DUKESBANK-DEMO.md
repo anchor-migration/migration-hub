@@ -617,7 +617,7 @@ anchor-stubborn context metadata/symbols.db \
   --javadoc summary
 ```
 
-Case: [account-controller-context.md](https://github.com/anchor-migration/anchor-stubborn/blob/main/examples/dukesbank/cases/account-controller-context.md) · [ADR-010](ADR-010-anchor-stubborn-integration.md) · [MCP](https://github.com/anchor-migration/anchor-stubborn/blob/main/docs/MCP.md).
+Case: [account-controller-context.md](https://github.com/stubborn-ai/stubborn/blob/main/examples/dukesbank/cases/account-controller-context.md) · [ADR-010](ADR-010-anchor-stubborn-integration.md) · [MCP](https://github.com/stubborn-ai/stubborn/blob/main/docs/MCP.md).
 
 ---
 
@@ -631,7 +631,7 @@ Case: [account-controller-context.md](https://github.com/anchor-migration/anchor
 | [ROADMAP.md](ROADMAP.md) | Phase 1–2 scheduling |
 | [ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md) | Edge coloring + Explorer |
 | [demo-dukesbank README](https://github.com/anchor-migration/demo-dukesbank) | Docker bridge + `scripts/run-e2e.sh` (bash) / `run-e2e.ps1` |
-| [ADR-010](ADR-010-anchor-stubborn-integration.md) + [dukesbank example](https://github.com/anchor-migration/anchor-stubborn/tree/main/examples/dukesbank) | Step 7 — LLM context |
+| [ADR-010](ADR-010-anchor-stubborn-integration.md) + [dukesbank example](https://github.com/stubborn-ai/stubborn/tree/main/examples/dukesbank) | Step 7 — LLM context |
 
 ---
 

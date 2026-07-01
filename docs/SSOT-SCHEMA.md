@@ -179,7 +179,7 @@ Output: JSON + HTML parity report with pass / fail / unknown per structural and 
 **Design:** [ADR-010 — anchor-stubborn integration](ADR-010-anchor-stubborn-integration.md)  
 **Version:** 1  
 **Format:** SQLite  
-**DDL:** [anchor-stubborn/src/anchor_stubborn/store/schema/v1.sql](https://github.com/anchor-migration/anchor-stubborn/blob/main/src/anchor_stubborn/store/schema/v1.sql)
+**DDL:** [anchor-stubborn/src/anchor_stubborn/store/schema/v1.sql](https://github.com/stubborn-ai/stubborn/blob/main/src/anchor_stubborn/store/schema/v1.sql)
 
 Separate from Java AST SSOT. Ingests SCIP symbol indexes; stores symbols, references, and document metadata for pruning and weaving.
 
