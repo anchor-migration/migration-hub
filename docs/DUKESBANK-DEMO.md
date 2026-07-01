@@ -481,7 +481,16 @@ docker compose up -d
 # wait until healthy
 ```
 
-Or run the helper script (Windows):
+Or run the Docker-first helper (bash — recommended):
+
+```bash
+cd demo-dukesbank
+./scripts/run-e2e.sh
+# MySQL already up:
+SKIP_DOCKER=1 ./scripts/run-e2e.sh
+```
+
+Windows PowerShell (thin wrapper):
 
 ```powershell
 cd demo-dukesbank
@@ -621,7 +630,7 @@ Case: [account-controller-context.md](https://github.com/anchor-migration/anchor
 | [DEVELOPMENT-MODEL.md](DEVELOPMENT-MODEL.md) | AI-assisted build; deterministic extractors |
 | [ROADMAP.md](ROADMAP.md) | Phase 1–2 scheduling |
 | [ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md) | Edge coloring + Explorer |
-| [demo-dukesbank README](https://github.com/anchor-migration/demo-dukesbank) | Docker bridge + `scripts/run-e2e.ps1` |
+| [demo-dukesbank README](https://github.com/anchor-migration/demo-dukesbank) | Docker bridge + `scripts/run-e2e.sh` (bash) / `run-e2e.ps1` |
 | [ADR-010](ADR-010-anchor-stubborn-integration.md) + [dukesbank example](https://github.com/anchor-migration/anchor-stubborn/tree/main/examples/dukesbank) | Step 7 — LLM context |
 
 ---

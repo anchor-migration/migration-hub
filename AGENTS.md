@@ -76,12 +76,12 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 | User ask | Where to work |
 |----------|----------------|
 | Export / verify database schema | `db-metadata/` |
-| Docker Duke's Bank MySQL | `demo-dukesbank/` |
+| Docker Duke's Bank E2E | `demo-dukesbank/scripts/run-e2e.sh` (Docker-first); `run-e2e.ps1` on Windows |
 | Java AST / EJB XML / JPA / MyBatis extraction | `java-ast-ssot/` — core + `--profile javaee-ejb2-jboss|jpa|mybatis`; read ADR-002 + ADR-004 + DUKESBANK-DEMO Phase B |
 | Raw list usage (homogeneous / tuple) | `java-ast-ssot classify-lists` — on-demand JSON, no cache; [list-usage-classifier.md](https://github.com/anchor-migration/java-ast-ssot/blob/main/docs/list-usage-classifier.md) |
 | Code ↔ schema crosswalk | `java-ast-ssot crosswalk` — `--code-db`, `--schema-db`, `--db-schema`, `-o`; see ADR-004 |
 | Apply OpenRewrite recipes (CMP→JPA, Session→Service) | `rewrite-recipes/` — `ApplyRecipeMain` or Maven; see `docs/cmp-*.md` |
-| Duke's Bank JPA E2E (multi-entity parity) | `demo-dukesbank/scripts/run-e2e-jpa-parity.ps1` |
+| Duke's Bank JPA E2E (multi-entity parity) | `demo-dukesbank/scripts/run-e2e-jpa-parity.sh` |
 | Parity / structural diff | `parity-verify compare` — `--matrix` / `--matrix-file`, `--pattern-catalog`, `--html-out`, `--fail-on-matrix` |
 | Parity / generate-tests | `parity-verify generate-tests` — `--report`, `--target-class`, `-o` |
 | LLM context for migration target | `anchor-stubborn/` — SCIP index → `context` / `metrics`; see [ADR-010](docs/ADR-010-anchor-stubborn-integration.md) |
