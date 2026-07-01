@@ -31,7 +31,7 @@ Public showcase: https://github.com/anchor-migration
 | 13 | [ADR-010](ADR-010-anchor-stubborn-integration.md) | **anchor-stubborn** — horizontal LLM context (optional; not a pipeline layer) |
 | 14 | [ROADMAP.md](ROADMAP.md) | What is done vs planned |
 | 15 | [db-metadata README](https://github.com/anchor-migration/db-metadata) | CLI: `export`, `verify`, `info` |
-| — | [anchor-stubborn README](https://github.com/anchor-migration/anchor-stubborn) | SCIP ingest, context weaving, metrics KPI (independent repo) |
+| — | [anchor-stubborn README](https://github.com/anchor-migration/anchor-stubborn) | Pre-beta **`0.9.0a1`** — SCIP, MCP, [format guide](https://github.com/anchor-migration/anchor-stubborn/blob/main/docs/ANCHOR-DSL-GUIDE.md) |
 
 **Private (if you have access):** `lab-notes/journal/2026-06-27-session-wrapup.md` — latest session log.
 
@@ -48,7 +48,7 @@ Public showcase: https://github.com/anchor-migration
 | **pattern-catalog** | public | Migration patterns + parity checklists | Alpha |
 | **parity-verify** | public | Before/after AST diff + behavioral matrix + HTML | Beta |
 | **anchor-explorer** | public | Read-only UI over linked SSOT snapshots | Alpha |
-| **anchor-stubborn** | public | SCIP → symbol graph → LLM context stubs ([ADR-010](ADR-010-anchor-stubborn-integration.md); horizontal) | Alpha |
+| **anchor-stubborn** | public | SCIP → LLM context compiler ([ADR-010](ADR-010-anchor-stubborn-integration.md); MCP) | **Pre-beta** (`0.9.0a1`) |
 | **demo-dukesbank** | public | Duke's Bank MySQL Docker bridge + E2E scripts | Active |
 
 ## Local workspace (author machine)

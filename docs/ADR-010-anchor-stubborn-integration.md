@@ -2,7 +2,7 @@
 
 **Status:** Accepted  
 **Date:** 2026-06-29  
-**Last updated:** 2026-07-01 (v0.7 capabilities)  
+**Last updated:** 2026-07-01 (pre-beta `0.9.0a1`)  
 **Context:** [anchor-stubborn](https://github.com/anchor-migration/anchor-stubborn) is an independent **code context compiler** (SCIP → symbol graph → privacy-safe stub text). The migration program already has full-depth SSOT tools (`java-ast-ssot`, `db-metadata`) and human review (`anchor-explorer`). Teams also need **token-bounded LLM context** when drafting mappings, recipe designs, or PR reviews — without shipping raw source bodies to models.
 
 Complements [ADR-002](ADR-002-java-ast-ssot-core-and-profiles.md) (full AST SSOT), [ADR-003](ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) (LST at rewrite time), [ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md) (human Explorer UI).
@@ -69,7 +69,8 @@ Reference examples:
 | Example | Target | Token savings | Notes |
 |---------|--------|---------------|-------|
 | demo-spring | `OrderService` | ~81% | [order-service-context.md](https://github.com/anchor-migration/anchor-stubborn/blob/main/examples/demo-spring/cases/order-service-context.md) |
-| demo-spring | `OrderController` | ≥75% | Web → service case (v0.8 beta) |
+| demo-spring | `OrderController` | ≥75% | Web → service case |
+| demo-spring | `OrderService#payOrder` | ~80% | Method-level payment flow |
 | spring-petclinic | `VetController` | ~90% | ~375 index symbols; weekly CI |
 
 ### 3. When migration does NOT use Stubborn
@@ -108,7 +109,7 @@ Stubborn maintains a separate SQLite schema for SCIP symbol graphs — not merge
 - Program docs (`README`, `START-HERE`, `ARCHITECTURE`, `ROADMAP`) list `anchor-stubborn` as a sibling repo with **horizontal** role
 - `anchor-migration.code-workspace` includes the repo for local multi-root work
 - MCP server and Anchor-DSL weaver are **Stubborn deliverables** (v0.4 / v0.7); migration-hub references them in runbooks but does not implement them
-- Java-first **beta** track documented in [BETA.md](https://github.com/anchor-migration/anchor-stubborn/blob/main/docs/BETA.md); Duke's Bank E2E remains valid without Stubborn
+- Java-first **pre-beta** at **`0.9.0a1`**; formal beta **`0.9.0b1`** — [BETA.md](https://github.com/anchor-migration/anchor-stubborn/blob/main/docs/BETA.md)
 
 ## References
 
