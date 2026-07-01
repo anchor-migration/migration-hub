@@ -93,7 +93,8 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 |------|------|--------|
 | [ADR-010](docs/ADR-010-anchor-stubborn-integration.md) — anchor-stubborn horizontal LLM context | migration-hub + anchor-stubborn | ✅ |
 | `anchor-stubborn` v0.3 — token budget, `metrics` KPI, Docker E2E | anchor-stubborn | ✅ Alpha |
-| `anchor-stubborn` MCP server (`anchor-stubborn mcp`) | anchor-stubborn | ✅ Alpha (see `docs/MCP.md`) |
+| `anchor-stubborn` weave switches (`member-signatures`, `javadoc`) | anchor-stubborn | ✅ Beta |
+| `anchor-stubborn` MCP server (`anchor-stubborn mcp`) | anchor-stubborn | ✅ Beta (see `docs/MCP.md`) |
 | migration-bridge example (Duke's Bank LLM workflow) | anchor-stubborn | ✅ |
 | Pattern catalog (6 documented CMP→JPA patterns) | pattern-catalog | ✅ Alpha |
 | Demo legacy application | demo-legacy-app | 💡 |

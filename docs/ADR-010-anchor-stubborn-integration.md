@@ -2,7 +2,7 @@
 
 **Status:** Accepted  
 **Date:** 2026-06-29  
-**Last updated:** 2026-07-01 (beta `0.9.0b1`)  
+**Last updated:** 2026-07-01 (beta `0.9.0b1`, weave granularity switches)  
 **Context:** [anchor-stubborn](https://github.com/anchor-migration/anchor-stubborn) is an independent **code context compiler** (SCIP → symbol graph → privacy-safe stub text). The migration program already has full-depth SSOT tools (`java-ast-ssot`, `db-metadata`) and human review (`anchor-explorer`). Teams also need **token-bounded LLM context** when drafting mappings, recipe designs, or PR reviews — without shipping raw source bodies to models.
 
 Complements [ADR-002](ADR-002-java-ast-ssot-core-and-profiles.md) (full AST SSOT), [ADR-003](ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) (LST at rewrite time), [ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md) (human Explorer UI).
@@ -55,6 +55,8 @@ anchor-stubborn metrics metadata/code-context.db \
 ```
 
 Feed the output to the LLM instead of raw sources. For `anchor-dsl`, use the [LLM prompt snippet](https://github.com/anchor-migration/anchor-stubborn/blob/main/docs/ANCHOR-DSL-LLM.txt) or the embedded `# Guide` header in each block.
+
+**Weave granularity** (token vs detail): `--member-signatures off|target|neighbors|all` and `--javadoc off|summary|full` on `context`, `metrics`, and MCP `get_context`. Defaults preserve beta KPI baselines (`target` + format-aware Javadoc). See [ANCHOR-DSL-GUIDE](https://github.com/anchor-migration/anchor-stubborn/blob/main/docs/ANCHOR-DSL-GUIDE.md#granularity-switches-token-vs-detail).
 
 **Agents:** run `anchor-stubborn mcp` (stdio) — tools `get_context`, `list_symbols`, `metrics`. See [MCP.md](https://github.com/anchor-migration/anchor-stubborn/blob/main/docs/MCP.md).
 
