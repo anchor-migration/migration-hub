@@ -21,7 +21,7 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 | [**anchor-explorer**](https://github.com/anchor-migration/anchor-explorer) | Read-only SSOT crosswalk UI | Alpha |
 | [**pattern-catalog**](https://github.com/anchor-migration/pattern-catalog) | Migration patterns + parity checklists | Alpha |
 | [**parity-verify**](https://github.com/anchor-migration/parity-verify) | Before/after AST diff + behavioral matrix + HTML | Beta |
-| [**anchor-stubborn**](https://github.com/anchor-migration/anchor-stubborn) | SCIP → LLM context (`java-stub` / `anchor-dsl`); [ADR-010](docs/ADR-010-anchor-stubborn-integration.md) | **Pre-beta** (`0.9.0a1`) |
+| [**anchor-stubborn**](https://github.com/anchor-migration/anchor-stubborn) | SCIP → LLM context (`java-stub` / `anchor-dsl`); [ADR-010](docs/ADR-010-anchor-stubborn-integration.md) | **Beta** (`0.9.0b1`) |
 | [**demo-dukesbank**](https://github.com/anchor-migration/demo-dukesbank) | Duke's Bank MySQL Docker bridge + E2E scripts | Active |
 
 ## Program progress (2026-06)
