@@ -175,11 +175,11 @@ Output: JSON + HTML parity report with pass / fail / unknown per structural and 
 
 ## Symbol graph SSOT (LLM context)
 
-**Owner:** `anchor-stubborn`  
-**Design:** [ADR-010 — anchor-stubborn integration](ADR-010-anchor-stubborn-integration.md)  
+**Owner:** `stubborn`  
+**Design:** [ADR-010 — stubborn integration](ADR-010-stubborn-integration.md)  
 **Version:** 1  
 **Format:** SQLite  
-**DDL:** [anchor-stubborn/src/anchor_stubborn/store/schema/v1.sql](https://github.com/stubborn-ai/stubborn/blob/main/src/anchor_stubborn/store/schema/v1.sql)
+**DDL:** [stubborn/src/stubborn/store/schema/v1.sql](https://github.com/stubborn-ai/stubborn/blob/main/src/stubborn/store/schema/v1.sql)
 
 Separate from Java AST SSOT. Ingests SCIP symbol indexes; stores symbols, references, and document metadata for pruning and weaving.
 

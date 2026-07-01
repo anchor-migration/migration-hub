@@ -21,7 +21,7 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 | [**anchor-explorer**](https://github.com/anchor-migration/anchor-explorer) | Read-only SSOT crosswalk UI | Alpha |
 | [**pattern-catalog**](https://github.com/anchor-migration/pattern-catalog) | Migration patterns + parity checklists | Alpha |
 | [**parity-verify**](https://github.com/anchor-migration/parity-verify) | Before/after AST diff + behavioral matrix + HTML | Beta |
-| [**anchor-stubborn**](https://github.com/stubborn-ai/stubborn) | SCIP → LLM context (`java-stub` / `anchor-dsl`); [ADR-010](docs/ADR-010-anchor-stubborn-integration.md) | **Beta** (`0.9.0b1`) |
+| [**stubborn**](https://github.com/stubborn-ai/stubborn) | SCIP → LLM context (`java-stub` / `stubborn-dsl`); [ADR-010](docs/ADR-010-stubborn-integration.md) | **Beta** (`0.9.0b2`) |
 | [**demo-dukesbank**](https://github.com/anchor-migration/demo-dukesbank) | Duke's Bank MySQL Docker bridge + E2E scripts | Active |
 
 ## Program progress (2026-06)
@@ -41,7 +41,7 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 | 4 | Duke's Bank multi-entity JPA E2E + per-entity parity (`run-e2e-jpa-parity.ps1`) | ✅ |
 | 4 | `jpa` profile (ADR-004 Step 4) | ✅ Alpha |
 | 4 | `mybatis` profile (ADR-004 Step 5) | ✅ Alpha |
-| Ecosystem | `anchor-stubborn` Beta — SCIP context, MCP, weave switches; Duke's Bank runbook | ✅ Beta |
+| Ecosystem | `stubborn` Beta — SCIP context, MCP, weave switches; Duke's Bank runbook | ✅ Beta |
 
 Details: [ROADMAP.md](docs/ROADMAP.md) · [START-HERE.md](docs/START-HERE.md)
 
@@ -86,7 +86,7 @@ flowchart TB
   ASTDiff --> Parity
 ```
 
-**Horizontal (optional):** [anchor-stubborn](https://github.com/stubborn-ai/stubborn) compiles SCIP symbol graphs into token-bounded stub text for LLMs — used when drafting mappings or recipe designs, not inside the SSOT → rewrite → verify path. See [ADR-010](docs/ADR-010-anchor-stubborn-integration.md).
+**Horizontal (optional):** [stubborn](https://github.com/stubborn-ai/stubborn) compiles SCIP symbol graphs into token-bounded stub text for LLMs — used when drafting mappings or recipe designs, not inside the SSOT → rewrite → verify path. See [ADR-010](docs/ADR-010-stubborn-integration.md).
 
 ## Design principles
 
@@ -111,7 +111,7 @@ anchor-migration/
 ├── anchor-explorer/     # Read-only crosswalk UI (alpha)
 ├── rewrite-recipes/     # OpenRewrite catalog (alpha)
 ├── parity-verify/       # Before/after AST diff + behavioral matrix + HTML (Beta)
-├── anchor-stubborn/     # LLM context compiler (horizontal; ADR-010)
+├── stubborn/     # LLM context compiler (horizontal; ADR-010)
 └── pattern-catalog/     # Migration patterns + parity checklists (alpha)
 ```
 
@@ -126,7 +126,7 @@ Open `anchor-migration.code-workspace` in Cursor/VS Code to work across repos.
 - [Architecture](docs/ARCHITECTURE.md)
 - [Roadmap](docs/ROADMAP.md)
 - [SSoT schema contracts](docs/SSOT-SCHEMA.md)
-- [ADR-010 — anchor-stubborn integration](docs/ADR-010-anchor-stubborn-integration.md)
+- [ADR-010 — stubborn integration](docs/ADR-010-stubborn-integration.md)
 
 ## Getting started
 

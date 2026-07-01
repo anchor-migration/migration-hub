@@ -28,10 +28,10 @@ Public showcase: https://github.com/anchor-migration
 | 10 | [ADR-007](ADR-007-rewrite-recipes-session-and-cmp-jpa.md) | rewrite-recipes: Session→Service (BeanState) vs CMP→JPA |
 | 11 | [ADR-008](ADR-008-java-language-modernization-and-tuple-lists.md) | Language modernization: generics, Vector, tuple lists → result classes |
 | 12 | [ADR-009](ADR-009-rewrite-engine-presets-and-run-manifest.md) | Rewrite presets, YAML composites, swappable engine port |
-| 13 | [ADR-010](ADR-010-anchor-stubborn-integration.md) | **anchor-stubborn** — horizontal LLM context (optional; not a pipeline layer) |
+| 13 | [ADR-010](ADR-010-stubborn-integration.md) | **stubborn** — horizontal LLM context (optional; not a pipeline layer) |
 | 14 | [ROADMAP.md](ROADMAP.md) | What is done vs planned |
 | 15 | [db-metadata README](https://github.com/anchor-migration/db-metadata) | CLI: `export`, `verify`, `info` |
-| — | [anchor-stubborn README](https://github.com/stubborn-ai/stubborn) | **Beta `0.9.0b1`** — SCIP, MCP, [format guide](https://github.com/stubborn-ai/stubborn/blob/main/docs/ANCHOR-DSL-GUIDE.md) |
+| — | [stubborn README](https://github.com/stubborn-ai/stubborn) | **Beta `0.9.0b2`** — SCIP, MCP, [format guide](https://github.com/stubborn-ai/stubborn/blob/main/docs/STUBBORN-DSL-GUIDE.md) |
 
 **Private (if you have access):** `lab-notes/journal/2026-06-27-session-wrapup.md` — latest session log.
 
@@ -48,7 +48,7 @@ Public showcase: https://github.com/anchor-migration
 | **pattern-catalog** | public | Migration patterns + parity checklists | Alpha |
 | **parity-verify** | public | Before/after AST diff + behavioral matrix + HTML | Beta |
 | **anchor-explorer** | public | Read-only UI over linked SSOT snapshots | Alpha |
-| **anchor-stubborn** | public | SCIP → LLM context compiler ([ADR-010](ADR-010-anchor-stubborn-integration.md); MCP) | **Beta** (`0.9.0b1`) |
+| **stubborn** | public | SCIP → LLM context compiler ([ADR-010](ADR-010-stubborn-integration.md); MCP) | **Beta** (`0.9.0b2`) |
 | **demo-dukesbank** | public | Duke's Bank MySQL Docker bridge + E2E scripts | Active |
 
 ## Local workspace (author machine)
@@ -64,7 +64,7 @@ C:\github\anchor-migration\
 ├── rewrite-recipes/        OpenRewrite catalog (alpha)
 ├── pattern-catalog/        Migration patterns + parity checklists (alpha)
 ├── parity-verify/          Before/after AST diff + behavioral matrix + HTML (beta)
-├── anchor-stubborn/        LLM context compiler (horizontal; ADR-010)
+├── stubborn/        LLM context compiler (horizontal; ADR-010)
 └── anchor-migration.code-workspace
 
 C:\github\dukesbank\        Duke's Bank legacy sample (external to org)
@@ -82,10 +82,10 @@ anchor-explorer ──► human UI (read-only)               [alpha]
 OpenRewrite recipes ──► modernized code                 [alpha — stack 3.0–3.3 + v0.4 CMP + L1/L2/L3]
 classify-lists (on-demand) ──► L2 gate JSON             [alpha — ADR-008 M2]
 verify / parity ──► proof                               [beta — parity-verify v0.2]
-anchor-stubborn ──► optional LLM context (SCIP → stubs) [beta — ADR-010; not in SSOT path]
+stubborn ──► optional LLM context (SCIP → stubs) [beta — ADR-010; not in SSOT path]
 ```
 
-Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.md), [ADR-010](ADR-010-anchor-stubborn-integration.md).
+Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.md), [ADR-010](ADR-010-stubborn-integration.md).
 
 ## What is verified today
 
@@ -105,7 +105,7 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | `parity-verify` structural diff + behavioral matrices + HTML | ✅ Beta |
 | Duke's Bank multi-entity JPA E2E (`run-e2e-jpa-parity.ps1`) | ✅ Verified |
 | `pattern-catalog` — 6 CMP→JPA patterns + checklists | ✅ Alpha |
-| `anchor-stubborn` Docker E2E + weave switches (demo-spring; Duke's Bank runbook) | ✅ Beta |
+| `stubborn` Docker E2E + weave switches (demo-spring; Duke's Bank runbook) | ✅ Beta |
 
 ## Program progress snapshot
 
@@ -120,7 +120,7 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | Orchestration | ADR-009 YAML presets + `anchor.rewrite.preset` property |
 | Parity | `parity-verify` v0.2 — AST diff + per-entity behavioral matrices + HTML |
 | Patterns | `pattern-catalog` alpha — 6 CMP→JPA patterns + parity checklists |
-| LLM context | `anchor-stubborn` **Beta** (`0.9.0b1`) — demo-spring ~81% savings; Duke's Bank [Step 7](DUKESBANK-DEMO.md#step-7--llm-context-anchor-stubborn) |
+| LLM context | `stubborn` **Beta** (`0.9.0b2`) — demo-spring ~81% savings; Duke's Bank [Step 7](DUKESBANK-DEMO.md#step-7--llm-context-stubborn) |
 | Duke's Bank JPA E2E | `run-e2e-jpa-parity.ps1` — 4 entities + NextId; per-entity parity gates |
 | **Next** | v0.5 EJB-QL finders; `LocalNextIdHome` call-site migration; pattern detection heuristics |
 

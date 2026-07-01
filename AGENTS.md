@@ -31,7 +31,7 @@ Instructions for AI coding assistants (Cursor, etc.) in a **new session** with n
 | `demo-dukesbank/` | public | MySQL Docker bridge for Duke's Bank |
 | `java-ast-ssot/` | public | Java AST SSOT CLI (core + stack profiles) |
 | `anchor-explorer/` | public | Read-only UI: load linked SQLite, crosswalk graph + colors |
-| `anchor-stubborn/` | public | LLM context compiler: SCIP → symbol graph → stub text ([ADR-010](docs/ADR-010-anchor-stubborn-integration.md)) |
+| `stubborn/` | public | LLM context compiler: SCIP → symbol graph → stub text ([ADR-010](docs/ADR-010-stubborn-integration.md)) |
 | `rewrite-recipes/` | public | OpenRewrite catalog — stack migration (ADR-007) + language modernization (ADR-008) |
 | `parity-verify/` | public | Before/after AST diff + behavioral matrix + HTML reports |
 | `pattern-catalog/` | public | Migration patterns + parity checklists (YAML) |
@@ -61,14 +61,14 @@ Instructions for AI coding assistants (Cursor, etc.) in a **new session** with n
 | Anchor Explorer | Read-only human UI over SQLite snapshots — first-class interface — [ADR-005](docs/ADR-005-multi-tier-alignment-and-ssot-explorer.md) |
 | Decision process | Multi-role review before gated implementation — [ADR-006](docs/ADR-006-multi-role-decision-review.md) |
 | AST repo naming | **`{language}-ast-ssot`** (e.g. `java-ast-ssot`); reserved for future e.g. `cobol-ast-ssot` |
-| LLM context | **`anchor-stubborn`** — horizontal; complements (does not replace) `java-ast-ssot` — [ADR-010](docs/ADR-010-anchor-stubborn-integration.md) |
+| LLM context | **`stubborn`** — horizontal; complements (does not replace) `java-ast-ssot` — [ADR-010](docs/ADR-010-stubborn-integration.md) |
 | Repos | Multi-repo under org; not a monorepo |
 
 See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-001 (private), or DUKESBANK-DEMO § AST vs LST.
 
 ## Current status (update via journal if stale)
 
-- **Done:** `db-metadata` alpha; Duke's Bank E2E; `java-ast-ssot` v1.0; `anchor-explorer` alpha; `rewrite-recipes` 3.0–3.3 + ADR-008 L1/L2/L3 + **v0.4**; `parity-verify` v0.2; `pattern-catalog` alpha (6 patterns); Duke's Bank multi-entity JPA E2E; **`anchor-stubborn` Beta (`0.9.0b1`)** — weave switches, Duke's Bank LLM runbook; ADR-002–010  
+- **Done:** `db-metadata` alpha; Duke's Bank E2E; `java-ast-ssot` v1.0; `anchor-explorer` alpha; `rewrite-recipes` 3.0–3.3 + ADR-008 L1/L2/L3 + **v0.4**; `parity-verify` v0.2; `pattern-catalog` alpha (6 patterns); Duke's Bank multi-entity JPA E2E; **`stubborn` Beta (`0.9.0b2`)** — weave switches, Duke's Bank LLM runbook; ADR-002–010  
 - **Next:** rewrite-recipes v0.5 EJB-QL finders; `LocalNextIdHome` call-site migration; pattern-catalog detection heuristics
 
 ## Typical tasks
@@ -84,12 +84,12 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 | Duke's Bank JPA E2E (multi-entity parity) | `demo-dukesbank/scripts/run-e2e-jpa-parity.sh` |
 | Parity / structural diff | `parity-verify compare` — `--matrix` / `--matrix-file`, `--pattern-catalog`, `--html-out`, `--fail-on-matrix` |
 | Parity / generate-tests | `parity-verify generate-tests` — `--report`, `--target-class`, `-o` |
-| LLM context for migration target | `anchor-stubborn/` — SCIP index → `context` / `metrics`; see [ADR-010](docs/ADR-010-anchor-stubborn-integration.md) |
+| LLM context for migration target | `stubborn/` — SCIP index → `context` / `metrics`; see [ADR-010](docs/ADR-010-stubborn-integration.md) |
 | Program docs / blog outline | `migration-hub/docs/` or private `lab-notes/blog-drafts/` |
 | Session log | private `lab-notes/journal/` |
 
 ## Workspace file
 
-User opens `anchor-migration.code-workspace` for multi-root: migration-hub, db-metadata, java-ast-ssot, demo-dukesbank, rewrite-recipes, parity-verify, pattern-catalog, anchor-stubborn, lab-notes.
+User opens `anchor-migration.code-workspace` for multi-root: migration-hub, db-metadata, java-ast-ssot, demo-dukesbank, rewrite-recipes, parity-verify, pattern-catalog, stubborn, lab-notes.
 
 Root pointer: `../README.md` (parent of migration-hub — local workspace root).

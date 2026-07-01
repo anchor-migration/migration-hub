@@ -541,8 +541,8 @@ Load `dukesbank-linked.db` in anchor-explorer dev server.
 | `metadata/dukesbank.db` | `db-metadata` | Schema SSOT |
 | `metadata/dukesbank-code.db` | `java-ast-ssot` | Code + profile SSOT |
 | `metadata/dukesbank-linked.db` | `java-ast-ssot` | Crosswalk + alignment colors |
-| `metadata/symbols.db` | `anchor-stubborn` | SCIP symbol graph (Step 7; gitignored) |
-| `metadata/account-controller.stub.java` | `anchor-stubborn` | LLM context for session facade (Step 7) |
+| `metadata/symbols.db` | `stubborn` | SCIP symbol graph (Step 7; gitignored) |
+| `metadata/account-controller.stub.java` | `stubborn` | LLM context for session facade (Step 7) |
 
 All `metadata/*.db` files are gitignored — regenerate via this runbook.
 
@@ -567,11 +567,11 @@ cd demo-dukesbank
 
 Applies CMP→JPA recipes to **AccountBean**, **CustomerBean**, **TxBean**, and **NextIdBean**, re-exports with auto-detected profiles (`javaee-ejb2-jboss` + `jpa`), runs crosswalk before/after, and emits per-entity parity reports under `parity-verify/metadata/` (`dukesbank-parity-accountbean|customerbean|txbean|nextidbean.{json,html}`) using inline multi-entity matrices (`examples/matrices/dukesbank-cmp-jpa-multi-*.yaml`). See [demo-dukesbank README](https://github.com/anchor-migration/demo-dukesbank#jpa-re-export--parity-adr-004-step-4d--adr-007-v04-multi-entity).
 
-### Step 7 — LLM context (`anchor-stubborn`)
+### Step 7 — LLM context (`stubborn`)
 
 **Optional** horizontal step — not in the deterministic SSOT → rewrite → parity path. Use when drafting recipe mappings, scoping a migration target, or reviewing entities without sending full sources to an LLM.
 
-**Prerequisites:** Steps 1–6 unchanged; external `dukesbank` clone; `anchor-stubborn` on PATH or Docker image.
+**Prerequisites:** Steps 1–6 unchanged; external `dukesbank` clone; `stubborn` on PATH or Docker image.
 
 #### One-shot (Windows)
 
@@ -580,10 +580,10 @@ cd demo-dukesbank
 .\scripts\run-stubborn-context.ps1
 ```
 
-Or from `anchor-stubborn`:
+Or from `stubborn`:
 
 ```powershell
-cd anchor-stubborn\examples\dukesbank
+cd stubborn\examples\dukesbank
 .\scripts\run-e2e.ps1
 python ..\..\scripts\verify_dukesbank_context.py
 ```
@@ -591,7 +591,7 @@ python ..\..\scripts\verify_dukesbank_context.py
 #### Docker
 
 ```bash
-cd anchor-stubborn
+cd stubborn
 docker compose build
 docker compose run --rm dukesbank-e2e
 python scripts/verify_dukesbank_context.py
@@ -603,21 +603,21 @@ Mount: `dukesbank/src/j2eetutorial14/examples/bank` → `/bank` (sibling of `anc
 
 | Output | Path |
 |--------|------|
-| Symbol graph | `anchor-stubborn/examples/dukesbank/metadata/symbols.db` |
+| Symbol graph | `stubborn/examples/dukesbank/metadata/symbols.db` |
 | Java stub | `.../metadata/account-controller.stub.java` |
-| Anchor-DSL | `.../metadata/account-controller.anchor-dsl` |
+| Stubborn-DSL | `.../metadata/account-controller.stubborn-dsl` |
 
 **Migration scoping (recommended):**
 
 ```bash
-anchor-stubborn context metadata/symbols.db \
+stubborn context metadata/symbols.db \
   --target "<AccountControllerBean stable_id>" \
-  --format anchor-dsl \
+  --format stubborn-dsl \
   --member-signatures neighbors \
   --javadoc summary
 ```
 
-Case: [account-controller-context.md](https://github.com/stubborn-ai/stubborn/blob/main/examples/dukesbank/cases/account-controller-context.md) · [ADR-010](ADR-010-anchor-stubborn-integration.md) · [MCP](https://github.com/stubborn-ai/stubborn/blob/main/docs/MCP.md).
+Case: [account-controller-context.md](https://github.com/stubborn-ai/stubborn/blob/main/examples/dukesbank/cases/account-controller-context.md) · [ADR-010](ADR-010-stubborn-integration.md) · [MCP](https://github.com/stubborn-ai/stubborn/blob/main/docs/MCP.md).
 
 ---
 
@@ -631,7 +631,7 @@ Case: [account-controller-context.md](https://github.com/stubborn-ai/stubborn/bl
 | [ROADMAP.md](ROADMAP.md) | Phase 1–2 scheduling |
 | [ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md) | Edge coloring + Explorer |
 | [demo-dukesbank README](https://github.com/anchor-migration/demo-dukesbank) | Docker bridge + `scripts/run-e2e.sh` (bash) / `run-e2e.ps1` |
-| [ADR-010](ADR-010-anchor-stubborn-integration.md) + [dukesbank example](https://github.com/stubborn-ai/stubborn/tree/main/examples/dukesbank) | Step 7 — LLM context |
+| [ADR-010](ADR-010-stubborn-integration.md) + [dukesbank example](https://github.com/stubborn-ai/stubborn/tree/main/examples/dukesbank) | Step 7 — LLM context |
 
 ---
 
@@ -650,7 +650,7 @@ Case: [account-controller-context.md](https://github.com/stubborn-ai/stubborn/bl
 
 | Date | Change |
 |------|--------|
-| 2026-07-01 | **Step 7** — anchor-stubborn Duke's Bank LLM context runbook (`dukesbank-e2e`, `run-stubborn-context.ps1`) |
+| 2026-07-01 | **Step 7** — stubborn Duke's Bank LLM context runbook (`dukesbank-e2e`, `run-stubborn-context.ps1`) |
 | 2026-06-27 | **E2E runbook** — Phase C (crosswalk + anchor-explorer), quick path verified (32 links) |
 | 2026-06-27 | Phase A + B verified locally — MySQL 5.7 verify fix, java-ast-ssot export |
 | 2026-06-27 | Initial design doc — architecture locked, runbooks planned |
