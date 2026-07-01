@@ -150,7 +150,7 @@ java-ast-ssot crosswalk \
 
 Both input snapshots must pin compatible `export_run_id` values (or explicit run flags). Link output is a third SQLite file in v1.
 
-## OpenRewrite recipe inputs (planned)
+## OpenRewrite recipe inputs
 
 Recipes parse source to **LST at apply time** (not from SSOT storage). They may also read:
 
@@ -158,17 +158,20 @@ Recipes parse source to **LST at apply time** (not from SSOT storage). They may 
 - Java AST SSOT (core): type hierarchy for recipe targeting
 - Profile crosswalks (e.g. EJB/XML, JPA): entity ↔ table binding
 
-Contract: recipe modules declare required SSOT versions in `recipe.yml` metadata.
+Contract: recipe modules declare required SSOT versions in `recipe.yml` metadata. Implemented in [rewrite-recipes](https://github.com/anchor-migration/rewrite-recipes) (ADR-007 stack + ADR-008 language modernization).
 
-## Parity verification inputs (planned)
+## Parity verification inputs
+
+**Owner:** `parity-verify` (Beta v0.2)
 
 Parity verifier consumes:
 
-- Old and new AST snapshots (or live parse)
-- Optional: schema SSOT for data fixture generation
-- Pattern catalog entry ID for expected behavioral scope
+- Old and new AST snapshots (`java-ast-ssot` exports)
+- Optional: linked crosswalk DBs (`--linked-before`, `--linked-after`)
+- Behavioral matrix YAML (`--matrix` / `--matrix-file`); optional `pattern_id` via [pattern-catalog](https://github.com/anchor-migration/pattern-catalog)
+- Optional: `--touchpoint-source` for migrated source file checks
 
-Output: machine-readable parity report with pass / fail / unknown per check.
+Output: JSON + HTML parity report with pass / fail / unknown per structural and behavioral check. CLI: `parity-verify compare`; see [parity-verify README](https://github.com/anchor-migration/parity-verify).
 
 ## Symbol graph SSOT (LLM context)
 

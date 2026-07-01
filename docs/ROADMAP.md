@@ -60,6 +60,11 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 | Session `BeanState` spike — `AccountControllerBean` (3.1b) | rewrite-recipes | ✅ |
 | Session→Service recipe chain — `AccountControllerBean` (3.2) | rewrite-recipes | ✅ |
 | Scalar CMP→JPA — `AccountBean` only (3.3) | rewrite-recipes | ✅ |
+| v0.4a `CmpManyToManyToJpa` — `AccountBean.customers` | rewrite-recipes | ✅ |
+| v0.4b `CmpForeignKeyToJpa` — `TxBean.account` | rewrite-recipes | ✅ |
+| v0.4c `CmpScalarEntityToJpa` — `CustomerBean`, `TxBean` | rewrite-recipes | ✅ |
+| v0.4d `NextIdTableToJpa` — `NextIdBean` (retains `getNextId()`) | rewrite-recipes | ✅ |
+| Duke's Bank multi-entity JPA E2E + parity gates | demo-dukesbank + parity-verify | ✅ |
 | EJB `@Stateless` → `@Service` annotation-only | rewrite-recipes | ❌ Rejected (ADR-007) |
 | [ADR-008](docs/ADR-008-java-language-modernization-and-tuple-lists.md) — L1/L2/L3 language modernization | migration-hub | ✅ |
 | L1: `Vector` → `ArrayList` (+ L1 YAML composite) | rewrite-recipes | ✅ |
@@ -75,6 +80,8 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 |------|------|--------|
 | AST subtree diff (old vs new) | parity-verify | ✅ Beta (v0.2 JSON + HTML) |
 | Behavioral matrix (`dukesbank-cmp-jpa`) | parity-verify | ✅ Beta (YAML-backed) |
+| Multi-entity parity matrices (`dukesbank-cmp-jpa-multi-*`) | parity-verify | ✅ Beta |
+| Duke's Bank JPA E2E (`run-e2e-jpa-parity.ps1`) | demo-dukesbank | ✅ |
 | Custom matrix YAML loader (`--matrix-file`) | parity-verify | ✅ Beta |
 | Pattern-catalog checklists (`pattern_id`) | parity-verify + pattern-catalog | ✅ Alpha |
 | AI-assisted test stub generation (`generate-tests`) | parity-verify | ✅ Beta |
@@ -86,9 +93,9 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 |------|------|--------|
 | [ADR-010](docs/ADR-010-anchor-stubborn-integration.md) — anchor-stubborn horizontal LLM context | migration-hub + anchor-stubborn | ✅ |
 | `anchor-stubborn` v0.3 — token budget, `metrics` KPI, Docker E2E | anchor-stubborn | ✅ Alpha |
-| `anchor-stubborn` MCP server (`get_context`) | anchor-stubborn | 📋 |
+| `anchor-stubborn` MCP server (`anchor-stubborn mcp`) | anchor-stubborn | ✅ Alpha (see `docs/MCP.md`) |
 | migration-bridge example (Duke's Bank LLM workflow) | anchor-stubborn | ✅ |
-| Pattern catalog (5+ documented patterns) | pattern-catalog | 🚧 Alpha (2 patterns) |
+| Pattern catalog (6 documented CMP→JPA patterns) | pattern-catalog | ✅ Alpha |
 | Demo legacy application | demo-legacy-app | 💡 |
 | Contributing guide and good-first issues | all | 📋 |
 | End-to-end video / blog walkthrough | migration-hub | 💡 |

@@ -8,7 +8,7 @@ A common legacy anti-pattern — especially pre-generics (Java 1.4) — is using
 
 This ADR defines a **third recipe family** in `rewrite-recipes`: **language modernization**, with **tiered automation** and SSOT-assisted classification.
 
-Complements [ADR-007](ADR-007-rewrite-recipes-session-and-cmp-jpa.md), [java-ast-ssot](https://github.com/anchor-migration/java-ast-ssot) (usage analysis), [pattern-catalog](https://github.com/anchor-migration/pattern-catalog) (planned).
+Complements [ADR-007](ADR-007-rewrite-recipes-session-and-cmp-jpa.md), [java-ast-ssot](https://github.com/anchor-migration/java-ast-ssot) (usage analysis), [pattern-catalog](https://github.com/anchor-migration/pattern-catalog) (Alpha — parity checklists for stack recipes).
 
 ---
 

@@ -22,7 +22,7 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 | [**pattern-catalog**](https://github.com/anchor-migration/pattern-catalog) | Migration patterns + parity checklists | Alpha |
 | [**parity-verify**](https://github.com/anchor-migration/parity-verify) | Before/after AST diff + behavioral matrix + HTML | Beta |
 | [**anchor-stubborn**](https://github.com/anchor-migration/anchor-stubborn) | SCIP → symbol graph → LLM context stubs (horizontal; [ADR-010](docs/ADR-010-anchor-stubborn-integration.md)) | Alpha |
-| [**pattern-catalog**](https://github.com/anchor-migration/pattern-catalog) | Migration pattern docs and examples | Planned |
+| [**demo-dukesbank**](https://github.com/anchor-migration/demo-dukesbank) | Duke's Bank MySQL Docker bridge + E2E scripts | Active |
 
 ## Program progress (2026-06)
 
@@ -32,12 +32,13 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 | 2 | Java AST SSOT (core + `javaee-ejb2-jboss` profile + crosswalk) | ✅ Alpha |
 | 2.5 | Anchor Explorer + Duke's Bank E2E | ✅ Alpha |
 | 3.0 | OpenRewrite harness + smoke recipes | ✅ |
-| 3.1–3.3 | Session→Service + CMP→JPA (Duke's Bank) | ✅ |
+| 3.1–3.3 | Session→Service + CMP→JPA scalar `AccountBean` (Duke's Bank) | ✅ |
+| 3.x | **v0.4** CMP→JPA — M2M, FK, Customer/Tx scalar, `NextIdTableToJpa` | ✅ |
 | 3.x | ADR-008 L1 + L2 + **L3** (language modernization complete for v1 spike) | ✅ |
 | 3.x | ADR-009 preset manifests (`Smoke`, `LanguageL1Only`, `LanguageL2Only`, `LanguageL3Only`, `DukesBankStackMigration`) | ✅ |
 | 3.x | ADR-008 M2 `classify-lists` (on-demand JSON, no cache) | ✅ |
-| 4 | Parity verification (`parity-verify` v0.2 — JSON + HTML + `dukesbank-cmp-jpa` matrix) | ✅ Beta |
-| 4 | Duke's Bank JPA E2E re-export + parity (`run-e2e-jpa-parity.ps1`) | ✅ |
+| 4 | Parity verification (`parity-verify` v0.2 — JSON + HTML + behavioral matrices) | ✅ Beta |
+| 4 | Duke's Bank multi-entity JPA E2E + per-entity parity (`run-e2e-jpa-parity.ps1`) | ✅ |
 | 4 | `jpa` profile (ADR-004 Step 4) | ✅ Alpha |
 | 4 | `mybatis` profile (ADR-004 Step 5) | ✅ Alpha |
 | Ecosystem | `anchor-stubborn` v0.3 — token budget, metrics, Docker E2E (~86% savings on demo-spring) | ✅ Alpha |
@@ -111,7 +112,7 @@ anchor-migration/
 ├── rewrite-recipes/     # OpenRewrite catalog (alpha)
 ├── parity-verify/       # Before/after AST diff + behavioral matrix + HTML (Beta)
 ├── anchor-stubborn/     # LLM context compiler (horizontal; ADR-010)
-└── pattern-catalog/     # (planned)
+└── pattern-catalog/     # Migration patterns + parity checklists (alpha)
 ```
 
 Open `anchor-migration.code-workspace` in Cursor/VS Code to work across repos.

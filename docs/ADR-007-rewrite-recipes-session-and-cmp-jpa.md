@@ -331,7 +331,7 @@ Contract extension for 3.3+: document in `rewrite-recipes/recipe.yml` metadata (
 | Recipe correctness | OpenRewrite `RewriteTest` — before/after sources committed |
 | Structural drift | `java-ast-ssot export` on changed files; diff type/method counts |
 | Mapping drift (3.3+) | Re-run `crosswalk`; expect green links for migrated fields |
-| Behavioral parity | **Manual / future parity-verify** — not a 3.2 gate |
+| Behavioral parity | **`parity-verify`** — `dukesbank-cmp-jpa` + per-entity `dukesbank-cmp-jpa-multi-*` matrices (E2E in `demo-dukesbank`) |
 
 ---
 
@@ -347,7 +347,7 @@ Contract extension for 3.3+: document in `rewrite-recipes/recipe.yml` metadata (
 ### Negative / cost
 
 - Session API signature changes (`BeanState` param) **cascade** to callers — multi-recipe program  
-- CMP→JPA without CMR leaves **temporarily broken** relationship navigation until v0.4  
+- CMP→JPA without CMR left **temporarily broken** relationship navigation until v0.4 (**resolved** for Duke's Bank v0.4 E2E)  
 - Java 1.4 → OpenRewrite parse may need **compatibility shims**  
 - Proof without parity-verify is **structural**, not behavioral  
 
@@ -369,7 +369,12 @@ Contract extension for 3.3+: document in `rewrite-recipes/recipe.yml` metadata (
 | 4 | 3.1b — BeanState spike test on `AccountControllerBean` subset | ✅ |
 | 5 | 3.2 — `ExtractSessionBeanState` + `ThreadBeanStateThroughMethods` + `DeclareSpringService` + `RemoveSessionBeanLifecycle` | ✅ |
 | 6 | 3.3 — `CmpScalarEntityToJpa` for `AccountBean` | ✅ |
-| 7 | Update [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md) Phase D (rewrite) | 📋 |
+| 7 | v0.4a — `CmpManyToManyToJpa` (`AccountBean.customers`) | ✅ |
+| 8 | v0.4b — `CmpForeignKeyToJpa` (`TxBean.account`) | ✅ |
+| 9 | v0.4c — `CmpScalarEntityToJpa` (`CustomerBean`, `TxBean`) | ✅ |
+| 10 | v0.4d — `NextIdTableToJpa` (`NextIdBean`; retains `getNextId()`) | ✅ |
+| 11 | Multi-entity JPA E2E + per-entity parity (`run-e2e-jpa-parity.ps1`) | ✅ |
+| 12 | Update [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md) Phase D (rewrite) | ✅ |
 
 ---
 
@@ -388,3 +393,12 @@ Contract extension for 3.3+: document in `rewrite-recipes/recipe.yml` metadata (
 - `AccountBean.java` — CMP 2.x abstract entity  
 - `dd/ejb/ejb-jar.xml` — Stateful vs Stateless, CMR, EJB-QL  
 - `dd/ejb/jbosscmp-jdbc.xml` — table/column + relation-table mapping  
+
+---
+
+## Changelog (post-acceptance)
+
+| Date | Change |
+|------|--------|
+| 2026-06 | **v0.4 complete** — `CmpManyToManyToJpa`, `CmpForeignKeyToJpa`, `CmpScalarEntityToJpa` (Customer/Tx), `NextIdTableToJpa`; 6 `pattern-catalog` patterns; multi-entity parity matrices; `run-e2e-jpa-parity.ps1` gates all 4 entities + NextId |
+| 2026-06 | **Next (v0.5)** — EJB-QL finders; `LocalNextIdHome` call-site migration; `@GeneratedValue` / sequence for NextId (beyond table-backed entity) |

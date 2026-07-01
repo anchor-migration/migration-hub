@@ -32,6 +32,9 @@ Instructions for AI coding assistants (Cursor, etc.) in a **new session** with n
 | `java-ast-ssot/` | public | Java AST SSOT CLI (core + stack profiles) |
 | `anchor-explorer/` | public | Read-only UI: load linked SQLite, crosswalk graph + colors |
 | `anchor-stubborn/` | public | LLM context compiler: SCIP → symbol graph → stub text ([ADR-010](docs/ADR-010-anchor-stubborn-integration.md)) |
+| `rewrite-recipes/` | public | OpenRewrite catalog — stack migration (ADR-007) + language modernization (ADR-008) |
+| `parity-verify/` | public | Before/after AST diff + behavioral matrix + HTML reports |
+| `pattern-catalog/` | public | Migration patterns + parity checklists (YAML) |
 
 ## Hard conventions
 
@@ -51,7 +54,7 @@ Instructions for AI coding assistants (Cursor, etc.) in a **new session** with n
 | `java-ast-ssot` | **Core:** JavaParser AST. **Profiles:** stack adapters (EJB/XML today). See [ADR-002](docs/ADR-002-java-ast-ssot-core-and-profiles.md) |
 | Code SSOT parser | **JavaParser** for core; deployment XML via **profiles** — not OpenRewrite LST for SSOT |
 | LST | Transform-time only in `rewrite-recipes`; not stored as SSOT — see [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) |
-| Rewrite phasing | Session→`@Service` via **BeanState** (3.2), then scalar CMP→JPA `AccountBean` (3.3) — [ADR-007](docs/ADR-007-rewrite-recipes-session-and-cmp-jpa.md) |
+| Rewrite phasing | Session→`@Service` via **BeanState** (3.2), then CMP→JPA **v0.4** (scalar + M2M + FK + NextId on all Duke's Bank entities) — [ADR-007](docs/ADR-007-rewrite-recipes-session-and-cmp-jpa.md) |
 | Language modernization | L1/L2/L3; **`classify-lists`** (M2, on-demand JSON) before L2; tuple `List` → result class — [ADR-008](docs/ADR-008-java-language-modernization-and-tuple-lists.md) |
 | Comments | Optional `source_comment` sidecar; no v1 semantic comment→statement mapping — [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) |
 | Crosswalk | Profile extract + link; mapping tiers; **edge colors** (green/yellow/orange/red) — [ADR-004](docs/ADR-004-crosswalk-contract-mapping-roles-and-edge-kinds.md), [ADR-005](docs/ADR-005-multi-tier-alignment-and-ssot-explorer.md) |
@@ -65,8 +68,8 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 
 ## Current status (update via journal if stale)
 
-- **Done:** `db-metadata` alpha; Duke's Bank E2E; `java-ast-ssot` v1.0; `anchor-explorer` alpha; `rewrite-recipes` 3.0–3.3 + ADR-008 L1/L2/L3 + **v0.4a `CmpManyToManyToJpa`**; `parity-verify` v0.2 (YAML matrix, `pattern_id`, `generate-tests`, HTML); `pattern-catalog` alpha; `anchor-stubborn` v0.3; ADR-002–010  
-- **Next:** rewrite-recipes v0.4b FK CMR; pattern-catalog detection heuristics
+- **Done:** `db-metadata` alpha; Duke's Bank E2E; `java-ast-ssot` v1.0; `anchor-explorer` alpha; `rewrite-recipes` 3.0–3.3 + ADR-008 L1/L2/L3 + **v0.4** (`CmpManyToManyToJpa`, `CmpForeignKeyToJpa`, `CmpScalarEntityToJpa` Customer/Tx, `NextIdTableToJpa`); `parity-verify` v0.2 (YAML matrix, `pattern_id`, `generate-tests`, HTML, multi-entity matrices); `pattern-catalog` alpha (6 patterns); Duke's Bank multi-entity JPA E2E (`run-e2e-jpa-parity.ps1`); `anchor-stubborn` v0.3; ADR-002–010  
+- **Next:** rewrite-recipes v0.5 EJB-QL finders; `LocalNextIdHome` call-site migration; pattern-catalog detection heuristics
 
 ## Typical tasks
 
@@ -77,6 +80,8 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 | Java AST / EJB XML / JPA / MyBatis extraction | `java-ast-ssot/` — core + `--profile javaee-ejb2-jboss|jpa|mybatis`; read ADR-002 + ADR-004 + DUKESBANK-DEMO Phase B |
 | Raw list usage (homogeneous / tuple) | `java-ast-ssot classify-lists` — on-demand JSON, no cache; [list-usage-classifier.md](https://github.com/anchor-migration/java-ast-ssot/blob/main/docs/list-usage-classifier.md) |
 | Code ↔ schema crosswalk | `java-ast-ssot crosswalk` — `--code-db`, `--schema-db`, `--db-schema`, `-o`; see ADR-004 |
+| Apply OpenRewrite recipes (CMP→JPA, Session→Service) | `rewrite-recipes/` — `ApplyRecipeMain` or Maven; see `docs/cmp-*.md` |
+| Duke's Bank JPA E2E (multi-entity parity) | `demo-dukesbank/scripts/run-e2e-jpa-parity.ps1` |
 | Parity / structural diff | `parity-verify compare` — `--matrix` / `--matrix-file`, `--pattern-catalog`, `--html-out`, `--fail-on-matrix` |
 | Parity / generate-tests | `parity-verify generate-tests` — `--report`, `--target-class`, `-o` |
 | LLM context for migration target | `anchor-stubborn/` — SCIP index → `context` / `metrics`; see [ADR-010](docs/ADR-010-anchor-stubborn-integration.md) |
@@ -85,6 +90,6 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 
 ## Workspace file
 
-User opens `anchor-migration.code-workspace` for multi-root: migration-hub, db-metadata, java-ast-ssot, demo-dukesbank, rewrite-recipes, parity-verify, anchor-stubborn, lab-notes.
+User opens `anchor-migration.code-workspace` for multi-root: migration-hub, db-metadata, java-ast-ssot, demo-dukesbank, rewrite-recipes, parity-verify, pattern-catalog, anchor-stubborn, lab-notes.
 
 Root pointer: `../README.md` (parent of migration-hub — local workspace root).

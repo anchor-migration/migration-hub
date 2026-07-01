@@ -49,7 +49,7 @@ Public showcase: https://github.com/anchor-migration
 | **parity-verify** | public | Before/after AST diff + behavioral matrix + HTML | Beta |
 | **anchor-explorer** | public | Read-only UI over linked SSOT snapshots | Alpha |
 | **anchor-stubborn** | public | SCIP → symbol graph → LLM context stubs ([ADR-010](ADR-010-anchor-stubborn-integration.md); horizontal) | Alpha |
-| **pattern-catalog** | public | Migration patterns | Planned |
+| **demo-dukesbank** | public | Duke's Bank MySQL Docker bridge + E2E scripts | Active |
 
 ## Local workspace (author machine)
 
@@ -79,7 +79,7 @@ Live MySQL ──db-metadata──► schema SSOT (SQLite)
 Legacy Java + XML ──java-ast-ssot──► Java AST SSOT (SQLite)
          └─ crosswalk ──► linked SSOT (code_schema_link + edge colors)
 anchor-explorer ──► human UI (read-only)               [alpha]
-OpenRewrite recipes ──► modernized code                 [alpha — stack 3.0–3.3 + L1/L2/L3 + presets]
+OpenRewrite recipes ──► modernized code                 [alpha — stack 3.0–3.3 + v0.4 CMP + L1/L2/L3]
 classify-lists (on-demand) ──► L2 gate JSON             [alpha — ADR-008 M2]
 verify / parity ──► proof                               [beta — parity-verify v0.2]
 anchor-stubborn ──► optional LLM context (SCIP → stubs) [alpha — ADR-010; not in SSOT path]
@@ -97,11 +97,15 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | `java-ast-ssot crosswalk` (code + schema SSOT) | ✅ Alpha |
 | `java-ast-ssot classify-lists` (homogeneous / tuple / unknown) | ✅ Alpha |
 | Duke's Bank E2E (linked.db + anchor-explorer) | ✅ Verified |
-| `rewrite-recipes` harness + smoke (3.0) | ✅ 16 tests |
-| Session→Service + CMP→JPA on Duke's Bank fixtures (3.1–3.3) | ✅ |
+| `rewrite-recipes` harness + smoke (3.0) | ✅ 21 tests |
+| Session→Service + CMP→JPA on Duke's Bank (3.1–3.3 + **v0.4**) | ✅ |
 | Language modernization L1 + L2 (ADR-008 M1/M3) | ✅ |
 | Language modernization L3 tuple proposals (ADR-008 M4) | ✅ |
 | Preset catalog ADR-009 (`Smoke`, `LanguageL1Only`, `LanguageL2Only`, `LanguageL3Only`, `DukesBankStackMigration`) | ✅ |
+| `parity-verify` structural diff + behavioral matrices + HTML | ✅ Beta |
+| Duke's Bank multi-entity JPA E2E (`run-e2e-jpa-parity.ps1`) | ✅ Verified |
+| `pattern-catalog` — 6 CMP→JPA patterns + checklists | ✅ Alpha |
+| `anchor-stubborn` Docker E2E + `metrics` KPI (demo-spring) | ✅ Alpha |
 
 ## Program progress snapshot
 
@@ -111,13 +115,14 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | Code SSOT | `java-ast-ssot` 1.0 — core + `javaee-ejb2-jboss` + `jpa` + **`mybatis`** + crosswalk |
 | List analysis | `classify-lists` — ephemeral JSON, no SQLite sidecar |
 | Human review | `anchor-explorer` alpha — crosswalk graph |
-| Stack rewrite | Session `BeanState` → Spring service; scalar CMP → JPA |
+| Stack rewrite | Session `BeanState` → Spring service; **all 4** Duke's Bank CMP entities → JPA (v0.4) |
 | Language rewrite | L1 mechanical swaps; L2 homogeneous `ArrayList<E>`; **L3 tuple → result class** |
 | Orchestration | ADR-009 YAML presets + `anchor.rewrite.preset` property |
-| Parity | `parity-verify` v0.2 — AST diff + `dukesbank-cmp-jpa` behavioral matrix + HTML |
+| Parity | `parity-verify` v0.2 — AST diff + per-entity behavioral matrices + HTML |
+| Patterns | `pattern-catalog` alpha — 6 CMP→JPA patterns + parity checklists |
 | LLM context | `anchor-stubborn` v0.3 — metrics KPI; ~86% token savings on demo-spring `OrderService` |
-| Duke's Bank JPA E2E | `run-e2e-jpa-parity.ps1` — CMP→JPA apply + re-export + parity |
-| **Next** | rewrite-recipes v0.4b FK CMR; pattern-catalog detection heuristics |
+| Duke's Bank JPA E2E | `run-e2e-jpa-parity.ps1` — 4 entities + NextId; per-entity parity gates |
+| **Next** | v0.5 EJB-QL finders; `LocalNextIdHome` call-site migration; pattern detection heuristics |
 
 ## Language-specific AST repos
 
@@ -136,10 +141,14 @@ Extractors use **`{language}-ast-ssot`** names. **`java-ast-ssot`** = generic Ja
 
 ## Next work (priority)
 
-1. **rewrite-recipes** v0.4b `CmpForeignKeyToJpa` (TxBean.account)
-2. Blog draft from lab-notes backlog (private)
+1. **rewrite-recipes** v0.5 — `EjbQlToNamedQuery` (Duke's Bank finders)
+2. **rewrite-recipes** v0.5 — `RemoveEjbLocalHome` / `LocalNextIdHome` call-site migration
+3. **pattern-catalog** — automated `pattern_id` detection heuristics
+4. Blog draft from lab-notes backlog (private)
 
-**Done:** ADR-004 Step 5 `mybatis` profile + crosswalk (`resultMap`, JOIN `read_model`); ADR-004 Step 4 `jpa` profile + crosswalk (`@Entity` / `@Table` / `@Column`); ADR-008 M4 L3 — [tuple-list-l3.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/tuple-list-l3.md); ADR-008 M3 L2 — [homogeneous-raw-list-l2.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/homogeneous-raw-list-l2.md); ADR-008 M2 `classify-lists` — [list-usage-classifier.md](https://github.com/anchor-migration/java-ast-ssot/blob/main/docs/list-usage-classifier.md); ADR-009 preset manifests — [rewrite-presets.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/rewrite-presets.md); ADR-008 L1 — [vector-to-arraylist-l1.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/vector-to-arraylist-l1.md); 3.3 CMP→JPA scalar `AccountBean` — [cmp-scalar-entity-to-jpa-account-bean.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/cmp-scalar-entity-to-jpa-account-bean.md); 3.2 Session→Service chain — [session-bean-to-spring-service-account-controller.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/session-bean-to-spring-service-account-controller.md); 3.0 harness — `.\scripts\run-test.ps1`; Duke's Bank E2E — [DUKESBANK-DEMO.md#e2e-quick-path](DUKESBANK-DEMO.md#e2e-quick-path)
+**Done (v0.4):** `CmpManyToManyToJpa`, `CmpForeignKeyToJpa`, `CmpScalarEntityToJpa` (Customer/Tx), `NextIdTableToJpa`; multi-entity JPA E2E (`run-e2e-jpa-parity.ps1`); per-entity parity matrices in `parity-verify/examples/matrices/dukesbank-cmp-jpa-multi-*.yaml`.
+
+**Earlier:** ADR-004 Step 5 `mybatis` profile + crosswalk (`resultMap`, JOIN `read_model`); ADR-004 Step 4 `jpa` profile + crosswalk (`@Entity` / `@Table` / `@Column`); ADR-008 M4 L3 — [tuple-list-l3.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/tuple-list-l3.md); ADR-008 M3 L2 — [homogeneous-raw-list-l2.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/homogeneous-raw-list-l2.md); ADR-008 M2 `classify-lists` — [list-usage-classifier.md](https://github.com/anchor-migration/java-ast-ssot/blob/main/docs/list-usage-classifier.md); ADR-009 preset manifests — [rewrite-presets.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/rewrite-presets.md); ADR-008 L1 — [vector-to-arraylist-l1.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/vector-to-arraylist-l1.md); 3.3 CMP→JPA scalar `AccountBean` — [cmp-scalar-entity-to-jpa-account-bean.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/cmp-scalar-entity-to-jpa-account-bean.md); 3.2 Session→Service chain — [session-bean-to-spring-service-account-controller.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/session-bean-to-spring-service-account-controller.md); 3.0 harness — `.\scripts\run-test.ps1`; Duke's Bank E2E — [DUKESBANK-DEMO.md#e2e-quick-path](DUKESBANK-DEMO.md#e2e-quick-path)
 
 See **[AGENTS.md](../AGENTS.md)** at the root of this repository for session bootstrap instructions.
 

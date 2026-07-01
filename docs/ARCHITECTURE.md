@@ -245,7 +245,7 @@ Reference **demo application**, not the boundary of `java-ast-ssot`. It validate
 
 | Family | Tier | Examples |
 |--------|------|----------|
-| Stack migration (ADR-007) | — | Session→Service (`BeanState`), CMP→JPA scalar |
+| Stack migration (ADR-007) | — | Session→Service (`BeanState`); CMP→JPA scalar + M2M + FK + NextId (`CmpScalarEntityToJpa`, `CmpManyToManyToJpa`, `CmpForeignKeyToJpa`, `NextIdTableToJpa`) |
 | Language modernization (ADR-008) | L1 | `Vector`→`ArrayList`, `Hashtable`→`HashMap` |
 | Language modernization (ADR-008) | L2 | Homogeneous raw `ArrayList` → `ArrayList<E>` |
 | Language modernization (ADR-008) | L3 | Tuple list → result class (proposal + approved apply) |
@@ -259,7 +259,7 @@ AI-assisted refactoring handles non-mechanical cases; outputs remain subject to 
 
 | Input | Tool | Output |
 |-------|------|--------|
-| Old + new codebases | `parity-verify` | Parity report: AST diffs, **`dukesbank-cmp-jpa` behavioral matrix**, HTML + JSON |
+| Old + new codebases | `parity-verify` | Parity report: AST diffs, **behavioral matrices** (`dukesbank-cmp-jpa` + per-entity `dukesbank-cmp-jpa-multi-*`), HTML + JSON |
 | Schema SSOT | `db-metadata verify` | Export reconciliation against live DB |
 
 Verification is not optional in the intended workflow: migrate → verify → fix → re-verify.

@@ -544,6 +544,7 @@ All `metadata/*.db` files are gitignored — regenerate via this runbook.
 | Code | `export --profile javaee-ejb2-jboss` | 61 types, 8 EJB entities |
 | Crosswalk | `crosswalk … -o dukesbank-linked.db` | 32 links, 0 errors |
 | Explorer | load linked.db | graph + table render |
+| JPA E2E | `run-e2e-jpa-parity.ps1` | 4 entities + NextId; per-entity parity gates, exit 0 |
 
 ### Step 6 — JPA re-export + parity (ADR-004 Step 4d)
 
@@ -552,7 +553,7 @@ cd demo-dukesbank
 .\scripts\run-e2e-jpa-parity.ps1
 ```
 
-Applies CMP→JPA recipes to **AccountBean**, **CustomerBean**, and **TxBean**, re-exports with auto-detected profiles (`javaee-ejb2-jboss` + `jpa`), runs crosswalk before/after, and emits per-entity parity reports under `parity-verify/metadata/` (`dukesbank-parity-account|customer|txbean.{json,html}`) with `--pattern-catalog` matrices. See [demo-dukesbank README](https://github.com/anchor-migration/demo-dukesbank#jpa-re-export--parity-adr-004-step-4d--adr-007-v04-multi-entity).
+Applies CMP→JPA recipes to **AccountBean**, **CustomerBean**, **TxBean**, and **NextIdBean**, re-exports with auto-detected profiles (`javaee-ejb2-jboss` + `jpa`), runs crosswalk before/after, and emits per-entity parity reports under `parity-verify/metadata/` (`dukesbank-parity-accountbean|customerbean|txbean|nextidbean.{json,html}`) using inline multi-entity matrices (`examples/matrices/dukesbank-cmp-jpa-multi-*.yaml`). See [demo-dukesbank README](https://github.com/anchor-migration/demo-dukesbank#jpa-re-export--parity-adr-004-step-4d--adr-007-v04-multi-entity).
 
 ---
 
@@ -566,6 +567,17 @@ Applies CMP→JPA recipes to **AccountBean**, **CustomerBean**, and **TxBean**, 
 | [ROADMAP.md](ROADMAP.md) | Phase 1–2 scheduling |
 | [ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md) | Edge coloring + Explorer |
 | [demo-dukesbank README](https://github.com/anchor-migration/demo-dukesbank) | Docker bridge + `scripts/run-e2e.ps1` |
+| [ADR-010](ADR-010-anchor-stubborn-integration.md) + [migration-bridge](https://github.com/anchor-migration/anchor-stubborn/tree/main/examples/migration-bridge) | Optional LLM context for recipe design / PR review (not in SSOT pipeline) |
+
+### Optional — LLM context (`anchor-stubborn`)
+
+For drafting mappings or reviewing migrated entities without sending full sources to an LLM:
+
+1. Index Duke's Bank with `scip-java` → `anchor-stubborn index`
+2. Emit token-bounded stubs: `anchor-stubborn context … --target-stable-id …`
+3. See [migration-bridge example](https://github.com/anchor-migration/anchor-stubborn/tree/main/examples/migration-bridge) and [ADR-010](ADR-010-anchor-stubborn-integration.md)
+
+This is **horizontal** to the deterministic SSOT → rewrite → parity path in Steps 1–6 above.
 
 ---
 
