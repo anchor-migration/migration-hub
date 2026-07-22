@@ -68,7 +68,7 @@ See [ADR-003](docs/ADR-003-ast-sidecar-vs-lst-rewrite-layer.md), lab-notes ADR-0
 
 ## Current status (update via journal if stale)
 
-- **Done:** `db-metadata` alpha; Duke's Bank E2E; `java-ast-ssot` v1.0; `anchor-explorer` alpha; `rewrite-recipes` 3.0–3.3 + ADR-008 L1/L2/L3 + **v0.4**; `parity-verify` v0.2; `pattern-catalog` alpha (6 patterns); Duke's Bank multi-entity JPA E2E; **`stubborn` Beta (`0.9.0b2`)** — weave switches, Duke's Bank LLM runbook; ADR-002–010  
+- **Done:** `db-metadata` alpha; Duke's Bank E2E; `java-ast-ssot` v1.0; `anchor-explorer` alpha; `rewrite-recipes` 3.0–3.3 + ADR-008 L1/L2/L3 + **v0.4**; `parity-verify` v0.2; `pattern-catalog` alpha (6 patterns); Duke's Bank multi-entity JPA E2E; **`stubborn` Beta (`0.10.0b2`)** — weave switches, Duke's Bank LLM runbook; ADR-002–010  
 - **Next:** rewrite-recipes v0.5 EJB-QL finders; `LocalNextIdHome` call-site migration; pattern-catalog detection heuristics
 
 ## Typical tasks

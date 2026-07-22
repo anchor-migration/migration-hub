@@ -21,7 +21,7 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 | [**anchor-explorer**](https://github.com/anchor-migration/anchor-explorer) | Read-only SSOT crosswalk UI | Alpha |
 | [**pattern-catalog**](https://github.com/anchor-migration/pattern-catalog) | Migration patterns + parity checklists | Alpha |
 | [**parity-verify**](https://github.com/anchor-migration/parity-verify) | Before/after AST diff + behavioral matrix + HTML | Beta |
-| [**stubborn**](https://github.com/stubborn-ai/stubborn) | SCIP → LLM context (`java-stub` / `stubborn-dsl`); [ADR-010](docs/ADR-010-stubborn-integration.md) | **Beta** (`0.9.0b2`) |
+| [**stubborn**](https://github.com/stubborn-ai/stubborn) | SCIP → LLM context (`java-stub` / `stubborn-dsl`); [ADR-010](docs/ADR-010-stubborn-integration.md) | **Beta** (`0.10.0b2`) |
 | [**demo-dukesbank**](https://github.com/anchor-migration/demo-dukesbank) | Duke's Bank MySQL Docker bridge + E2E scripts | Active |
 
 ## Program progress (2026-06)
@@ -41,7 +41,7 @@ This program is a personal showcase of **architecture-led, AI-assisted engineeri
 | 4 | Duke's Bank multi-entity JPA E2E + per-entity parity (`run-e2e-jpa-parity.ps1`) | ✅ |
 | 4 | `jpa` profile (ADR-004 Step 4) | ✅ Alpha |
 | 4 | `mybatis` profile (ADR-004 Step 5) | ✅ Alpha |
-| Ecosystem | `stubborn` Beta — SCIP context, MCP, weave switches; Duke's Bank runbook | ✅ Beta |
+| Ecosystem | `stubborn` Beta (`0.10.0b2`) — SCIP context, MCP, weave switches; Duke's Bank runbook | ✅ Beta |
 
 Details: [ROADMAP.md](docs/ROADMAP.md) · [START-HERE.md](docs/START-HERE.md)
 

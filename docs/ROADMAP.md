@@ -93,7 +93,7 @@ Status legend: ✅ Done · 🚧 In progress · 📋 Planned · 💡 Idea
 |------|------|--------|
 | [ADR-010](docs/ADR-010-stubborn-integration.md) — stubborn horizontal LLM context | migration-hub + stubborn | ✅ |
 | `stubborn` v0.3 — token budget, `metrics` KPI, Docker E2E | stubborn | ✅ (superseded by Beta) |
-| `stubborn` Beta (`0.9.0b2`) — weave switches, Duke's Bank runbook | stubborn + demo-dukesbank | ✅ |
+| `stubborn` Beta (`0.10.0b2`) — weave switches, Duke's Bank runbook | stubborn + demo-dukesbank | ✅ |
 | `stubborn` weave switches (`member-signatures`, `javadoc`) | stubborn | ✅ Beta |
 | `stubborn` MCP server (`stubborn mcp`) | stubborn | ✅ Beta (see `docs/MCP.md`) |
 | migration-bridge example (Duke's Bank LLM workflow) | stubborn | ✅ |

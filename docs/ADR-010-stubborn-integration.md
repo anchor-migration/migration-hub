@@ -2,7 +2,7 @@
 
 **Status:** Accepted  
 **Date:** 2026-06-29  
-**Last updated:** 2026-07-02 (migrated to [stubborn-ai/stubborn](https://github.com/stubborn-ai/stubborn))  
+**Last updated:** 2026-07-23 (version line → `0.10.0b2`)  
 **Context:** [stubborn](https://github.com/stubborn-ai/stubborn) (formerly `anchor-migration/anchor-stubborn`) is an independent **code context compiler** (SCIP → symbol graph → privacy-safe stub text). The migration program already has full-depth SSOT tools (`java-ast-ssot`, `db-metadata`) and human review (`anchor-explorer`). Teams also need **token-bounded LLM context** when drafting mappings, recipe designs, or PR reviews — without shipping raw source bodies to models.
 
 Complements [ADR-002](ADR-002-java-ast-ssot-core-and-profiles.md) (full AST SSOT), [ADR-003](ADR-003-ast-sidecar-vs-lst-rewrite-layer.md) (LST at rewrite time), [ADR-005](ADR-005-multi-tier-alignment-and-ssot-explorer.md) (human Explorer UI).
@@ -113,7 +113,7 @@ Stubborn maintains a separate SQLite schema for SCIP symbol graphs — not merge
 - Program docs (`README`, `START-HERE`, `ARCHITECTURE`, `ROADMAP`) list `stubborn` as a sibling repo with **horizontal** role
 - `anchor-migration.code-workspace` should include `stubborn-ai/stubborn` for local multi-root work (no longer under `anchor-migration/`)
 - MCP server and Stubborn-DSL weaver are **Stubborn deliverables** (v0.4 / v0.7); migration-hub references them in runbooks but does not implement them
-- Java-first **beta** at **`0.9.0b2`** — [BETA.md](https://github.com/stubborn-ai/stubborn/blob/main/docs/BETA.md)
+- Java-first **beta** at **`0.10.0b2`** — [BETA.md](https://github.com/stubborn-ai/stubborn/blob/main/docs/BETA.md)
 
 ## References
 

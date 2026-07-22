@@ -31,7 +31,7 @@ Public showcase: https://github.com/anchor-migration
 | 13 | [ADR-010](ADR-010-stubborn-integration.md) | **stubborn** — horizontal LLM context (optional; not a pipeline layer) |
 | 14 | [ROADMAP.md](ROADMAP.md) | What is done vs planned |
 | 15 | [db-metadata README](https://github.com/anchor-migration/db-metadata) | CLI: `export`, `verify`, `info` |
-| — | [stubborn README](https://github.com/stubborn-ai/stubborn) | **Beta `0.9.0b2`** — SCIP, MCP, [format guide](https://github.com/stubborn-ai/stubborn/blob/main/docs/STUBBORN-DSL-GUIDE.md) |
+| — | [stubborn README](https://github.com/stubborn-ai/stubborn) | **Beta `0.10.0b2`** — SCIP, MCP, [format guide](https://github.com/stubborn-ai/stubborn/blob/main/docs/STUBBORN-DSL-GUIDE.md) |
 
 **Private (if you have access):** `lab-notes/journal/2026-06-27-session-wrapup.md` — latest session log.
 
@@ -48,7 +48,7 @@ Public showcase: https://github.com/anchor-migration
 | **pattern-catalog** | public | Migration patterns + parity checklists | Alpha |
 | **parity-verify** | public | Before/after AST diff + behavioral matrix + HTML | Beta |
 | **anchor-explorer** | public | Read-only UI over linked SSOT snapshots | Alpha |
-| **stubborn** | public | SCIP → LLM context compiler ([ADR-010](ADR-010-stubborn-integration.md); MCP) | **Beta** (`0.9.0b2`) |
+| **stubborn** | public | SCIP → LLM context compiler ([ADR-010](ADR-010-stubborn-integration.md); MCP) | **Beta** (`0.10.0b2`) |
 | **demo-dukesbank** | public | Duke's Bank MySQL Docker bridge + E2E scripts | Active |
 
 ## Local workspace (author machine)
@@ -120,7 +120,7 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | Orchestration | ADR-009 YAML presets + `anchor.rewrite.preset` property |
 | Parity | `parity-verify` v0.2 — AST diff + per-entity behavioral matrices + HTML |
 | Patterns | `pattern-catalog` alpha — 6 CMP→JPA patterns + parity checklists |
-| LLM context | `stubborn` **Beta** (`0.9.0b2`) — demo-spring ~81% savings; Duke's Bank [Step 7](DUKESBANK-DEMO.md#step-7--llm-context-stubborn) |
+| LLM context | `stubborn` **Beta** (`0.10.0b2`) — demo-spring ~81% savings; Duke's Bank [Step 7](DUKESBANK-DEMO.md#step-7--llm-context-stubborn) |
 | Duke's Bank JPA E2E | `run-e2e-jpa-parity.ps1` — 4 entities + NextId; per-entity parity gates |
 | **Next** | v0.5 EJB-QL finders; `LocalNextIdHome` call-site migration; pattern detection heuristics |
 
