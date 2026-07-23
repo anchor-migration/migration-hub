@@ -122,7 +122,7 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | Patterns | `pattern-catalog` alpha — 6 CMP→JPA patterns + parity checklists |
 | LLM context | `stubborn` **Beta** (`0.10.0b2`) — demo-spring ~81% savings; Duke's Bank [Step 7](DUKESBANK-DEMO.md#step-7--llm-context-stubborn) |
 | Duke's Bank JPA E2E | `run-e2e-jpa-parity.ps1` — 4 entities + NextId; per-entity parity gates |
-| **Next** | `RemoveEjbLocalHome` / `LocalNextIdHome` call-site migration; pattern detection heuristics |
+| **Next** | `RemoveEjbLocalHome` — remaining `Local*Home` call sites; pattern detection heuristics |
 
 ## Language-specific AST repos
 
@@ -141,11 +141,11 @@ Extractors use **`{language}-ast-ssot`** names. **`java-ast-ssot`** = generic Ja
 
 ## Next work (priority)
 
-1. **rewrite-recipes** v0.5 — `RemoveEjbLocalHome` / `LocalNextIdHome` call-site migration
+1. **rewrite-recipes** — `RemoveEjbLocalHome` (remaining `LocalAccountHome` / `LocalCustomerHome` / `LocalTxHome` call sites)
 2. **pattern-catalog** — automated `pattern_id` detection heuristics
 3. Blog draft from lab-notes backlog (private)
 
-**Done (v0.5):** `EjbQlToNamedQuery` — all 4 Duke's Bank finders → `@NamedQuery` ([ejb-ql-to-named-query.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/ejb-ql-to-named-query.md)).
+**Done (v0.5c):** `ReplaceLocalNextIdHome` — all 3 Duke's Bank NextId call sites ([replace-local-next-id-home.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/replace-local-next-id-home.md)).
 
 **Done (v0.4):** `CmpManyToManyToJpa`, `CmpForeignKeyToJpa`, `CmpScalarEntityToJpa` (Customer/Tx), `NextIdTableToJpa`; multi-entity JPA E2E (`run-e2e-jpa-parity.ps1`); per-entity parity matrices in `parity-verify/examples/matrices/dukesbank-cmp-jpa-multi-*.yaml`.
 
