@@ -400,6 +400,7 @@ Contract extension for 3.3+: document in `rewrite-recipes/recipe.yml` metadata (
 
 | Date | Change |
 |------|--------|
+| 2026-07-24 | **v0.5 complete (finders)** — `EjbQlToNamedQuery` covers all 4 Duke's Bank EJB-QL finders; next: `RemoveEjbLocalHome` / `LocalNextIdHome` call sites |
 | 2026-07-23 | **v0.5a** — `EjbQlToNamedQuery` for `CustomerBean.findByLastName` ([ejb-ql-to-named-query.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/ejb-ql-to-named-query.md)); remaining finders + `LocalNextIdHome` still next |
 | 2026-06 | **v0.4 complete** — `CmpManyToManyToJpa`, `CmpForeignKeyToJpa`, `CmpScalarEntityToJpa` (Customer/Tx), `NextIdTableToJpa`; 6 `pattern-catalog` patterns; multi-entity parity matrices; `run-e2e-jpa-parity.ps1` gates all 4 entities + NextId |
 | 2026-06 | **Next (v0.5)** — EJB-QL finders; `LocalNextIdHome` call-site migration; `@GeneratedValue` / sequence for NextId (beyond table-backed entity) |
