@@ -122,7 +122,7 @@ Details: [DUKESBANK-DEMO.md](DUKESBANK-DEMO.md), [ARCHITECTURE.md](ARCHITECTURE.
 | Patterns | `pattern-catalog` alpha — 6 CMP→JPA patterns + parity checklists |
 | LLM context | `stubborn` **Beta** (`0.10.0b2`) — demo-spring ~81% savings; Duke's Bank [Step 7](DUKESBANK-DEMO.md#step-7--llm-context-stubborn) |
 | Duke's Bank JPA E2E | `run-e2e-jpa-parity.ps1` — 4 entities + NextId; per-entity parity gates |
-| **Next** | `RemoveEjbLocalHome` — remaining `Local*Home` call sites; pattern detection heuristics |
+| **Next** | `RemoveEjbLocalHome` — remaining `Local*Home` call sites (`findByPrimaryKey`, `create`, JOIN finders); pattern detection heuristics |
 
 ## Language-specific AST repos
 
@@ -141,9 +141,11 @@ Extractors use **`{language}-ast-ssot`** names. **`java-ast-ssot`** = generic Ja
 
 ## Next work (priority)
 
-1. **rewrite-recipes** — `RemoveEjbLocalHome` (remaining `LocalAccountHome` / `LocalCustomerHome` / `LocalTxHome` call sites)
+1. **rewrite-recipes** — `RemoveEjbLocalHome` remaining call sites (`findByPrimaryKey`, `create`, JOIN finders)
 2. **pattern-catalog** — automated `pattern_id` detection heuristics
 3. Blog draft from lab-notes backlog (private)
+
+**Done (v0.5d-a):** `RemoveEjbLocalHome` — `CustomerControllerBean.getCustomersOfLastName` → `LocalHomeSupport.namedQuery` ([remove-ejb-local-home.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/remove-ejb-local-home.md)).
 
 **Done (v0.5c):** `ReplaceLocalNextIdHome` — all 3 Duke's Bank NextId call sites ([replace-local-next-id-home.md](https://github.com/anchor-migration/rewrite-recipes/blob/main/docs/replace-local-next-id-home.md)).
 
